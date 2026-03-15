@@ -1,0 +1,38 @@
+# Raw datasets (licensed — do not redistribute)
+data/uci/raw/
+data/gefcom/raw/
+
+# Trained model weights (large binaries)
+models/uci/lstm/seed_*/
+models/gefcom/lstm/seed_*/
+models/uci/arima/*.pkl
+models/gefcom/arima/*.pkl
+models/uci/configs/scaler*.pkl
+models/gefcom/configs/scaler*.pkl
+
+# Jupyter notebook outputs
+experiments/**/*.ipynb
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs (optional — keep if useful for reproducibility)
+# logs/
+
+# Virtual environments
+venv/
+.env/
+env/
+
+# Internal governance documents
+docs/PDD*
+
+# Jupyter notebooks (strip outputs before sharing)
+experiments/**/*.ipynb

@@ -1,0 +1,17 @@
+Dataset:          GEFCOM
+PDD version:      v6
+Order:            (2,1,2)
+Seasonal order:   (1,1,1,24)
+Training hours:   23928
+AIC:              181137.48
+ACF lag 24:       -0.0200
+ACF lag 48:       0.0089
+ACF lag 168:      0.0642
+LB lag 24 p:      0.000000
+LB lag 48 p:      0.000000
+LB lag 168 p:     0.000000
+Coverage:         0.9567
+PI width mean:    42.08 MWh
+MAE:              6.61 MWh
+Forecast method:  rolling one-step-ahead
+Compliance:       ACF-based per PDD v6

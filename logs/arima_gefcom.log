@@ -1,0 +1,23 @@
+nohup: ignoring input
+01:44:38  INFO      Loading GEFCOM unscaled data ...
+01:44:38  INFO        Train: 23928 hours  |  Test: 8760 hours
+01:44:38  INFO        Train load range: [64.4, 307.4] MWh
+01:44:38  INFO      Running auto_arima (2-4 hours) ...
+01:44:38  INFO        m=24 daily seasonality | max_p=5 max_q=5 max_P=2 max_Q=2
+08:49:41  INFO      Loading GEFCOM unscaled data ...
+08:49:41  INFO        Train: 23928 hours  |  Test: 8760 hours
+08:49:41  INFO        Train load range: [64.4, 307.4] MWh
+08:49:41  INFO      Running auto_arima (2-4 hours) ...
+08:49:41  INFO        m=24 daily seasonality | max_p=5 max_q=5 max_P=2 max_Q=2
+10:34:19  INFO      Loading GEFCOM unscaled data ...
+10:34:19  INFO        Train: 23928 hours  |  Test: 8760 hours
+10:34:19  INFO        Using last 17520 hours for fitting
+10:34:19  INFO      Fitting SARIMA(2,1,2)(1,1,1,24) ...
+10:35:36  INFO        AIC: 135080.85
+10:35:36  INFO        Converged: True
+10:35:36  INFO      Ljung-Box: FAILED
+        lb_stat      lb_pvalue
+24  1009.663520  7.895110e-198
+48  1604.629361  9.103566e-305
+10:35:36  INFO      Generating 8760 predictions ...
+10:35:37  INFO      Coverage 95% CI: 0.998

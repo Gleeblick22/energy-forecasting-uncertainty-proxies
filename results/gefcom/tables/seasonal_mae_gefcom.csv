@@ -1,0 +1,5 @@
+season,lstm_mae,arima_mae,n
+Autumn,1.755,4.2934,2184
+Spring,1.6724,4.2673,2208
+Summer,2.0206,3.4292,2208
+Winter,9.8394,11.5368,1992

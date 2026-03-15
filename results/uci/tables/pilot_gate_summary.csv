@@ -1,0 +1,2 @@
+dataset,n_seeds,rho_all,p_all,rho_extreme,p_extreme,rho_normal,ensemble_var_mean,abs_error_mean_mwh,extreme_count,gate_passed,gate_reason
+uci,10,0.2039,0.0,0.041,0.225,0.1977,117.0465,18.02,876,True,|rho_all| = 0.2039 >= 0.1 (all hours)

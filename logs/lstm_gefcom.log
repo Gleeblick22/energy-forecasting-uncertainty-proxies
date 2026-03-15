@@ -1,0 +1,628 @@
+22:02:30  INFO      Config saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/configs/lstm_config.json
+22:02:30  INFO      Loading UCI unscaled splits ...
+22:02:30  INFO      Features: 12  |  Columns: ['hour_sin', 'hour_cos', 'day_sin', 'day_cos', 'month_sin', 'month_cos', 'is_weekend', 'is_holiday_PT', 'lag_1h', 'lag_24h', 'lag_168h', 'total_load']
+22:02:30  INFO      Splits: train=23928, val=2208, test=8760
+22:02:30  INFO      Fresh scaler fitted and saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/configs/scaler_uci.pkl
+22:02:30  INFO      Load range: 17.15 – 1792.60 MWh
+22:02:30  INFO      Sequences: X_tr=(23760, 168, 12), X_va=(2040, 168, 12), X_te=(8592, 168, 12)
+22:02:30  INFO      Test actual shape: (8592,)  |  Extreme timesteps: 876
+22:02:32  INFO      Device: cuda
+22:02:32  INFO      Starting fresh — no existing predictions found
+22:02:32  INFO      ==================================================
+22:02:32  INFO      SEED 0 / 19
+22:02:32  INFO      ==================================================
+22:03:13  INFO        Epoch  10 — train=0.000369  val=0.000532
+22:03:46  INFO        Epoch  20 — train=0.000258  val=0.000395
+22:04:19  INFO        Epoch  30 — train=0.000219  val=0.000266
+22:04:51  INFO        Epoch  40 — train=0.000198  val=0.000251
+22:04:54  INFO        Early stop at epoch 41
+22:04:54  INFO        Converged at epoch 41  |  best_val_loss=0.000222
+22:04:54  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_0/model.pt
+22:04:55  INFO        Seed 0 MAE: 19.06 MWh  |  pred range [322.0, 1726.8] MWh
+22:04:55  INFO        all_predictions.npy updated — shape (1, 8592)
+22:04:55  INFO      ==================================================
+22:04:55  INFO      SEED 1 / 19
+22:04:55  INFO      ==================================================
+22:05:28  INFO        Epoch  10 — train=0.000384  val=0.000546
+22:06:00  INFO        Epoch  20 — train=0.000265  val=0.000586
+22:06:33  INFO        Epoch  30 — train=0.000238  val=0.000297
+22:07:06  INFO        Epoch  40 — train=0.000209  val=0.000244
+22:07:29  INFO        Early stop at epoch 47
+22:07:29  INFO        Converged at epoch 47  |  best_val_loss=0.000188
+22:07:29  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_1/model.pt
+22:07:29  INFO        Seed 1 MAE: 18.39 MWh  |  pred range [298.3, 1726.3] MWh
+22:07:29  INFO        all_predictions.npy updated — shape (2, 8592)
+22:07:29  INFO      ==================================================
+22:07:29  INFO      SEED 2 / 19
+22:07:29  INFO      ==================================================
+22:08:02  INFO        Epoch  10 — train=0.000344  val=0.000365
+22:08:35  INFO        Epoch  20 — train=0.000241  val=0.000295
+22:09:08  INFO        Epoch  30 — train=0.000216  val=0.000220
+22:09:30  INFO        Early stop at epoch 37
+22:09:30  INFO        Converged at epoch 37  |  best_val_loss=0.000193
+22:09:30  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_2/model.pt
+22:09:30  INFO        Seed 2 MAE: 17.86 MWh  |  pred range [326.4, 1727.2] MWh
+22:09:30  INFO        all_predictions.npy updated — shape (3, 8592)
+22:09:30  INFO      ==================================================
+22:09:30  INFO      SEED 3 / 19
+22:09:30  INFO      ==================================================
+22:10:03  INFO        Epoch  10 — train=0.000367  val=0.000399
+22:10:32  INFO        Epoch  20 — train=0.000264  val=0.000285
+22:11:01  INFO        Epoch  30 — train=0.000221  val=0.000352
+22:11:30  INFO        Epoch  40 — train=0.000199  val=0.000209
+22:11:41  INFO        Early stop at epoch 44
+22:11:41  INFO        Converged at epoch 44  |  best_val_loss=0.000203
+22:11:41  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_3/model.pt
+22:11:41  INFO        Seed 3 MAE: 18.12 MWh  |  pred range [301.8, 1718.8] MWh
+22:11:41  INFO        all_predictions.npy updated — shape (4, 8592)
+22:11:41  INFO      ==================================================
+22:11:41  INFO      SEED 4 / 19
+22:11:41  INFO      ==================================================
+22:12:09  INFO        Epoch  10 — train=0.000384  val=0.000413
+22:12:38  INFO        Epoch  20 — train=0.000269  val=0.000324
+22:13:07  INFO        Epoch  30 — train=0.000220  val=0.000258
+22:13:33  INFO        Early stop at epoch 39
+22:13:33  INFO        Converged at epoch 39  |  best_val_loss=0.000188
+22:13:33  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_4/model.pt
+22:13:33  INFO        Seed 4 MAE: 17.71 MWh  |  pred range [312.6, 1723.2] MWh
+22:13:33  INFO        all_predictions.npy updated — shape (5, 8592)
+22:13:33  INFO      ==================================================
+22:13:33  INFO      SEED 5 / 19
+22:13:33  INFO      ==================================================
+22:14:01  INFO        Epoch  10 — train=0.000369  val=0.000453
+22:14:29  INFO        Epoch  20 — train=0.000260  val=0.000270
+22:14:58  INFO        Epoch  30 — train=0.000223  val=0.000275
+22:15:27  INFO        Epoch  40 — train=0.000194  val=0.000230
+22:15:56  INFO        Epoch  50 — train=0.000184  val=0.000263
+22:16:01  INFO        Early stop at epoch 52
+22:16:01  INFO        Converged at epoch 52  |  best_val_loss=0.000189
+22:16:01  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_5/model.pt
+22:16:02  INFO        Seed 5 MAE: 18.89 MWh  |  pred range [313.8, 1728.3] MWh
+22:16:02  INFO        all_predictions.npy updated — shape (6, 8592)
+22:16:02  INFO      ==================================================
+22:16:02  INFO      SEED 6 / 19
+22:16:02  INFO      ==================================================
+22:16:30  INFO        Epoch  10 — train=0.000412  val=0.000510
+22:16:59  INFO        Epoch  20 — train=0.000262  val=0.000324
+22:17:27  INFO        Epoch  30 — train=0.000227  val=0.000286
+22:17:55  INFO        Epoch  40 — train=0.000202  val=0.000274
+22:18:24  INFO        Epoch  50 — train=0.000179  val=0.000373
+22:18:53  INFO        Epoch  60 — train=0.000167  val=0.000189
+22:18:58  INFO        Early stop at epoch 62
+22:18:58  INFO        Converged at epoch 62  |  best_val_loss=0.000182
+22:18:58  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_6/model.pt
+22:18:59  INFO        Seed 6 MAE: 18.70 MWh  |  pred range [305.8, 1725.4] MWh
+22:18:59  INFO        all_predictions.npy updated — shape (7, 8592)
+22:18:59  INFO      ==================================================
+22:18:59  INFO      SEED 7 / 19
+22:18:59  INFO      ==================================================
+22:19:27  INFO        Epoch  10 — train=0.000400  val=0.000598
+22:19:56  INFO        Epoch  20 — train=0.000268  val=0.000247
+22:20:25  INFO        Epoch  30 — train=0.000230  val=0.000280
+22:20:54  INFO        Epoch  40 — train=0.000202  val=0.000250
+22:21:16  INFO        Early stop at epoch 48
+22:21:16  INFO        Converged at epoch 48  |  best_val_loss=0.000215
+22:21:16  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_7/model.pt
+22:21:16  INFO        Seed 7 MAE: 19.48 MWh  |  pred range [298.7, 1714.9] MWh
+22:21:16  INFO        all_predictions.npy updated — shape (8, 8592)
+22:21:16  INFO      ==================================================
+22:21:16  INFO      SEED 8 / 19
+22:21:16  INFO      ==================================================
+22:21:45  INFO        Epoch  10 — train=0.000382  val=0.000472
+22:22:13  INFO        Epoch  20 — train=0.000254  val=0.000448
+22:22:42  INFO        Epoch  30 — train=0.000207  val=0.000293
+22:23:11  INFO        Epoch  40 — train=0.000187  val=0.000224
+22:23:39  INFO        Epoch  50 — train=0.000174  val=0.000204
+22:23:59  INFO        Early stop at epoch 57
+22:23:59  INFO        Converged at epoch 57  |  best_val_loss=0.000176
+22:23:59  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_8/model.pt
+22:23:59  INFO        Seed 8 MAE: 20.35 MWh  |  pred range [313.6, 1686.8] MWh
+22:23:59  INFO        all_predictions.npy updated — shape (9, 8592)
+22:23:59  INFO      ==================================================
+22:23:59  INFO      SEED 9 / 19
+22:23:59  INFO      ==================================================
+22:24:29  INFO        Epoch  10 — train=0.000370  val=0.000740
+22:25:03  INFO        Epoch  20 — train=0.000270  val=0.000434
+22:25:36  INFO        Epoch  30 — train=0.000240  val=0.000287
+22:26:09  INFO        Epoch  40 — train=0.000190  val=0.000220
+22:26:24  INFO        Early stop at epoch 44
+22:26:24  INFO        Converged at epoch 44  |  best_val_loss=0.000216
+22:26:24  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_9/model.pt
+22:26:24  INFO        Seed 9 MAE: 18.86 MWh  |  pred range [295.8, 1737.4] MWh
+22:26:24  INFO        all_predictions.npy updated — shape (10, 8592)
+22:26:24  INFO      ==================================================
+22:26:24  INFO      SEED 10 / 19
+22:26:24  INFO      ==================================================
+22:26:58  INFO        Epoch  10 — train=0.000378  val=0.000512
+22:27:32  INFO        Epoch  20 — train=0.000270  val=0.000251
+22:28:06  INFO        Epoch  30 — train=0.000225  val=0.000295
+22:28:37  INFO        Early stop at epoch 39
+22:28:37  INFO        Converged at epoch 39  |  best_val_loss=0.000227
+22:28:37  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_10/model.pt
+22:28:37  INFO        Seed 10 MAE: 19.24 MWh  |  pred range [291.3, 1728.5] MWh
+22:28:37  INFO        all_predictions.npy updated — shape (11, 8592)
+22:28:37  INFO      ==================================================
+22:28:37  INFO      SEED 11 / 19
+22:28:37  INFO      ==================================================
+22:29:11  INFO        Epoch  10 — train=0.000374  val=0.000559
+22:29:37  INFO      Config saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/configs/lstm_config.json
+22:29:37  INFO      Loading GEFCOM unscaled splits ...
+22:29:37  INFO      Features: 14  |  Columns: ['temperature_F', 'hour_sin', 'hour_cos', 'day_sin', 'day_cos', 'month_sin', 'month_cos', 'is_weekend', 'is_holiday_MA', 'lag_1h', 'lag_24h', 'lag_168h', 'temperature_lag_24h', 'total_load']
+22:29:37  INFO      Splits: train=23928, val=2208, test=8760
+22:29:37  INFO      Fresh scaler fitted and saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/configs/scaler_gefcom.pkl
+22:29:37  INFO      Load range: 64.40 – 307.40 MWh
+22:29:38  INFO      Sequences: X_tr=(23760, 168, 14), X_va=(2040, 168, 14), X_te=(8592, 168, 14)
+22:29:38  INFO      Test actual shape: (8592,)  |  Extreme timesteps: 836
+22:29:38  INFO      Device: cuda
+22:29:38  INFO      Starting fresh — no existing predictions found
+22:29:38  INFO      ==================================================
+22:29:38  INFO      SEED 0 / 19
+22:29:38  INFO      ==================================================
+22:29:46  INFO        Epoch  20 — train=0.000276  val=0.000290
+22:30:24  INFO        Epoch  30 — train=0.000213  val=0.000294
+22:30:51  INFO        Early stop at epoch 38
+22:30:51  INFO        Converged at epoch 38  |  best_val_loss=0.000231
+22:30:51  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_11/model.pt
+22:30:52  INFO        Seed 11 MAE: 19.80 MWh  |  pred range [321.2, 1718.6] MWh
+22:30:52  INFO        all_predictions.npy updated — shape (12, 8592)
+22:30:52  INFO      ==================================================
+22:30:52  INFO      SEED 12 / 19
+22:30:52  INFO      ==================================================
+22:31:26  INFO        Epoch  10 — train=0.000384  val=0.000551
+22:32:00  INFO        Epoch  20 — train=0.000270  val=0.000334
+22:32:34  INFO        Epoch  30 — train=0.000215  val=0.000286
+22:33:08  INFO        Epoch  40 — train=0.000202  val=0.000258
+22:33:18  INFO        Early stop at epoch 43
+22:33:18  INFO        Converged at epoch 43  |  best_val_loss=0.000228
+22:33:18  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_12/model.pt
+22:33:18  INFO        Seed 12 MAE: 19.64 MWh  |  pred range [292.2, 1715.7] MWh
+22:33:18  INFO        all_predictions.npy updated — shape (13, 8592)
+22:33:18  INFO      ==================================================
+22:33:18  INFO      SEED 13 / 19
+22:33:18  INFO      ==================================================
+22:33:52  INFO        Epoch  10 — train=0.000393  val=0.000590
+22:34:26  INFO        Epoch  20 — train=0.000265  val=0.000405
+22:34:52  INFO      Config saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/configs/lstm_config.json
+22:34:52  INFO      Loading GEFCOM unscaled splits ...
+22:34:52  INFO      Features: 14  |  Columns: ['temperature_F', 'hour_sin', 'hour_cos', 'day_sin', 'day_cos', 'month_sin', 'month_cos', 'is_weekend', 'is_holiday_MA', 'lag_1h', 'lag_24h', 'lag_168h', 'temperature_lag_24h', 'total_load']
+22:34:52  INFO      Splits: train=23928, val=2208, test=8760
+22:34:52  INFO      Fresh scaler fitted and saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/configs/scaler_gefcom.pkl
+22:34:52  INFO      Load range: 64.40 – 307.40 MWh
+22:34:53  INFO      Sequences: X_tr=(23760, 168, 14), X_va=(2040, 168, 14), X_te=(8592, 168, 14)
+22:34:53  INFO      Test actual shape: (8592,)  |  Extreme timesteps: 836
+22:34:53  INFO      Device: cuda
+22:34:53  INFO      Starting fresh — no existing predictions found
+22:34:53  INFO      ==================================================
+22:34:53  INFO      SEED 0 / 19
+22:34:53  INFO      ==================================================
+22:35:04  INFO        Epoch  30 — train=0.000219  val=0.000252
+22:35:49  INFO        Early stop at epoch 36
+22:35:49  INFO        Converged at epoch 36  |  best_val_loss=0.000217
+22:35:49  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_13/model.pt
+22:35:51  INFO        Seed 13 MAE: 19.06 MWh  |  pred range [298.7, 1723.7] MWh
+22:35:51  INFO        all_predictions.npy updated — shape (14, 8592)
+22:35:51  INFO      ==================================================
+22:35:51  INFO      SEED 14 / 19
+22:35:51  INFO      ==================================================
+22:36:11  INFO        Epoch  10 — train=0.001717  val=0.000742
+22:37:06  INFO        Epoch  10 — train=0.000381  val=0.000477
+22:37:26  INFO        Epoch  20 — train=0.001507  val=0.000669
+22:38:21  INFO        Epoch  20 — train=0.000283  val=0.000414
+22:38:42  INFO        Epoch  30 — train=0.001252  val=0.000483
+22:39:36  INFO        Epoch  30 — train=0.000229  val=0.000294
+22:39:56  INFO        Epoch  40 — train=0.000968  val=0.000343
+22:39:57  INFO        Early stop at epoch 33
+22:39:57  INFO        Converged at epoch 33  |  best_val_loss=0.000230
+22:39:57  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_14/model.pt
+22:39:58  INFO        Seed 14 MAE: 18.80 MWh  |  pred range [291.7, 1718.0] MWh
+22:39:58  INFO        all_predictions.npy updated — shape (15, 8592)
+22:39:58  INFO      ==================================================
+22:39:58  INFO      SEED 15 / 19
+22:39:58  INFO      ==================================================
+22:41:03  INFO        Epoch  50 — train=0.000741  val=0.000266
+22:41:05  INFO        Epoch  10 — train=0.000369  val=0.000550
+22:42:11  INFO        Epoch  60 — train=0.000560  val=0.000256
+22:42:12  INFO        Epoch  20 — train=0.000257  val=0.000324
+22:42:30  INFO        Early stop at epoch 63
+22:42:30  INFO        Converged at epoch 63  |  best_val_loss=0.000241
+22:42:30  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_0/model.pt
+22:42:31  INFO        Seed 0 MAE: 4.48 MWh  |  pred range [74.4, 310.8] MWh
+22:42:31  INFO        all_predictions.npy updated — shape (1, 8592)
+22:42:31  INFO      ==================================================
+22:42:31  INFO      SEED 1 / 19
+22:42:31  INFO      ==================================================
+22:43:19  INFO        Epoch  30 — train=0.000214  val=0.000236
+22:43:41  INFO        Epoch  10 — train=0.001743  val=0.000700
+22:44:27  INFO        Epoch  40 — train=0.000190  val=0.000284
+22:44:48  INFO        Epoch  20 — train=0.001479  val=0.000659
+22:44:54  INFO        Early stop at epoch 44
+22:44:54  INFO        Converged at epoch 44  |  best_val_loss=0.000191
+22:44:54  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_15/model.pt
+22:44:55  INFO        Seed 15 MAE: 18.41 MWh  |  pred range [291.6, 1745.2] MWh
+22:44:55  INFO        all_predictions.npy updated — shape (16, 8592)
+22:44:55  INFO      ==================================================
+22:44:55  INFO      SEED 16 / 19
+22:44:55  INFO      ==================================================
+22:45:56  INFO        Epoch  30 — train=0.001279  val=0.000452
+22:46:02  INFO        Epoch  10 — train=0.000392  val=0.000563
+22:47:04  INFO        Epoch  40 — train=0.001069  val=0.000285
+22:47:10  INFO        Epoch  20 — train=0.000271  val=0.000262
+22:48:11  INFO        Epoch  50 — train=0.000835  val=0.000304
+22:48:17  INFO        Epoch  30 — train=0.000228  val=0.000203
+22:49:11  INFO        Early stop at epoch 59
+22:49:11  INFO        Converged at epoch 59  |  best_val_loss=0.000247
+22:49:11  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_1/model.pt
+22:49:11  INFO        Seed 1 MAE: 4.33 MWh  |  pred range [71.4, 314.3] MWh
+22:49:11  INFO        all_predictions.npy updated — shape (2, 8592)
+22:49:11  INFO      ==================================================
+22:49:11  INFO      SEED 2 / 19
+22:49:11  INFO      ==================================================
+22:49:24  INFO        Epoch  40 — train=0.000200  val=0.000315
+22:49:24  INFO        Early stop at epoch 40
+22:49:24  INFO        Converged at epoch 40  |  best_val_loss=0.000203
+22:49:24  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_16/model.pt
+22:49:24  INFO        Seed 16 MAE: 19.02 MWh  |  pred range [274.4, 1732.6] MWh
+22:49:24  INFO        all_predictions.npy updated — shape (17, 8592)
+22:49:24  INFO      ==================================================
+22:49:24  INFO      SEED 17 / 19
+22:49:24  INFO      ==================================================
+22:50:18  INFO        Epoch  10 — train=0.001756  val=0.000579
+22:50:31  INFO        Epoch  10 — train=0.000385  val=0.000529
+22:51:25  INFO        Epoch  20 — train=0.001458  val=0.000481
+22:51:38  INFO        Epoch  20 — train=0.000256  val=0.000297
+22:52:32  INFO        Epoch  30 — train=0.001235  val=0.000385
+22:52:44  INFO        Epoch  30 — train=0.000228  val=0.000210
+22:53:38  INFO        Epoch  40 — train=0.001008  val=0.000356
+22:53:50  INFO        Epoch  40 — train=0.000201  val=0.000227
+22:53:50  INFO        Early stop at epoch 40
+22:53:50  INFO        Converged at epoch 40  |  best_val_loss=0.000210
+22:53:50  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_17/model.pt
+22:53:51  INFO        Seed 17 MAE: 18.82 MWh  |  pred range [301.6, 1717.2] MWh
+22:53:51  INFO        all_predictions.npy updated — shape (18, 8592)
+22:53:51  INFO      ==================================================
+22:53:51  INFO      SEED 18 / 19
+22:53:51  INFO      ==================================================
+22:54:45  INFO        Epoch  50 — train=0.000752  val=0.000277
+22:54:58  INFO        Epoch  10 — train=0.000369  val=0.000504
+22:55:55  INFO        Epoch  60 — train=0.000566  val=0.000259
+22:56:07  INFO        Epoch  20 — train=0.000261  val=0.000356
+22:57:01  INFO        Epoch  70 — train=0.000410  val=0.000212
+22:57:14  INFO        Epoch  30 — train=0.000225  val=0.000231
+22:58:09  INFO        Epoch  80 — train=0.000326  val=0.000210
+22:58:21  INFO        Epoch  40 — train=0.000191  val=0.000183
+22:59:16  INFO        Epoch  90 — train=0.000293  val=0.000224
+22:59:27  INFO        Epoch  50 — train=0.000177  val=0.000229
+22:59:27  INFO        Early stop at epoch 50
+22:59:27  INFO        Converged at epoch 50  |  best_val_loss=0.000183
+22:59:27  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_18/model.pt
+22:59:28  INFO        Seed 18 MAE: 18.60 MWh  |  pred range [308.4, 1704.3] MWh
+22:59:28  INFO        all_predictions.npy updated — shape (19, 8592)
+22:59:28  INFO      ==================================================
+22:59:28  INFO      SEED 19 / 19
+22:59:28  INFO      ==================================================
+23:00:24  INFO        Epoch 100 — train=0.000225  val=0.000290
+23:00:24  INFO        Converged at epoch 100  |  best_val_loss=0.000173
+23:00:24  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_2/model.pt
+23:00:25  INFO        Seed 2 MAE: 3.92 MWh  |  pred range [72.6, 310.5] MWh
+23:00:25  INFO        all_predictions.npy updated — shape (3, 8592)
+23:00:25  INFO      ==================================================
+23:00:25  INFO      SEED 3 / 19
+23:00:25  INFO      ==================================================
+23:00:35  INFO        Epoch  10 — train=0.000356  val=0.000620
+23:01:32  INFO        Epoch  10 — train=0.001692  val=0.000564
+23:01:42  INFO        Epoch  20 — train=0.000261  val=0.000289
+23:02:39  INFO        Epoch  20 — train=0.001499  val=0.000600
+23:02:49  INFO        Epoch  30 — train=0.000222  val=0.000281
+23:03:45  INFO        Epoch  30 — train=0.001269  val=0.000423
+23:03:55  INFO        Epoch  40 — train=0.000195  val=0.000298
+23:04:28  INFO        Early stop at epoch 45
+23:04:28  INFO        Converged at epoch 45  |  best_val_loss=0.000198
+23:04:28  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/seed_19/model.pt
+23:04:29  INFO        Seed 19 MAE: 19.06 MWh  |  pred range [292.3, 1702.1] MWh
+23:04:29  INFO        all_predictions.npy updated — shape (20, 8592)
+23:04:29  INFO      ==================================================
+23:04:29  INFO      UCI FULL TRAINING COMPLETE
+23:04:29  INFO      ==================================================
+23:04:29  INFO        all_predictions.npy shape: (20, 8592)
+23:04:29  INFO        Saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/uci/lstm/all_predictions.npy
+23:04:29  INFO        Final ensemble MAE:       17.31 MWh
+23:04:29  INFO        Final ensemble var mean:  91.14 MWh^2
+23:04:29  INFO      
+Training Summary:
+ seed  converged_epoch  best_val_loss  mae_mwh  pred_min_mwh  pred_max_mwh  pred_std_mwh
+    0               41       0.000222  19.0560        322.03       1726.85        325.13
+    1               47       0.000188  18.3920        298.33       1726.28        323.57
+    2               37       0.000193  17.8568        326.41       1727.17        323.56
+    3               44       0.000203  18.1243        301.80       1718.82        322.73
+    4               39       0.000188  17.7148        312.56       1723.23        318.95
+    5               52       0.000189  18.8883        313.77       1728.34        323.77
+    6               62       0.000182  18.7014        305.81       1725.36        319.70
+    7               48       0.000215  19.4833        298.74       1714.89        323.69
+    8               57       0.000176  20.3466        313.64       1686.76        314.60
+    9               44       0.000216  18.8570        295.78       1737.37        324.44
+   10               39       0.000227  19.2442        291.33       1728.49        319.20
+   11               38       0.000231  19.8013        321.22       1718.57        323.43
+   12               43       0.000228  19.6439        292.15       1715.74        324.20
+   13               36       0.000217  19.0597        298.74       1723.68        322.96
+   14               33       0.000230  18.7960        291.74       1717.98        318.66
+   15               44       0.000191  18.4142        291.60       1745.17        324.46
+   16               40       0.000203  19.0227        274.36       1732.63        322.94
+   17               40       0.000210  18.8217        301.65       1717.18        320.62
+   18               50       0.000183  18.6037        308.42       1704.27        316.14
+   19               45       0.000198  19.0583        292.27       1702.13        316.15
+23:04:29  INFO      
+Mean MAE across seeds: 18.89 MWh
+23:04:29  INFO      MAE std across seeds:  0.64 MWh
+23:04:29  INFO      Mean converged epoch:  44.0
+23:04:39  INFO        Epoch  40 — train=0.000966  val=0.000377
+23:05:14  INFO        Epoch  50 — train=0.000731  val=0.000338
+23:05:49  INFO        Epoch  60 — train=0.000570  val=0.000223
+23:06:23  INFO        Epoch  70 — train=0.000438  val=0.000275
+23:06:23  INFO        Early stop at epoch 70
+23:06:23  INFO        Converged at epoch 70  |  best_val_loss=0.000223
+23:06:23  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_3/model.pt
+23:06:24  INFO        Seed 3 MAE: 4.03 MWh  |  pred range [61.3, 308.9] MWh
+23:06:24  INFO        all_predictions.npy updated — shape (4, 8592)
+23:06:24  INFO      ==================================================
+23:06:24  INFO      SEED 4 / 19
+23:06:24  INFO      ==================================================
+23:06:55  INFO        Epoch  10 — train=0.001684  val=0.000629
+23:07:26  INFO        Epoch  20 — train=0.001479  val=0.000603
+23:07:56  INFO        Epoch  30 — train=0.001248  val=0.000392
+23:08:26  INFO        Epoch  40 — train=0.000982  val=0.000286
+23:08:58  INFO        Epoch  50 — train=0.000725  val=0.000363
+23:09:29  INFO        Epoch  60 — train=0.000534  val=0.000227
+23:10:01  INFO        Epoch  70 — train=0.000408  val=0.000216
+23:10:31  INFO        Epoch  80 — train=0.000308  val=0.000183
+23:11:00  INFO        Epoch  90 — train=0.000258  val=0.000227
+23:11:00  INFO        Early stop at epoch 90
+23:11:00  INFO        Converged at epoch 90  |  best_val_loss=0.000183
+23:11:00  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_4/model.pt
+23:11:01  INFO        Seed 4 MAE: 4.19 MWh  |  pred range [72.0, 314.3] MWh
+23:11:01  INFO        all_predictions.npy updated — shape (5, 8592)
+23:11:01  INFO      ==================================================
+23:11:01  INFO      SEED 5 / 19
+23:11:01  INFO      ==================================================
+23:11:30  INFO        Epoch  10 — train=0.001734  val=0.000736
+23:12:00  INFO        Epoch  20 — train=0.001498  val=0.000734
+23:12:31  INFO        Epoch  30 — train=0.001333  val=0.000407
+23:13:00  INFO        Epoch  40 — train=0.001070  val=0.000291
+23:13:30  INFO        Epoch  50 — train=0.000874  val=0.000251
+23:14:01  INFO        Epoch  60 — train=0.000655  val=0.000324
+23:14:01  INFO        Early stop at epoch 60
+23:14:01  INFO        Converged at epoch 60  |  best_val_loss=0.000251
+23:14:01  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_5/model.pt
+23:14:01  INFO        Seed 5 MAE: 4.41 MWh  |  pred range [58.0, 313.4] MWh
+23:14:01  INFO        all_predictions.npy updated — shape (6, 8592)
+23:14:01  INFO      ==================================================
+23:14:01  INFO      SEED 6 / 19
+23:14:01  INFO      ==================================================
+23:14:31  INFO        Epoch  10 — train=0.001752  val=0.000599
+23:15:01  INFO        Epoch  20 — train=0.001497  val=0.000563
+23:15:30  INFO        Epoch  30 — train=0.001264  val=0.000444
+23:16:00  INFO        Epoch  40 — train=0.001038  val=0.000631
+23:16:30  INFO        Epoch  50 — train=0.000780  val=0.000306
+23:17:01  INFO        Epoch  60 — train=0.000593  val=0.000245
+23:17:31  INFO        Epoch  70 — train=0.000464  val=0.000223
+23:18:03  INFO        Epoch  80 — train=0.000383  val=0.000275
+23:18:34  INFO        Epoch  90 — train=0.000294  val=0.000206
+23:19:05  INFO        Epoch 100 — train=0.000238  val=0.000244
+23:19:05  INFO        Converged at epoch 100  |  best_val_loss=0.000174
+23:19:05  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_6/model.pt
+23:19:06  INFO        Seed 6 MAE: 4.04 MWh  |  pred range [72.6, 310.9] MWh
+23:19:06  INFO        all_predictions.npy updated — shape (7, 8592)
+23:19:06  INFO      ==================================================
+23:19:06  INFO      SEED 7 / 19
+23:19:06  INFO      ==================================================
+23:19:35  INFO        Epoch  10 — train=0.001728  val=0.000831
+23:20:04  INFO        Epoch  20 — train=0.001482  val=0.000681
+23:20:33  INFO        Epoch  30 — train=0.001262  val=0.000400
+23:21:03  INFO        Epoch  40 — train=0.001018  val=0.000350
+23:21:33  INFO        Epoch  50 — train=0.000810  val=0.000280
+23:22:04  INFO        Epoch  60 — train=0.000611  val=0.000282
+23:22:35  INFO        Epoch  70 — train=0.000431  val=0.000263
+23:23:07  INFO        Epoch  80 — train=0.000347  val=0.000231
+23:23:10  INFO        Early stop at epoch 81
+23:23:10  INFO        Converged at epoch 81  |  best_val_loss=0.000180
+23:23:10  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_7/model.pt
+23:23:11  INFO        Seed 7 MAE: 4.18 MWh  |  pred range [72.4, 308.7] MWh
+23:23:11  INFO        all_predictions.npy updated — shape (8, 8592)
+23:23:11  INFO      ==================================================
+23:23:11  INFO      SEED 8 / 19
+23:23:11  INFO      ==================================================
+23:23:41  INFO        Epoch  10 — train=0.001704  val=0.000819
+23:24:12  INFO        Epoch  20 — train=0.001529  val=0.000538
+23:24:42  INFO        Epoch  30 — train=0.001224  val=0.000384
+23:25:12  INFO        Epoch  40 — train=0.000961  val=0.000314
+23:25:42  INFO        Epoch  50 — train=0.000693  val=0.000367
+23:26:12  INFO        Epoch  60 — train=0.000529  val=0.000291
+23:26:41  INFO        Epoch  70 — train=0.000381  val=0.000204
+23:27:13  INFO        Epoch  80 — train=0.000315  val=0.000269
+23:27:44  INFO        Epoch  90 — train=0.000251  val=0.000176
+23:28:14  INFO        Epoch 100 — train=0.000208  val=0.000236
+23:28:14  INFO        Converged at epoch 100  |  best_val_loss=0.000153
+23:28:14  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_8/model.pt
+23:28:15  INFO        Seed 8 MAE: 3.98 MWh  |  pred range [71.8, 308.0] MWh
+23:28:15  INFO        all_predictions.npy updated — shape (9, 8592)
+23:28:15  INFO      ==================================================
+23:28:15  INFO      SEED 9 / 19
+23:28:15  INFO      ==================================================
+23:28:44  INFO        Epoch  10 — train=0.001722  val=0.000683
+23:29:13  INFO        Epoch  20 — train=0.001477  val=0.000480
+23:29:43  INFO        Epoch  30 — train=0.001215  val=0.000398
+23:30:13  INFO        Epoch  40 — train=0.000990  val=0.000424
+23:30:42  INFO        Epoch  50 — train=0.000737  val=0.000256
+23:31:12  INFO        Epoch  60 — train=0.000582  val=0.000274
+23:31:15  INFO        Early stop at epoch 61
+23:31:15  INFO        Converged at epoch 61  |  best_val_loss=0.000243
+23:31:15  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_9/model.pt
+23:31:15  INFO        Seed 9 MAE: 4.53 MWh  |  pred range [57.1, 307.8] MWh
+23:31:15  INFO        all_predictions.npy updated — shape (10, 8592)
+23:31:15  INFO      ==================================================
+23:31:15  INFO      SEED 10 / 19
+23:31:15  INFO      ==================================================
+23:31:46  INFO        Epoch  10 — train=0.001749  val=0.000955
+23:32:15  INFO        Epoch  20 — train=0.001470  val=0.000521
+23:32:44  INFO        Epoch  30 — train=0.001289  val=0.000456
+23:33:14  INFO        Epoch  40 — train=0.001054  val=0.000391
+23:33:43  INFO        Epoch  50 — train=0.000805  val=0.000267
+23:34:13  INFO        Epoch  60 — train=0.000640  val=0.000259
+23:34:42  INFO        Epoch  70 — train=0.000465  val=0.000230
+23:35:12  INFO        Epoch  80 — train=0.000392  val=0.000222
+23:35:42  INFO        Epoch  90 — train=0.000297  val=0.000181
+23:36:10  INFO        Epoch 100 — train=0.000250  val=0.000205
+23:36:10  INFO        Early stop at epoch 100
+23:36:10  INFO        Converged at epoch 100  |  best_val_loss=0.000181
+23:36:10  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_10/model.pt
+23:36:10  INFO        Seed 10 MAE: 4.03 MWh  |  pred range [69.4, 310.0] MWh
+23:36:10  INFO        all_predictions.npy updated — shape (11, 8592)
+23:36:10  INFO      ==================================================
+23:36:10  INFO      SEED 11 / 19
+23:36:10  INFO      ==================================================
+23:36:40  INFO        Epoch  10 — train=0.001744  val=0.000536
+23:37:09  INFO        Epoch  20 — train=0.001438  val=0.000571
+23:37:12  INFO        Early stop at epoch 21
+23:37:12  INFO        Converged at epoch 21  |  best_val_loss=0.000533
+23:37:12  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_11/model.pt
+23:37:12  INFO        Seed 11 MAE: 5.59 MWh  |  pred range [72.3, 308.8] MWh
+23:37:12  INFO        all_predictions.npy updated — shape (12, 8592)
+23:37:12  INFO      ==================================================
+23:37:12  INFO      SEED 12 / 19
+23:37:12  INFO      ==================================================
+23:37:42  INFO        Epoch  10 — train=0.001693  val=0.000689
+23:38:11  INFO        Epoch  20 — train=0.001461  val=0.000605
+23:38:40  INFO        Epoch  30 — train=0.001184  val=0.000331
+23:39:07  INFO        Early stop at epoch 39
+23:39:07  INFO        Converged at epoch 39  |  best_val_loss=0.000299
+23:39:07  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_12/model.pt
+23:39:07  INFO        Seed 12 MAE: 4.62 MWh  |  pred range [70.8, 313.8] MWh
+23:39:07  INFO        all_predictions.npy updated — shape (13, 8592)
+23:39:07  INFO      ==================================================
+23:39:07  INFO      SEED 13 / 19
+23:39:07  INFO      ==================================================
+23:39:37  INFO        Epoch  10 — train=0.001721  val=0.000631
+23:39:59  INFO        Early stop at epoch 18
+23:39:59  INFO        Converged at epoch 18  |  best_val_loss=0.000566
+23:39:59  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_13/model.pt
+23:39:59  INFO        Seed 13 MAE: 5.88 MWh  |  pred range [69.2, 303.5] MWh
+23:40:00  INFO        all_predictions.npy updated — shape (14, 8592)
+23:40:00  INFO      ==================================================
+23:40:00  INFO      SEED 14 / 19
+23:40:00  INFO      ==================================================
+23:40:29  INFO        Epoch  10 — train=0.001729  val=0.000612
+23:40:58  INFO        Epoch  20 — train=0.001461  val=0.000528
+23:41:28  INFO        Epoch  30 — train=0.001250  val=0.000331
+23:41:57  INFO        Epoch  40 — train=0.001025  val=0.000320
+23:42:27  INFO        Epoch  50 — train=0.000729  val=0.000282
+23:42:56  INFO        Epoch  60 — train=0.000629  val=0.000237
+23:43:26  INFO        Epoch  70 — train=0.000457  val=0.000285
+23:43:50  INFO        Early stop at epoch 78
+23:43:50  INFO        Converged at epoch 78  |  best_val_loss=0.000217
+23:43:50  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_14/model.pt
+23:43:50  INFO        Seed 14 MAE: 4.24 MWh  |  pred range [72.3, 311.1] MWh
+23:43:50  INFO        all_predictions.npy updated — shape (15, 8592)
+23:43:50  INFO      ==================================================
+23:43:50  INFO      SEED 15 / 19
+23:43:50  INFO      ==================================================
+23:44:19  INFO        Epoch  10 — train=0.001719  val=0.000680
+23:44:48  INFO        Epoch  20 — train=0.001499  val=0.000700
+23:45:18  INFO        Epoch  30 — train=0.001278  val=0.000502
+23:45:47  INFO        Epoch  40 — train=0.001090  val=0.000330
+23:46:16  INFO        Epoch  50 — train=0.000790  val=0.000244
+23:46:45  INFO        Epoch  60 — train=0.000617  val=0.000317
+23:46:57  INFO        Early stop at epoch 64
+23:46:57  INFO        Converged at epoch 64  |  best_val_loss=0.000233
+23:46:57  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_15/model.pt
+23:46:58  INFO        Seed 15 MAE: 4.16 MWh  |  pred range [57.3, 308.7] MWh
+23:46:58  INFO        all_predictions.npy updated — shape (16, 8592)
+23:46:58  INFO      ==================================================
+23:46:58  INFO      SEED 16 / 19
+23:46:58  INFO      ==================================================
+23:47:27  INFO        Epoch  10 — train=0.001728  val=0.000834
+23:47:56  INFO        Epoch  20 — train=0.001513  val=0.000683
+23:48:25  INFO        Epoch  30 — train=0.001286  val=0.000529
+23:48:55  INFO        Epoch  40 — train=0.001075  val=0.000408
+23:49:24  INFO        Epoch  50 — train=0.000852  val=0.000290
+23:49:42  INFO        Early stop at epoch 56
+23:49:42  INFO        Converged at epoch 56  |  best_val_loss=0.000259
+23:49:42  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_16/model.pt
+23:49:42  INFO        Seed 16 MAE: 4.47 MWh  |  pred range [67.8, 309.5] MWh
+23:49:42  INFO        all_predictions.npy updated — shape (17, 8592)
+23:49:42  INFO      ==================================================
+23:49:42  INFO      SEED 17 / 19
+23:49:42  INFO      ==================================================
+23:50:11  INFO        Epoch  10 — train=0.001694  val=0.000706
+23:50:40  INFO        Epoch  20 — train=0.001460  val=0.000590
+23:51:10  INFO        Epoch  30 — train=0.001250  val=0.000505
+23:51:43  INFO        Epoch  40 — train=0.000966  val=0.000287
+23:52:17  INFO        Epoch  50 — train=0.000702  val=0.000273
+23:52:52  INFO        Epoch  60 — train=0.000506  val=0.000213
+23:53:25  INFO        Epoch  70 — train=0.000399  val=0.000262
+23:53:25  INFO        Early stop at epoch 70
+23:53:25  INFO        Converged at epoch 70  |  best_val_loss=0.000213
+23:53:25  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_17/model.pt
+23:53:25  INFO        Seed 17 MAE: 4.15 MWh  |  pred range [72.4, 309.1] MWh
+23:53:25  INFO        all_predictions.npy updated — shape (18, 8592)
+23:53:25  INFO      ==================================================
+23:53:25  INFO      SEED 18 / 19
+23:53:25  INFO      ==================================================
+23:53:54  INFO        Epoch  10 — train=0.001752  val=0.000917
+23:54:24  INFO        Epoch  20 — train=0.001473  val=0.000524
+23:54:53  INFO        Epoch  30 — train=0.001234  val=0.000378
+23:55:23  INFO        Epoch  40 — train=0.001033  val=0.000385
+23:55:48  INFO        Early stop at epoch 49
+23:55:48  INFO        Converged at epoch 49  |  best_val_loss=0.000288
+23:55:48  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_18/model.pt
+23:55:48  INFO        Seed 18 MAE: 4.55 MWh  |  pred range [72.7, 312.6] MWh
+23:55:48  INFO        all_predictions.npy updated — shape (19, 8592)
+23:55:48  INFO      ==================================================
+23:55:48  INFO      SEED 19 / 19
+23:55:48  INFO      ==================================================
+23:56:18  INFO        Epoch  10 — train=0.001742  val=0.000679
+23:56:47  INFO        Epoch  20 — train=0.001456  val=0.000474
+23:57:16  INFO        Epoch  30 — train=0.001198  val=0.000434
+23:57:46  INFO        Epoch  40 — train=0.000920  val=0.000303
+23:58:16  INFO        Epoch  50 — train=0.000715  val=0.000291
+23:58:45  INFO        Epoch  60 — train=0.000482  val=0.000276
+23:59:15  INFO        Epoch  70 — train=0.000372  val=0.000283
+23:59:44  INFO        Epoch  80 — train=0.000296  val=0.000253
+00:00:13  INFO        Epoch  90 — train=0.000252  val=0.000197
+00:00:23  INFO        Early stop at epoch 93
+00:00:23  INFO        Converged at epoch 93  |  best_val_loss=0.000196
+00:00:23  INFO        Model saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/seed_19/model.pt
+00:00:23  INFO        Seed 19 MAE: 3.93 MWh  |  pred range [72.5, 314.6] MWh
+00:00:23  INFO        all_predictions.npy updated — shape (20, 8592)
+00:00:23  INFO      ==================================================
+00:00:23  INFO      UCI FULL TRAINING COMPLETE
+00:00:23  INFO      ==================================================
+00:00:23  INFO        all_predictions.npy shape: (20, 8592)
+00:00:23  INFO        Saved -> /home/dhang/projects/energy-forecasting-uncertainty-proxies/models/gefcom/lstm/all_predictions.npy
+00:00:23  INFO        Final ensemble MAE:       3.68 MWh
+00:00:23  INFO        Final ensemble var mean:  23.89 MWh^2
+00:00:24  INFO      
+Training Summary:
+ seed  converged_epoch  best_val_loss  mae_mwh  pred_min_mwh  pred_max_mwh  pred_std_mwh
+    0               63       0.000241   4.4821         74.44        310.75         50.98
+    1               59       0.000247   4.3291         71.35        314.33         51.34
+    2              100       0.000173   3.9156         72.59        310.51         51.70
+    3               70       0.000223   4.0253         61.30        308.95         51.45
+    4               90       0.000183   4.1910         72.00        314.28         52.08
+    5               60       0.000251   4.4071         58.01        313.44         51.02
+    6              100       0.000174   4.0398         72.61        310.88         52.03
+    7               81       0.000180   4.1759         72.39        308.65         51.47
+    8              100       0.000153   3.9772         71.75        308.00         50.77
+    9               61       0.000243   4.5343         57.12        307.75         50.64
+   10              100       0.000181   4.0336         69.44        309.98         51.93
+   11               21       0.000533   5.5923         72.28        308.75         50.19
+   12               39       0.000299   4.6195         70.77        313.75         51.92
+   13               18       0.000566   5.8769         69.17        303.47         50.06
+   14               78       0.000217   4.2419         72.27        311.14         51.02
+   15               64       0.000233   4.1600         57.26        308.67         51.33
+   16               56       0.000259   4.4734         67.83        309.54         52.17
+   17               70       0.000213   4.1543         72.41        309.09         51.48
+   18               49       0.000288   4.5463         72.65        312.63         52.03
+   19               93       0.000196   3.9283         72.48        314.58         51.62
+00:00:24  INFO      
+Mean MAE across seeds: 4.39 MWh
+00:00:24  INFO      MAE std across seeds:  0.51 MWh
+00:00:24  INFO      Mean converged epoch:  68.6

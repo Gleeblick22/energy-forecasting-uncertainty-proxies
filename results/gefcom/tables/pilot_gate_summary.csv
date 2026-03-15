@@ -1,0 +1,2 @@
+dataset,n_seeds,rho_all,p_all,rho_extreme,p_extreme,rho_normal,ensemble_var_mean,abs_error_mean_mwh,extreme_count,gate_passed,gate_reason
+gefcom,10,0.3007,0.0,0.3572,0.0,0.2271,10.5057,4.41,836,True,|rho_extreme| = 0.3572 >= 0.1

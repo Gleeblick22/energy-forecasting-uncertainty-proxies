@@ -1,0 +1,14 @@
+{
+  "dataset": "gefcom",
+  "window": 168,
+  "hidden": 128,
+  "layers": 2,
+  "dropout": 0.2,
+  "lr": 0.001,
+  "batch": 64,
+  "max_epoch": 100,
+  "patience": 10,
+  "n_seeds": 20,
+  "output": "1-step",
+  "pdd_version": "v6"
+}
