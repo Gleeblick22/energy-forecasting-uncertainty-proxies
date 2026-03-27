@@ -115,7 +115,7 @@ UCI load in MWh; GEFCom2014 load in MWh.
 │       └── configs/
 ├── results/
 │   ├── uci/
-│   │   ├── figures/                # fig1-fig5 (PDF + PNG)
+│   │   ├── figures/                # fig3-fig9 (PDF + PNG)
 │   │   └── tables/                 # Proxy CSVs, conformal, evaluation
 │   ├── gefcom/
 │   ├── comparison/                 # Cross-dataset summary
