@@ -52,7 +52,7 @@ extreme demand conditions?
 **Date:** Jan 15, 2026
 
 **Critical discovery:**
-GEFCom2014 data covers 2001-2011, not 2011-2014 as originally in project specification.
+GEFCom2014 data covers 2001-2011, not 2011-2014 as originally in research specification.
 Competition forecast targets (empty LOAD rows) occupy first 35,064 rows of L1-train.csv.
 Actual usable load data begins January 2005.
 
@@ -74,18 +74,18 @@ Each dataset reserves exactly one full calendar year as held-out test set.
 Hong et al. (2016), International Journal of Forecasting, 32(3), 896-913.
 DOI: 10.1016/j.ijforecast.2016.02.001
 
-####----------------------------------------------------------########################
+
 
 ### Session 3 — Document Updates
 **Date:** Jan 10, 2026
 
-Updated project specification->v5, Implementation Guide v3->v4, Project Roadmap v3->v4:
+Updated research specification->v5, Implementation Guide v3->v4, Project Roadmap v3->v4:
 - GEFCom date range corrected: 2011-2014 -> 2009-2011
 - Split Rule 1 rewritten: calendar-based split with Marino et al. (2016) citation
 - GEFCom holiday years corrected: range(2011,2015) -> range(2009,2012)
 - All split boundary dates corrected throughout all three documents
 
-###---------------------------------------------------------######################
+
 
 ### Session 4 — GEFCom File Structure Discovery
 **Date:** Jan 10, 2026
@@ -165,12 +165,12 @@ is_weekend, is_holiday_MA, lag_1h, lag_24h, lag_168h, temperature_lag_24h
 
 **Phase 1 GATE: PASSED Jan 20, 2026** 
 
-####-----------------------------------------------------------------------------------------------#########
+
 
 ### Session 6 — Phase 2A Pilot Experiments Complete
 **Date:** Jan 25, 2026
 
-**Architecture (project specification locked):**
+**Architecture (research specification locked):**
 - 2-layer stacked LSTM, 128 hidden units, single-step output (t+1)
 - Input window: 168h, Dropout: 0.2 (training only)
 - Adam LR=0.001, Batch=64, Patience=10, Pilot max epochs=30
@@ -214,7 +214,7 @@ Cross-dataset contrast visible at pilot stage:
 **Decisions:**
 - Pilot numbers do NOT go in manuscript — full training numbers only
 - Fresh scaler approach adopted for full training (use _unscaled.csv files)
-- No architecture changes needed — pilot confirms project specification spec is correct
+- No architecture changes needed — pilot confirms research specification spec is correct
 
 **Phase 2A GATE: PASSED Jan 26, 2026** 
 
@@ -313,7 +313,7 @@ physical driver of extreme demand.
 
 **Phase 2B GATE: PASSED Feb 6, 2026** 
 
-###---------------------------------------------------------------------###
+
 
 ### Session 8 — Phase 4 ARIMA Complete
 **Date:** Feb 15, 2026
@@ -322,7 +322,7 @@ physical driver of extreme demand.
 **Problem history — 7 approaches attempted before final solution:**
 1. Direct multi-step SARIMA — PI width 12,568 MWh (diverged)
 2. Rolling one-step local — Ljung-Box failed (large-n hypersensitivity)
-3. auto_arima local WSL — killed (CommitLimit 14.5GB)
+3. auto_arima local WSL — killed (memory constraints)
 4. TBATS local WSL — multiprocessing crash
 5. STL + ARIMA — ACF lag 1 = 0.85 (non-stationary remainder)
 6. Colab auto_arima — Python 3.12 incompatible with pmdarima
@@ -373,7 +373,7 @@ Will highlight in paper Results section.
 
 **Phase 4 GATE: PASSED March 3, 2026** 
 
-###--------------------------------------------------------------------------------------####
+
 
 ### Session 9 — Phase 3 Full Proxy Computation (P1 + P2 + P3) Complete
 **Date:** March 6-20, 2026
@@ -463,14 +463,14 @@ Output files:
 
 **Phase 5 GATE: PASSED March 20, 2026** 
 
-###---------------------------------------------------------------------------------------##
+
 
 ### Session 11 — Phase 6+7 Full Evaluation + Cross-Dataset Comparison Complete
 **Date:** March 21-25, 2026
 
 **Script:** experiments/13_cross_dataset/cross_dataset.py
 
-###---------------------------------------------------------------------------------##
+
 
 #### Phase 7.1 — Per-Dataset Evaluation
 
@@ -502,7 +502,7 @@ hours specifically. UCI extreme-hour proxy signal is absent — consistent with 
 
 **- Friedman test:** stat=7099.35, p<0.0001.
 
-###----------------------------------------------------------------------------------####
+
 
 **GEFCom — Full Error Metrics:**
 | Model | MAE all | MAE extreme | MAE normal | RMSE all | RMSE extreme | MAPE | RMSE/MAE |
@@ -537,7 +537,7 @@ calibration on the weather-driven grid. This is a significant publishable result
 
 Friedman test: stat=11160.31, p<0.0001 
 
-###-----------------------------------------------------###
+
 
 #### Phase 7.2 — Cross-Dataset Comparison (RQ4 + RQ5)
 
@@ -585,18 +585,18 @@ Output files:
 
 **Phase 7 GATE: PASSED March 25, 2026** 
 
-####-----------------------------------------------------------------------####
+
 ## SESSION — 95th Percentile Sensitivity Analysis (Gap 1)
-Phase: Post-Phase-7 — project specification Gap Closure
+Phase: Post-Phase-7 — research specification Gap Closure
 Status: COMPLETE 
 
 ### What Was Run
-95th percentile demand threshold sensitivity analysis project specification Section 10
+95th percentile demand threshold sensitivity analysis research specification Section 10
 requirement: "Secondary threshold: 95th pctile = critical extreme for
 sensitivity analysis"
 
 ### Why It Was Run
-Gap analysis identified that this analysis was specified in project specification but
+Gap analysis identified that this analysis was specified in research specification but
 never executed during Phase 7. results_summary_FINAL.csv contained zero
 95th percentile columns confirmed never run before this session.
 
@@ -633,27 +633,27 @@ GEFCom robustness is genuine (survives stricter threshold).
 Core findings are threshold-stable.
 
 ### Specification Compliance
-project specification Section 10 requirement: FULFILLED 
+research specification Section 10 requirement: FULFILLED 
 
 ### Impact on Manuscript
  - Section IV-B: sensitivity paragraph added after extreme-hour results
  - Section III-H.1: updated to reference Section IV-B
  - No existing results changed  additive only
-###---------------------------------------------------------------------###
+
 
 ## SESSION 13 — 2×2 Classification Threshold Sensitivity (Gap 4)
 
-Phase: Post-Phase-7  project specification Gap Closure
+Phase: Post-Phase-7  research specification Gap Closure
 Status: COMPLETE 
 
 ### What Was Run
-2×2 classification threshold sensitivity analysis  project specification Section 11
+2×2 classification threshold sensitivity analysis  research specification Section 11
 requirement: "Sensitivity check: repeat with 90th pctile error + 
 25th pctile confidence"
 
 ### Why It Was Run
 Gap analysis identified that this sensitivity check was specified in
-project specification Section 11 but never reported in manuscript. The sens_ columns
+research specification Section 11 but never reported in manuscript. The sens_ columns
 were found to already exist in results_summary_FINAL.csv  computed
 during Phase 7 but never surfaced into the manuscript.
 
@@ -693,7 +693,7 @@ drops substantially. P2 overconfidence finding on GEFCom is
 present but threshold-sensitive  reported transparently.
 
 ### Specification Compliance
-project specification Section 11 requirement: FULFILLED 
+research specification Section 11 requirement: FULFILLED 
 
 ### Impact on Manuscript
 - Section IV-C: sensitivity paragraph added at end
@@ -702,7 +702,7 @@ project specification Section 11 requirement: FULFILLED
 - SESSION 13 added to research_log.md
 - No other sections changed
 
-###-----------------------------------------------------------------###
+
 
 ## Current Status — March 25, 2026
 
@@ -715,12 +715,12 @@ project specification Section 11 requirement: FULFILLED
 | Phase 4 | ARIMA Fitting (both datasets) |  COMPLETE |
 | Phase 5 | Conformal Prediction Benchmark |  COMPLETE |
 | Phase 6+7 | Evaluation + Cross-Dataset Comparison |  COMPLETE |
-| Phase 8 | Publication Figures (F1–F5) | ⏳ PENDING |
-| Phase 9 | IEEE Manuscript (all 8 sections) | ⏳ PENDING |
-| CP8 | Numbers audit vs results_summary_FINAL.csv | ⏳ PENDING |
-| Submit | ICRERA 2026 Paris — July 2026 | ⏳ PENDING |
+| Phase 8 | Publication Figures (F3–F9) | ✅ COMPLETE |
+| Phase 9 | IEEE Manuscript V1.1 (all sections) | ✅ COMPLETE |
+| CP8 | Numbers audit vs results_summary_FINAL.csv | ✅ COMPLETE |
+| Submit | IEEE PES ISGT Europe 2026 Budapest — April 15 deadline | ⏳ IN PROGRESS |
 
-###-------------------------------------------------------##
+
 
 ## Headline Findings (for paper writing)
 
@@ -749,7 +749,7 @@ ARIMA outperforms LSTM on UCI (14.44 vs 17.31 MWh MAE) — stable European grid
 favours classical time series. LSTM dominates on GEFCom (3.68 vs 6.61 MWh) —
 weather features drive neural advantage on weather-driven grids.
 
-####---------------------------------------------------------------------###
+
 ## 2026-26 — Repository rename and final project structure
 
 Renamed project directory:
@@ -771,7 +771,7 @@ Repository structure confirmed:
 - models/
 - results/
 
-####-----------------------------------------------------------------------------####
+
 ## Next Steps
 
 **- [ ] Phase 8: Generate figures F1–F5 (scripts in experiments/figures/)**
@@ -787,7 +787,7 @@ Repository structure confirmed:
 - [ ] PDF eXpress: test compliance at Week 9 (NOT submission day)
 - [ ] Optional: ISGT Europe 5-page version only if Week 6 draft strong
 
-#######-------------------------------------------------------------------------##########
+
 
 ## Key Decisions Log
 
@@ -802,12 +802,12 @@ Repository structure confirmed:
 | Hidden = 128 | Consistent with manuscript; matches literature standard |  2026 |
 | Retain GEFCom seeds 11+13 | Valid variance signal; diluted by 18 normal seeds |  2026 |
 | Rolling one-step ARIMA forecast | Direct multi-step diverges over 8,760 steps |  2026 |
-| Kaggle for ARIMA fitting | WSL CommitLimit 14.5GB insufficient; Colab Python 3.12 incompatible |  2026 |
+| Kaggle for ARIMA fitting | local memory constraints |  2026 |
 | ACF-based ARIMA compliance | Ljung-Box over-rejects at n=23,928 per Hyndman 2018 |  2026 |
 | Shape (20,8592) accepted | 168h lookback window consumes first 168 test rows |  2026 |
 | Accept UCI conformal coverage 0.843 | Seasonal val/test mismatch; one sentence in paper limitations | Mar 20 2026 |
 
-####-------------------------------------------------------####
+
 
 ## Known Issues / Notes for Paper
 
@@ -817,13 +817,13 @@ Repository structure confirmed:
 4. GEFCom temperature column named temperature_F (confirmed Fahrenheit, range 12.7–97.7°F).
 5. Ljung-Box fails large-n — ACF confirms well-specified. Report honestly. Cite Hyndman 2018.
 6. ARIMA fitted on Kaggle — notebooks in experiments/07_arima_uci/ and 08_arima_gefcom/.
-7. Shape (20,8592) vs project specification (20,8736) — 168h window offset. All analysis uses aligned index.
+7. Shape (20,8592) vs research specification (20,8736) — 168h window offset. All analysis uses aligned index.
 8. GEFCom seeds 11+13 early exit — retained, documented in paper methodology.
 9. UCI conformal undercoverage (0.843) — seasonal mismatch, accepted, one sentence in limits.
 10. P3 and P1 beat conformal on GEFCom — highlight as notable finding in results.
 11. RMSE/MAE = 2.668 on GEFCom (vs 1.460 UCI) — GEFCom has more extreme outlier errors.
 
-####-------------------------------###
+
 
 ## References
 
