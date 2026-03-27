@@ -140,7 +140,7 @@ UCI load in MWh; GEFCom2014 load in MWh.
 2. Place at `data/uci/raw/LD2011_2014.txt`
 
 **GEFCom2014 dataset:**
-1. Download from [Kaggle](https://www.kaggle.com/datasets/nicholasjhana/energy-consumption-generation-prices-and-weather) or the official competition archive
+1. Download from [Kaggle](https://www.kaggle.com/datasets/cthngon/gefcom2014-dataset) or the official competition archive
 2. Place task files at `data/gefcom/raw/GEFCom2014 Data/Load/`
 
 ---
