@@ -1,17 +1,17 @@
  
 # Experiment Tracker
-## Project: When AI Forecasts Are Confidently Wrong: Evaluating Uncertainty Proxies in Energy Load Forecasting
+## Project: Conditional Reliability of Uncertainty Proxies Under Extreme Demand: A Cross-Grid Empirical Analysis of Load Forecasting
 **Last updated:** March 23, 2026
-**Project specification version:** v5.0 (architecture locked) 
+**Version:** v5.0 (architecture locked) 
 
-####---------------------------------------------------------------####
+
 
 ## How to Use This File
 After every training run, add a row to the relevant table.
 After every completed experiment block, update the Status section.
 Never delete rows — mark failed runs as FAILED with a note.
 
-###----------------------------------------------------------------###
+
 
 ## Phase 1 — Data Preprocessing
 
@@ -48,7 +48,7 @@ Never delete rows — mark failed runs as FAILED with a note.
 | Gaps | 21 structural gaps (216h each), all interpolated |
 | Scaler | scaler_gefcom.pkl (MinMaxScaler, independent from UCI) |
 
-###--------------------------------------------------------------------------###
+
 
 ## Phase 2A — Pilot Experiments
 
@@ -62,7 +62,7 @@ Run 10 seeds with full architecture but reduced epochs to verify:
 6. Spearman rho is computable — no NaN/inf in proxy or error arrays.
 7. |Spearman rho| > 0.10 on extreme hours OR visible scatter in proxy vs error plot.
 
-### Locked Hyperparameters (project specification)
+### Locked Hyperparameters (research specification)
 | Parameter | Value |
 |-----------|-------|
 | Architecture | 2-layer stacked LSTM |
@@ -87,7 +87,7 @@ Run 10 seeds with full architecture but reduced epochs to verify:
 | Spearman rho (extreme hours only) | > 0.10 | Yes  |
 | p-value | < 0.0001 | Yes |
 | Scatter pattern visible | Yes | Yes |
-| **GATE** | **PASSED Jan 150 2026** | Yes |
+| **GATE** | **PASSED Jan 15 2026** | Yes |
 
 ### GEFCom Pilot Signal Check
 | Metric | Value | Pass? |
@@ -99,7 +99,7 @@ Run 10 seeds with full architecture but reduced epochs to verify:
 | Scatter pattern visible | Yes | yes |
 | **GATE** | **PASSED Jan 26 2026** | yes |
 
-###----------------------------------------###
+
 
 ## Phase 2B — Full LSTM Training
 
@@ -156,7 +156,7 @@ Run 10 seeds with full architecture but reduced epochs to verify:
 | Mean converged epoch | 44.0 |
 | all_predictions.npy saved |  models/uci/lstm/all_predictions.npy |
 
-###--------------------------------------------------------------------------------###
+
 
 ### GEFCom Full LSTM Runs (experiments/06_lstm_gefcom/)
 **Status:  COMPLETE WITH NOTE (seeds 11, 13) — Feb 3 2026 — Runtime ~86 min — Device: CUDA**
@@ -203,7 +203,7 @@ uncertainty signal. Ensemble MAE (3.68 MWh) is robust — diluted by 18 normal s
 | Mean converged epoch | 68.6 |
 | all_predictions.npy saved |  models/gefcom/lstm/all_predictions.npy |
 
-###------------------------------------------------------------------------------####
+
 
 ## Phase 3 — Uncertainty Proxy Computation
 
@@ -262,7 +262,7 @@ uncertainty signal. Ensemble MAE (3.68 MWh) is robust — diluted by 18 normal s
 
 **ACF compliance decision:** Ljung-Box over-rejects at n=23,928 (Hyndman 2018).
 ACF values at lag 24 and 48 confirm white noise. Lag 168 weekly autocorrelation
-is a known SARIMA(m=24) limitation — documented in paper per project specification Section 7B.
+is a known SARIMA(m=24) limitation — documented in paper per research specification Section 7B.
 
 **Key output files:**
 - results/uci/tables/arima_predictions_uci.csv 
@@ -270,7 +270,7 @@ is a known SARIMA(m=24) limitation — documented in paper per project specifica
 - models/uci/arima/arima_diagnostics_uci.txt 
 - models/gefcom/arima/arima_diagnostics_gefcom.txt 
 
-###---------------------------------------------------------------------###
+
 
 ## Phase 5 — Conformal Prediction Benchmark
 **Status:  COMPLETE WITH NOTE (UCI undercoverage)**
@@ -286,7 +286,7 @@ is a known SARIMA(m=24) limitation — documented in paper per project specifica
 **Root cause:** seasonal val/test mismatch from calendar-based splitting.
 **One sentence in paper limitations.** Benchmark Winkler Score comparison remains valid.
 
-###----------------------------------------------------------------------------###
+
 
 ## Phase 6 — Full Evaluation + Cross-Dataset Comparison
 **Status:  COMPLETE — Mar 25 2026**
@@ -309,7 +309,7 @@ Anomalous days (|load − 7d rolling mean| > 2σ): **7 total · 4 overlap with e
 
 Friedman test: stat=7099.35, **p<0.0001** 
 
-###--------------------------------------------------------------------###
+
 
 ### GEFCom — Full Error Metrics
 | Model | MAE all (MWh) | MAE extreme (MWh) | MAE normal (MWh) | RMSE all (MWh) | RMSE extreme (MWh) | MAPE | RMSE/MAE |
@@ -331,7 +331,7 @@ Anomalous days: **403 total · 81 overlap with extreme**
 
 Friedman test: stat=11160.31, **p<0.0001** 
 
-####-----------------------------------------------------------------------####
+
 
 ### Cross-Dataset Comparison (RQ4 + RQ5)
 
@@ -363,7 +363,7 @@ Friedman test: stat=11160.31, **p<0.0001**
 | P2 | +5.31 (conformal slightly better) | +22.10 (conformal better) |
 | P3 | +53.94 (conformal better) | −29.38  (P3 better) |
 
-####----------------------------------------------------------------------####
+
 
 ## Gates — Final Status
 
@@ -371,7 +371,7 @@ Friedman test: stat=11160.31, **p<0.0001**
 |------|-----------|--------|
 | Phase 1A complete | UCI preprocessing P1–P8 passed |  PASSED  JAN 02 2026|
 | Phase 1B complete | GEFCom preprocessing G1–G9 passed | ✅ PASSED  |
-| Architecture locked | project specification, hidden=128, output=1-step | ✅ LOCKED  |
+| Architecture locked | research specification, hidden=128, output=1-step | ✅ LOCKED  |
 | Pilot UCI complete | 10 seeds, rho=0.2039 > 0.10 | ✅ PASSED  |
 | Pilot GEFCom complete | 10 seeds, rho=0.3007 > 0.10 | ✅ PASSED  |
 | Phase 2B UCI complete | 20 seeds, MAE=17.31 MWh | ✅ PASSED |
@@ -381,13 +381,13 @@ Friedman test: stat=11160.31, **p<0.0001**
 | Phase 4 ARIMA GEFCom | MAE=6.61, Coverage=0.957, ACF24=−0.020 | ✅ PASSED  |
 | Phase 5 conformal complete | Both datasets, Winkler computed | ✅ PASSED  |
 | Phase 6 evaluation complete | results_summary_FINAL.csv populated | ✅ PASSED Mar 25 2026 |
-| Phase 7 figures complete | All 5 publication figures | ⏳ PENDING |
-| Paper draft complete | All sections written, within 6 pages | ⏳ PENDING |
-| CP8 numbers audit | Every paper number vs results_summary_FINAL.csv | ⏳ PENDING |
-| PDF eXpress validation | IEEE format compliant | ⏳ PENDING |
-| Submission ready | ICRERA 2026 July deadline | ⏳ PENDING |
+| Phase 7 figures complete | All 7 figure scripts (Figs 3–9) | ✅ COMPLETE Mar 27 2026 |
+| Paper draft complete | Manuscript V1.1 — all sections written | ✅ COMPLETE Mar 27 2026 |
+| CP8 numbers audit | Every paper number vs results_summary_FINAL.csv | ✅ COMPLETE Mar 27 2026 |
+| PDF eXpress validation | IEEE format compliant | ⏳ IN PROGRESS |
+| Submission ready | IEEE PES ISGT Europe 2026 Budapest — April 15 2026 | ⏳ IN PROGRESS |
 
-####------------------------------------------------------###
+
 
 ## Key Decisions Log
 
@@ -404,14 +404,14 @@ Friedman test: stat=11160.31, **p<0.0001**
 | Pilot max epochs = 30 | Fast enough to catch bugs, early stopping handles convergence |  2026 |
 | temperature_F corrected | GEFCom column mislabelled as temperature_C; values confirmed Fahrenheit |  2026 |
 | Rolling one-step ARIMA forecast | Direct multi-step diverges over 8,760 steps |  2026 |
-| Kaggle for ARIMA fitting | WSL CommitLimit insufficient; Colab Python 3.12 incompatible |  2026 |
+| Kaggle for ARIMA fitting | local memory constraints |  2026 |
 | ACF-based ARIMA compliance | Ljung-Box over-rejects at n=23,928 per Hyndman 2018 |  2026 |
-| project specification updated to v5 | Section 7B ACF criterion replaces LB p-value gate |  2026 |
+| research specification updated to v5 | Section 7B ACF criterion replaces LB p-value gate |  2026 |
 | Shape (20,8592) accepted | 168h lookback window consumes first 168 test rows |  2026 |
 | Retain GEFCom seeds 11+13 | Valid variance signal; diluted by 18 normal seeds |  2026 |
 | Accept UCI conformal coverage 0.843 | Seasonal val/test mismatch; documented as limitation |  2026 |
 
-###-------------------------------------------------------------------------------------------------------------####
+
 
 ## Known Issues / Notes for Paper
 
@@ -421,12 +421,12 @@ Friedman test: stat=11160.31, **p<0.0001**
 4. GEFCom temperature column named temperature_F (values confirmed Fahrenheit, range 12.7–97.7°F).
 5. Ljung-Box fails large-n — ACF confirms well-specified. Report in paper. Cite Hyndman 2018.
 6. ARIMA fitted on Kaggle — notebooks saved in experiments/07_arima_uci/ and 08_arima_gefcom/.
-7. Shape (20,8592) vs project specification (20,8736) — 168h window offset. All analysis uses aligned index.
+7. Shape (20,8592) vs research specification (20,8736) — 168h window offset. All analysis uses aligned index.
 8. GEFCom seeds 11+13 early exit — retained, documented in paper methodology.
 9. UCI conformal undercoverage (0.843) — seasonal mismatch, accepted, one sentence in limitations.
 10. P3 resid_vol and P1 ensemble_var beat conformal on GEFCom — notable finding, highlight in results.
 
-####-------------------------------------------------------------------------------------------------------############
+
 
 ## Results Summary — Single Source of Truth
 *All numbers from results/summary/results_summary_FINAL.csv*
@@ -452,14 +452,14 @@ Friedman test: stat=11160.31, **p<0.0001**
 | P2 Winkler Score | 171.4659 | 97.4419 |
 | P3 Winkler Score | 220.0946 | 45.9661 |
 | Conformal Winkler Score | 166.1550 | 75.3455 |
-| Conformal coverage | **0.843 (LES THEN COMPLIENCE < 90.00>)** | 0.875  |
+| Conformal coverage | 0.843 (below 0.90 target — seasonal mismatch, accepted) | 0.875  |
 | Extreme timesteps | 876 (10.2%) | 836 (9.7%) |
 | P2 OR_extreme elevated (both) | TRUE | TRUE |
 | Proxy rank #1 | P1 | P1 |
 | Rankings match across datasets | TRUE | — |
 | Friedman p | <0.0001 | <0.0001 |
 
-###--------------------------------------------------------------####
+
 *Tracker maintained by: [DHAN GHALE]*
 *Last updated: March 26, 2026*
-*project specification · Implementation Guide v4.0 · Roadmap v4.0*
+*Last updated: March 27, 2026*
