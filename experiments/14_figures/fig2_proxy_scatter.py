@@ -1,11 +1,11 @@
 """
 F2 — Proxy vs Error Scatter
 Project: When AI Forecasts Are Confidently Wrong
-Output:  results/uci/figures/fig2_proxy_scatter.pdf
-         results/uci/figures/fig2_proxy_scatter.png
+Output:  results/uci/figures/fig5_proxy_scatter.pdf
+         results/uci/figures/fig5_proxy_scatter.png
 Run from project root:
     cd ~/projects/energy-forecasting-uncertainty-proxies
-    python experiments/14_figures/fig2_proxy_scatter.py
+    python experiments/14_figures/fig5_proxy_scatter.py
 """
 
 import pandas as pd
@@ -116,8 +116,8 @@ axes[0].set_ylabel("Absolute LSTM Forecast Error (MWh)", fontsize=12)
 axes[1].set_ylabel("")
 
 # --- save ---
-pdf_path = os.path.join(OUT_DIR, "fig2_proxy_scatter.pdf")
-png_path = os.path.join(OUT_DIR, "fig2_proxy_scatter.png")
+pdf_path = os.path.join(OUT_DIR, "fig5_proxy_scatter.pdf")
+png_path = os.path.join(OUT_DIR, "fig5_proxy_scatter.png")
 plt.savefig(pdf_path, dpi=300, bbox_inches="tight")
 plt.savefig(png_path, dpi=300, bbox_inches="tight")
 print(f"Saved: {pdf_path}")

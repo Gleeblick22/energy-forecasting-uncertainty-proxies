@@ -63,8 +63,8 @@
 
 | Metric | UCI (Portugal) | GEFCom2014 (New England) |
 |--------|---------------|--------------------------|
-| LSTM MAE — normal demand | 16.86 MWh | 3.49 MW |
-| LSTM MAE — extreme demand | 21.32 MWh (+26.4%) | 5.42 MW (+55.3%) |
+| LSTM MAE — normal demand | 16.86 MWh | 3.49 MWh |
+| LSTM MAE — extreme demand | 21.32 MWh (+26.4%) | 5.42 MWh (+55.3%) |
 | P1 Spearman rho — all hours | +0.189 *** | +0.440 *** |
 | P1 Spearman rho — extreme hours | +0.009 (ns) | +0.482 *** |
 | P3 Spearman rho — extreme hours | +0.044 (ns) | +0.455 *** |
@@ -73,7 +73,7 @@
 | Sensitivity at 95th pct (P1) | -0.110 (ns) | +0.423 *** |
 
 `***` p < 0.0001 | `ns` not significant after Bonferroni correction (alpha = 0.0083, 6 simultaneous tests)  
-UCI load in MWh; GEFCom2014 load in MW.
+UCI load in MWh; GEFCom2014 load in MWh.
 
 ---
 
@@ -102,7 +102,7 @@ UCI load in MWh; GEFCom2014 load in MW.
 │   ├── 11_conformal_uci/           # Split conformal prediction
 │   ├── 12_conformal_gefcom/
 │   ├── 13_cross_dataset/           # Cross-grid comparison and evaluation
-│   ├── 14_figures/                 # All 5 manuscript figures
+│   ├── 14_figures/                 # All 7 figure scripts
 │   └── sensitivity_95.py           # 95th percentile threshold sensitivity
 ├── models/
 │   ├── uci/
@@ -186,8 +186,10 @@ python3 experiments/13_cross_dataset/cross_dataset.py
 python3 experiments/14_figures/fig1_error_regime.py
 python3 experiments/14_figures/fig2_proxy_scatter.py
 python3 experiments/14_figures/fig3_heatmaps.py
+python3 experiments/14_figures/fig3_hourly_seasonal_mae.py
 python3 experiments/14_figures/fig4_ranking.py
 python3 experiments/14_figures/fig5_calibration.py
+python3 experiments/14_figures/fig6_sensitivity.py
 ```
 
 ### 7. Sensitivity analysis

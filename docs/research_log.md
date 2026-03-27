@@ -1,7 +1,8 @@
 
 
 # Research Log
-## Project: When AI Forecasts Are Confidently Wrong: Evaluating Uncertainty Proxies in Energy Load Forecasting
+## Project: Conditional Reliability of Uncertainty Proxies Under Extreme Demand
+### A Cross-Grid Empirical Analysis of Load Forecasting
 
 **Researcher:** Dhan Ghale 
 **Log started:** Jan 02, 2026
@@ -51,7 +52,7 @@ extreme demand conditions?
 **Date:** Jan 15, 2026
 
 **Critical discovery:**
-GEFCom2014 data covers 2001-2011, not 2011-2014 as originally in PDD v4.
+GEFCom2014 data covers 2001-2011, not 2011-2014 as originally in project specification.
 Competition forecast targets (empty LOAD rows) occupy first 35,064 rows of L1-train.csv.
 Actual usable load data begins January 2005.
 
@@ -78,7 +79,7 @@ DOI: 10.1016/j.ijforecast.2016.02.001
 ### Session 3 — Document Updates
 **Date:** Jan 10, 2026
 
-Updated PDD v4->v5, Implementation Guide v3->v4, Project Roadmap v3->v4:
+Updated project specification->v5, Implementation Guide v3->v4, Project Roadmap v3->v4:
 - GEFCom date range corrected: 2011-2014 -> 2009-2011
 - Split Rule 1 rewritten: calendar-based split with Marino et al. (2016) citation
 - GEFCom holiday years corrected: range(2011,2015) -> range(2009,2012)
@@ -169,7 +170,7 @@ is_weekend, is_holiday_MA, lag_1h, lag_24h, lag_168h, temperature_lag_24h
 ### Session 6 — Phase 2A Pilot Experiments Complete
 **Date:** Jan 25, 2026
 
-**Architecture (PDD v5 locked):**
+**Architecture (project specification locked):**
 - 2-layer stacked LSTM, 128 hidden units, single-step output (t+1)
 - Input window: 168h, Dropout: 0.2 (training only)
 - Adam LR=0.001, Batch=64, Patience=10, Pilot max epochs=30
@@ -213,7 +214,7 @@ Cross-dataset contrast visible at pilot stage:
 **Decisions:**
 - Pilot numbers do NOT go in manuscript — full training numbers only
 - Fresh scaler approach adopted for full training (use _unscaled.csv files)
-- No architecture changes needed — pilot confirms PDD v5 spec is correct
+- No architecture changes needed — pilot confirms project specification spec is correct
 
 **Phase 2A GATE: PASSED Jan 26, 2026** 
 
@@ -586,16 +587,16 @@ Output files:
 
 ####-----------------------------------------------------------------------####
 ## SESSION — 95th Percentile Sensitivity Analysis (Gap 1)
-Phase: Post-Phase-7 — PDD v5 Gap Closure
+Phase: Post-Phase-7 — project specification Gap Closure
 Status: COMPLETE 
 
 ### What Was Run
-95th percentile demand threshold sensitivity analysis PDD v5 Section 10
+95th percentile demand threshold sensitivity analysis project specification Section 10
 requirement: "Secondary threshold: 95th pctile = critical extreme for
 sensitivity analysis"
 
 ### Why It Was Run
-Gap analysis identified that this analysis was specified in PDD v5 but
+Gap analysis identified that this analysis was specified in project specification but
 never executed during Phase 7. results_summary_FINAL.csv contained zero
 95th percentile columns confirmed never run before this session.
 
@@ -631,8 +632,8 @@ UCI failure deepens (cliff-edge collapse confirmed).
 GEFCom robustness is genuine (survives stricter threshold).
 Core findings are threshold-stable.
 
-### PDD Compliance
-PDD v5 Section 10 requirement: FULFILLED 
+### Specification Compliance
+project specification Section 10 requirement: FULFILLED 
 
 ### Impact on Manuscript
  - Section IV-B: sensitivity paragraph added after extreme-hour results
@@ -642,17 +643,17 @@ PDD v5 Section 10 requirement: FULFILLED
 
 ## SESSION 13 — 2×2 Classification Threshold Sensitivity (Gap 4)
 
-Phase: Post-Phase-7  PDD v5 Gap Closure
+Phase: Post-Phase-7  project specification Gap Closure
 Status: COMPLETE 
 
 ### What Was Run
-2×2 classification threshold sensitivity analysis  PDD v5 Section 11
+2×2 classification threshold sensitivity analysis  project specification Section 11
 requirement: "Sensitivity check: repeat with 90th pctile error + 
 25th pctile confidence"
 
 ### Why It Was Run
 Gap analysis identified that this sensitivity check was specified in
-PDD v5 Section 11 but never reported in manuscript. The sens_ columns
+project specification Section 11 but never reported in manuscript. The sens_ columns
 were found to already exist in results_summary_FINAL.csv  computed
 during Phase 7 but never surfaced into the manuscript.
 
@@ -691,8 +692,8 @@ under stricter thresholds. OR direction preserved but magnitude
 drops substantially. P2 overconfidence finding on GEFCom is
 present but threshold-sensitive  reported transparently.
 
-### PDD Compliance
-PDD v5 Section 11 requirement: FULFILLED 
+### Specification Compliance
+project specification Section 11 requirement: FULFILLED 
 
 ### Impact on Manuscript
 - Section IV-C: sensitivity paragraph added at end
@@ -796,7 +797,7 @@ Repository structure confirmed:
 | GEFCom test year = 2010 | Last full calendar year in confirmed data range |  2026 |
 | Interpolate GEFCom gaps | 21 × 216h structural gaps — linear interpolation standard |  2026 |
 | Skip pilot initially, then reinstated | Engineering sanity check confirmed correct |  2026 |
-| GEFCom scaler independent | PDD Rule: no information leakage between datasets | 2026 |
+| GEFCom scaler independent | study design rule: no information leakage between datasets | 2026 |
 | Output = 1-step (t+1) | Proxy and extreme flag must match at hourly resolution |  2026 |
 | Hidden = 128 | Consistent with manuscript; matches literature standard |  2026 |
 | Retain GEFCom seeds 11+13 | Valid variance signal; diluted by 18 normal seeds |  2026 |
@@ -816,7 +817,7 @@ Repository structure confirmed:
 4. GEFCom temperature column named temperature_F (confirmed Fahrenheit, range 12.7–97.7°F).
 5. Ljung-Box fails large-n — ACF confirms well-specified. Report honestly. Cite Hyndman 2018.
 6. ARIMA fitted on Kaggle — notebooks in experiments/07_arima_uci/ and 08_arima_gefcom/.
-7. Shape (20,8592) vs PDD (20,8736) — 168h window offset. All analysis uses aligned index.
+7. Shape (20,8592) vs project specification (20,8736) — 168h window offset. All analysis uses aligned index.
 8. GEFCom seeds 11+13 early exit — retained, documented in paper methodology.
 9. UCI conformal undercoverage (0.843) — seasonal mismatch, accepted, one sentence in limits.
 10. P3 and P1 beat conformal on GEFCom — highlight as notable finding in results.

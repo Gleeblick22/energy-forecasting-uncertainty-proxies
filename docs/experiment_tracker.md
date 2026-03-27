@@ -2,7 +2,7 @@
 # Experiment Tracker
 ## Project: When AI Forecasts Are Confidently Wrong: Evaluating Uncertainty Proxies in Energy Load Forecasting
 **Last updated:** March 23, 2026
-**Project Design Document (PDD) version:** v5.0 (architecture locked) 
+**Project specification version:** v5.0 (architecture locked) 
 
 ####---------------------------------------------------------------####
 
@@ -62,7 +62,7 @@ Run 10 seeds with full architecture but reduced epochs to verify:
 6. Spearman rho is computable — no NaN/inf in proxy or error arrays.
 7. |Spearman rho| > 0.10 on extreme hours OR visible scatter in proxy vs error plot.
 
-### Locked Hyperparameters (PDD v5)
+### Locked Hyperparameters (project specification)
 | Parameter | Value |
 |-----------|-------|
 | Architecture | 2-layer stacked LSTM |
@@ -262,7 +262,7 @@ uncertainty signal. Ensemble MAE (3.68 MWh) is robust — diluted by 18 normal s
 
 **ACF compliance decision:** Ljung-Box over-rejects at n=23,928 (Hyndman 2018).
 ACF values at lag 24 and 48 confirm white noise. Lag 168 weekly autocorrelation
-is a known SARIMA(m=24) limitation — documented in paper per PDD v5 Section 7B.
+is a known SARIMA(m=24) limitation — documented in paper per project specification Section 7B.
 
 **Key output files:**
 - results/uci/tables/arima_predictions_uci.csv 
@@ -371,7 +371,7 @@ Friedman test: stat=11160.31, **p<0.0001**
 |------|-----------|--------|
 | Phase 1A complete | UCI preprocessing P1–P8 passed |  PASSED  JAN 02 2026|
 | Phase 1B complete | GEFCom preprocessing G1–G9 passed | ✅ PASSED  |
-| Architecture locked | PDD v5, hidden=128, output=1-step | ✅ LOCKED  |
+| Architecture locked | project specification, hidden=128, output=1-step | ✅ LOCKED  |
 | Pilot UCI complete | 10 seeds, rho=0.2039 > 0.10 | ✅ PASSED  |
 | Pilot GEFCom complete | 10 seeds, rho=0.3007 > 0.10 | ✅ PASSED  |
 | Phase 2B UCI complete | 20 seeds, MAE=17.31 MWh | ✅ PASSED |
@@ -396,7 +396,7 @@ Friedman test: stat=11160.31, **p<0.0001**
 | Option B: independent calendar periods | Calendar-based splits literature-standard (Marino et al. 2016) |  2026 |
 | GEFCom test year = 2010 | Last full calendar year in confirmed data range |  2026 |
 | Interpolate GEFCom gaps | 21 × 216h structural gaps — linear interpolation standard |  2026 |
-| GEFCom scaler independent | PDD Rule: no information leakage between datasets | 2026 |
+| GEFCom scaler independent | study design rule: no information leakage between datasets | 2026 |
 | Reinstate pilot experiments | Engineering sanity check before 40 full training runs |  2026 |
 | Output = 1-step (t+1) | Proxy and extreme flag must match at hourly resolution |  2026 |
 | Hidden = 128 | Consistent with manuscript; matches literature standard |  2026 |
@@ -406,7 +406,7 @@ Friedman test: stat=11160.31, **p<0.0001**
 | Rolling one-step ARIMA forecast | Direct multi-step diverges over 8,760 steps |  2026 |
 | Kaggle for ARIMA fitting | WSL CommitLimit insufficient; Colab Python 3.12 incompatible |  2026 |
 | ACF-based ARIMA compliance | Ljung-Box over-rejects at n=23,928 per Hyndman 2018 |  2026 |
-| PDD updated to v5 | Section 7B ACF criterion replaces LB p-value gate |  2026 |
+| project specification updated to v5 | Section 7B ACF criterion replaces LB p-value gate |  2026 |
 | Shape (20,8592) accepted | 168h lookback window consumes first 168 test rows |  2026 |
 | Retain GEFCom seeds 11+13 | Valid variance signal; diluted by 18 normal seeds |  2026 |
 | Accept UCI conformal coverage 0.843 | Seasonal val/test mismatch; documented as limitation |  2026 |
@@ -421,7 +421,7 @@ Friedman test: stat=11160.31, **p<0.0001**
 4. GEFCom temperature column named temperature_F (values confirmed Fahrenheit, range 12.7–97.7°F).
 5. Ljung-Box fails large-n — ACF confirms well-specified. Report in paper. Cite Hyndman 2018.
 6. ARIMA fitted on Kaggle — notebooks saved in experiments/07_arima_uci/ and 08_arima_gefcom/.
-7. Shape (20,8592) vs PDD (20,8736) — 168h window offset. All analysis uses aligned index.
+7. Shape (20,8592) vs project specification (20,8736) — 168h window offset. All analysis uses aligned index.
 8. GEFCom seeds 11+13 early exit — retained, documented in paper methodology.
 9. UCI conformal undercoverage (0.843) — seasonal mismatch, accepted, one sentence in limitations.
 10. P3 resid_vol and P1 ensemble_var beat conformal on GEFCom — notable finding, highlight in results.
@@ -462,4 +462,4 @@ Friedman test: stat=11160.31, **p<0.0001**
 ###--------------------------------------------------------------####
 *Tracker maintained by: [DHAN GHALE]*
 *Last updated: March 26, 2026*
-*PDD v5.0 · Implementation Guide v4.0 · Roadmap v4.0*
+*project specification · Implementation Guide v4.0 · Roadmap v4.0*

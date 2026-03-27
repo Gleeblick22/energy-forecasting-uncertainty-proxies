@@ -1,11 +1,11 @@
 """
 F3 — 2x2 Overconfidence Heatmaps
 Project: When AI Forecasts Are Confidently Wrong
-Output:  results/uci/figures/fig3_heatmaps.pdf
-         results/uci/figures/fig3_heatmaps.png
+Output:  results/uci/figures/fig7_heatmaps.pdf
+         results/uci/figures/fig7_heatmaps.png
 Run from project root:
     cd ~/projects/energy-forecasting-uncertainty-proxies
-    python experiments/14_figures/fig3_heatmaps.py
+    python experiments/14_figures/fig7_heatmaps.py
 """
 
 import matplotlib
@@ -173,8 +173,8 @@ fig.legend(handles=legend_patches, loc="lower center",
            bbox_to_anchor=(0.55, -0.04))
 
 # --- save ---
-pdf_path = os.path.join(OUT_DIR, "fig3_heatmaps.pdf")
-png_path = os.path.join(OUT_DIR, "fig3_heatmaps.png")
+pdf_path = os.path.join(OUT_DIR, "fig7_heatmaps.pdf")
+png_path = os.path.join(OUT_DIR, "fig7_heatmaps.png")
 plt.savefig(pdf_path, dpi=300, bbox_inches="tight")
 plt.savefig(png_path, dpi=300, bbox_inches="tight")
 print(f"Saved: {pdf_path}")

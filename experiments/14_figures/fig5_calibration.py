@@ -59,7 +59,7 @@ def draw_panel(ax, df, cf, title, title_color, p2_color,
             zorder=4, label="P3 — Residual Volatility")
     ax.scatter(x3, y3, color=P3_COL, s=18, marker="s", zorder=5, linewidths=0)
 
-    # P2 box — bottom right near x-axis
+    # P2 box
     ax.text(0.97, 0.03,
             "P2 (ARIMA PI Width): constant signal — no curve",
             transform=ax.transAxes, fontsize=7,
@@ -79,10 +79,10 @@ def draw_panel(ax, df, cf, title, title_color, p2_color,
              zorder=3, label="Conformal coverage")
     ax2.scatter(xc, yc, color=CONF_COL, s=18, marker="^", zorder=4, linewidths=0)
 
-    # target 0.90 line — visible but NO text label
+    # target 0.90 line
     ax2.axhline(0.90, color=CONF_COL, linewidth=1.2, linestyle="-", alpha=0.7)
 
-    # overall coverage annotation — right side, clean format
+    # overall coverage annotation
     if overall_cov is not None:
         ax2.text(0.97, 0.38,
                  f"overall coverage = {overall_cov:.3f} (< 0.90)",
@@ -119,6 +119,6 @@ draw_panel(axes[1], gef, gef_cf,
            "GEFCom2014 — New England Grid", GEF_TITLE, GEF_TITLE,
            log_x=True, overall_cov=0.875)
 
-plt.savefig(os.path.join(OUT_DIR, "fig5_calibration.pdf"), dpi=300, bbox_inches="tight")
-plt.savefig(os.path.join(OUT_DIR, "fig5_calibration.png"), dpi=300, bbox_inches="tight")
+plt.savefig(os.path.join(OUT_DIR, "fig9_calibration.pdf"), dpi=300, bbox_inches="tight")
+plt.savefig(os.path.join(OUT_DIR, "fig9_calibration.png"), dpi=300, bbox_inches="tight")
 print("Saved.")

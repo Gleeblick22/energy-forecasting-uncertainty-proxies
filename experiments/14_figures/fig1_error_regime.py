@@ -1,11 +1,11 @@
 """
 F1 — Error by Demand Regime (Boxplot)
 Project: When AI Forecasts Are Confidently Wrong
-Output:  results/uci/figures/fig1_error_regime.pdf
-         results/uci/figures/fig1_error_regime.png
+Output:  results/uci/figures/fig3_error_regime.pdf
+         results/uci/figures/fig3_error_regime.png
 Run from project root:
     cd ~/projects/energy-forecasting-uncertainty-proxies
-    python experiments/14_figures/fig1_error_regime.py
+    python experiments/14_figures/fig3_error_regime.py
 """
 
 import pandas as pd
@@ -121,8 +121,8 @@ fig.legend(handles=[norm_patch, uci_patch, gef_patch, mean_patch],
            bbox_to_anchor=(0.5, -0.02), frameon=True)
 
 # --- save ---
-pdf_path = os.path.join(OUT_DIR, "fig1_error_regime.pdf")
-png_path = os.path.join(OUT_DIR, "fig1_error_regime.png")
+pdf_path = os.path.join(OUT_DIR, "fig3_error_regime.pdf")
+png_path = os.path.join(OUT_DIR, "fig3_error_regime.png")
 plt.savefig(pdf_path, dpi=300, bbox_inches="tight")
 plt.savefig(png_path, dpi=300, bbox_inches="tight")
 print(f"Saved: {pdf_path}")

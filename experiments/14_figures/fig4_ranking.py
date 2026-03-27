@@ -1,11 +1,11 @@
 """
 F4 — Proxy Ranking Bar Chart (Winkler Score)
 Project: When AI Forecasts Are Confidently Wrong
-Output:  results/uci/figures/fig4_ranking.pdf
-         results/uci/figures/fig4_ranking.png
+Output:  results/uci/figures/fig8_ranking.pdf
+         results/uci/figures/fig8_ranking.png
 Run from project root:
     cd ~/projects/energy-forecasting-uncertainty-proxies
-    python experiments/14_figures/fig4_ranking.py
+    python experiments/14_figures/fig8_ranking.py
 """
 
 import matplotlib
@@ -70,8 +70,8 @@ draw_bars(axes[0], uci_winkler, "UCI — Portugal Grid",           UCI_BLUE)
 draw_bars(axes[1], gef_winkler, "GEFCom2014 — New England Grid", GEF_GREEN)
 
 # --- save ---
-pdf_path = os.path.join(OUT_DIR, "fig4_ranking.pdf")
-png_path = os.path.join(OUT_DIR, "fig4_ranking.png")
+pdf_path = os.path.join(OUT_DIR, "fig8_ranking.pdf")
+png_path = os.path.join(OUT_DIR, "fig8_ranking.png")
 plt.savefig(pdf_path, dpi=300, bbox_inches="tight")
 plt.savefig(png_path, dpi=300, bbox_inches="tight")
 print(f"Saved: {pdf_path}")
