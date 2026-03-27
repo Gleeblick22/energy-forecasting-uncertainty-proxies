@@ -1,9 +1,9 @@
 
 
 # Data Cards
-## Project: When AI Forecasts Are Confidently Wrong
+## Project: Conditional Reliability of Uncertainty Proxies Under Extreme Demand
 **Last updated:** Jan 2 - 15, 2026
-================================================================
+
 
 ## Dataset 1 — UCI Electricity Load Diagrams 2011-2014
 
@@ -75,17 +75,16 @@ for this study.
 - Saved to: models/uci/configs/scaler_uci.pkl
 
 ### Paper Citation
-Dua, D. and Graff, C. (2019). UCI Machine Learning Repository.
-University of California, Irvine.
-http://archive.ics.uci.edu/ml
+Trindade, A. (2025). ElectricityLoadDiagrams20112014. UCI Machine Learning Repository.
+https://archive.ics.uci.edu/dataset/321
 
-###-----------------------------------------------------###
+
 
 ## Dataset 2 — GEFCom2014 Load Track
 
 ### Source
 - Competition: Global Energy Forecasting Competition 2014
-- URL: https://www.kaggle.com/datasets/nicholasjhana/energy-consumption-generation-prices-and-weather
+- URL: https://www.kaggle.com/datasets/cthngon/gefcom2014-dataset
 - Original paper: Hong et al. (2016), IJF 32(3), 896-913
 - License: Public competition dataset
 
@@ -124,7 +123,7 @@ Examples:
 ### Preprocessing Applied
 - Concatenated all 15 task files + solution in chronological order
 - Deduplicated on datetime index
-- Averaged 25 weather stations -> single temperature_C feature
+- Averaged 25 weather stations -> single temperature_F feature
 - Reindexed to full hourly range, applied time interpolation for gaps
 - 168 NaN rows dropped (lag warm-up period)
 
@@ -132,7 +131,7 @@ Examples:
 | Feature | Description |
 |---------|-------------|
 | total_load | Target variable, MWh per hour |
-| temperature_C | Mean of 25 station temperatures (Fahrenheit) |
+| temperature_F | Mean of 25 station temperatures (°F) |
 | hour_sin / hour_cos | Cyclic hour of day encoding |
 | day_sin / day_cos | Cyclic day of week encoding |
 | month_sin / month_cos | Cyclic month of year encoding |
@@ -169,7 +168,7 @@ Probabilistic energy forecasting: Global Energy Forecasting Competition 2014 and
 International Journal of Forecasting, 32(3), 896-913.
 DOI: 10.1016/j.ijforecast.2016.02.001
 
-####--------------------------------------------------------------------####
+
 
 ## Cross-Dataset Comparison Notes
 
