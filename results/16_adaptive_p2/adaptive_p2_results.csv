@@ -1,0 +1,3 @@
+grid,adaptive_p2_mean,adaptive_p2_std,rho_extreme,pval_extreme,significant,rho_all,dangerous_rate,winkler
+uci,77.5238,46.2361,-0.0039,0.908898,False,0.1626,0.1221,122.7084
+gefcom,17.9737,17.374,0.4061,0.0,True,0.2472,0.0526,34.38
