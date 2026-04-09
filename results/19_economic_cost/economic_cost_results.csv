@@ -1,0 +1,7 @@
+grid,proxy,dangerous_rate,n_dangerous_test,n_extreme_annual,n_dangerous_annual,spot_price,spot_price_source,cost_per_event,currency,annual_cost
+UCI Portugal,P1 Ensemble Variance,0.0914,785,893,82,42.13,OMIE 2014 annual average,898,EUR,73636
+GEFCom2014 New England,P1 Ensemble Variance,0.0534,459,852,45,53.21,ISO NE 2010 estimated LMP — pending verification,288,USD,12960
+UCI Portugal,P2 PI Width (ARIMA),0.0425,365,893,38,42.13,OMIE 2014 annual average,898,EUR,34124
+GEFCom2014 New England,P2 PI Width (ARIMA),0.0676,581,852,58,53.21,ISO NE 2010 estimated LMP — pending verification,288,USD,16704
+UCI Portugal,P3 Residual Volatility,0.0935,803,893,83,42.13,OMIE 2014 annual average,898,EUR,74534
+GEFCom2014 New England,P3 Residual Volatility,0.0729,626,852,62,53.21,ISO NE 2010 estimated LMP — pending verification,288,USD,17856

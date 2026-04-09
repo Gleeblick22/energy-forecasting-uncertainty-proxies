@@ -1,0 +1,9 @@
+grid,n_seeds,rho_extreme,pval,significant,source
+uci,20,0.0089,0.7929,False,Phase 3 existing
+uci,5,0.0543,0.108195,False,Extension 3
+uci,10,0.0897,0.007874,True,Extension 3
+uci,50,0.0774,0.022002,False,Extension 3
+gefcom,20,0.4815,0.0,True,Phase 3 existing
+gefcom,5,0.439,0.0,True,Extension 3
+gefcom,10,0.4928,0.0,True,Extension 3
+gefcom,50,0.5404,0.0,True,Extension 3

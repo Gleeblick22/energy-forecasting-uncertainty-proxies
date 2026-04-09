@@ -1,0 +1,191 @@
+['datasets']
+/kaggle/input/datasets/dhanghale/efr2026-sensitivity/kaggle_upload/efr2026-sensitivity/proxies/confidence_proxies_uci.csv
+/kaggle/input/datasets/dhanghale/efr2026-sensitivity/kaggle_upload/efr2026-sensitivity/proxies/confidence_proxies_gefcom.csv
+/kaggle/input/datasets/dhanghale/efr2026-sensitivity/kaggle_upload/efr2026-sensitivity/data/gefcom/extreme_gefcom.csv
+/kaggle/input/datasets/dhanghale/efr2026-sensitivity/kaggle_upload/efr2026-sensitivity/data/gefcom/train_unscaled.csv
+/kaggle/input/datasets/dhanghale/efr2026-sensitivity/kaggle_upload/efr2026-sensitivity/data/gefcom/val_unscaled.csv
+/kaggle/input/datasets/dhanghale/efr2026-sensitivity/kaggle_upload/efr2026-sensitivity/data/gefcom/test_unscaled.csv
+/kaggle/input/datasets/dhanghale/efr2026-sensitivity/kaggle_upload/efr2026-sensitivity/data/uci/train_unscaled.csv
+/kaggle/input/datasets/dhanghale/efr2026-sensitivity/kaggle_upload/efr2026-sensitivity/data/uci/extreme_uci.csv
+/kaggle/input/datasets/dhanghale/efr2026-sensitivity/kaggle_upload/efr2026-sensitivity/data/uci/val_unscaled.csv
+/kaggle/input/datasets/dhanghale/efr2026-sensitivity/kaggle_upload/efr2026-sensitivity/data/uci/test_unscaled.csv
+20:47:21  INFO      Device: cuda
+20:47:21  INFO      
+============================================================
+20:47:21  INFO      GRID: UCI
+20:47:21  INFO      ============================================================
+20:47:22  INFO      20-seed baseline loaded: rho_extreme=+0.0089
+20:47:22  INFO      
+--- Training 5-seed ensemble ---
+20:50:06  INFO        Seed 0/4 done — val_loss=0.000205 epoch=49
+20:52:35  INFO        Seed 1/4 done — val_loss=0.000207 epoch=43
+20:54:43  INFO        Seed 2/4 done — val_loss=0.000200 epoch=37
+20:56:41  INFO        Seed 3/4 done — val_loss=0.000261 epoch=34
+20:59:11  INFO        Seed 4/4 done — val_loss=0.000201 epoch=43
+20:59:11  INFO      5-seed: rho_extreme=+0.0543  pval=0.1082  sig=False
+20:59:11  INFO      
+--- Training 10-seed ensemble ---
+21:02:01  INFO        Seed 0/9 done — val_loss=0.000205 epoch=49
+21:04:30  INFO        Seed 1/9 done — val_loss=0.000207 epoch=43
+21:06:38  INFO        Seed 2/9 done — val_loss=0.000200 epoch=37
+21:08:36  INFO        Seed 3/9 done — val_loss=0.000261 epoch=34
+21:11:05  INFO        Seed 4/9 done — val_loss=0.000201 epoch=43
+21:13:41  INFO        Seed 5/9 done — val_loss=0.000203 epoch=45
+21:16:45  INFO        Seed 6/9 done — val_loss=0.000192 epoch=53
+21:18:29  INFO        Seed 7/9 done — val_loss=0.000245 epoch=30
+21:21:05  INFO        Seed 8/9 done — val_loss=0.000200 epoch=45
+21:23:27  INFO        Seed 9/9 done — val_loss=0.000216 epoch=41
+21:23:27  INFO      10-seed: rho_extreme=+0.0897  pval=0.0079  sig=True
+21:23:27  INFO      
+--- Training 50-seed ensemble ---
+21:26:17  INFO        Seed 0/49 done — val_loss=0.000205 epoch=49
+21:28:45  INFO        Seed 1/49 done — val_loss=0.000207 epoch=43
+21:30:54  INFO        Seed 2/49 done — val_loss=0.000200 epoch=37
+21:32:51  INFO        Seed 3/49 done — val_loss=0.000261 epoch=34
+21:35:20  INFO        Seed 4/49 done — val_loss=0.000201 epoch=43
+21:37:56  INFO        Seed 5/49 done — val_loss=0.000203 epoch=45
+21:40:59  INFO        Seed 6/49 done — val_loss=0.000192 epoch=53
+21:42:44  INFO        Seed 7/49 done — val_loss=0.000245 epoch=30
+21:45:19  INFO        Seed 8/49 done — val_loss=0.000200 epoch=45
+21:47:41  INFO        Seed 9/49 done — val_loss=0.000216 epoch=41
+21:50:41  INFO        Seed 10/49 done — val_loss=0.000193 epoch=52
+21:52:49  INFO        Seed 11/49 done — val_loss=0.000219 epoch=37
+21:55:05  INFO        Seed 12/49 done — val_loss=0.000227 epoch=39
+21:57:09  INFO        Seed 13/49 done — val_loss=0.000210 epoch=36
+22:00:33  INFO        Seed 14/49 done — val_loss=0.000186 epoch=59
+22:02:45  INFO        Seed 15/49 done — val_loss=0.000217 epoch=38
+22:05:41  INFO        Seed 16/49 done — val_loss=0.000196 epoch=51
+22:08:31  INFO        Seed 17/49 done — val_loss=0.000195 epoch=49
+22:10:53  INFO        Seed 18/49 done — val_loss=0.000208 epoch=41
+22:13:28  INFO        Seed 19/49 done — val_loss=0.000206 epoch=45
+22:18:12  INFO        Seed 20/49 done — val_loss=0.000180 epoch=82
+22:21:53  INFO        Seed 21/49 done — val_loss=0.000193 epoch=64
+22:25:25  INFO        Seed 22/49 done — val_loss=0.000207 epoch=61
+22:27:06  INFO        Seed 23/49 done — val_loss=0.000219 epoch=29
+22:29:10  INFO        Seed 24/49 done — val_loss=0.000214 epoch=36
+22:31:33  INFO        Seed 25/49 done — val_loss=0.000216 epoch=41
+22:33:34  INFO        Seed 26/49 done — val_loss=0.000232 epoch=35
+22:36:17  INFO        Seed 27/49 done — val_loss=0.000193 epoch=47
+22:38:36  INFO        Seed 28/49 done — val_loss=0.000228 epoch=40
+22:41:25  INFO        Seed 29/49 done — val_loss=0.000205 epoch=49
+22:43:33  INFO        Seed 30/49 done — val_loss=0.000238 epoch=37
+22:45:48  INFO        Seed 31/49 done — val_loss=0.000214 epoch=39
+22:47:43  INFO        Seed 32/49 done — val_loss=0.000243 epoch=33
+22:49:16  INFO        Seed 33/49 done — val_loss=0.000270 epoch=27
+22:51:59  INFO        Seed 34/49 done — val_loss=0.000198 epoch=47
+22:54:31  INFO        Seed 35/49 done — val_loss=0.000215 epoch=44
+22:56:53  INFO        Seed 36/49 done — val_loss=0.000182 epoch=41
+23:00:32  INFO        Seed 37/49 done — val_loss=0.000178 epoch=63
+23:03:11  INFO        Seed 38/49 done — val_loss=0.000195 epoch=46
+23:06:32  INFO        Seed 39/49 done — val_loss=0.000196 epoch=58
+23:08:51  INFO        Seed 40/49 done — val_loss=0.000234 epoch=40
+23:10:48  INFO        Seed 41/49 done — val_loss=0.000218 epoch=34
+23:13:42  INFO        Seed 42/49 done — val_loss=0.000203 epoch=50
+23:15:54  INFO        Seed 43/49 done — val_loss=0.000209 epoch=38
+23:19:00  INFO        Seed 44/49 done — val_loss=0.000196 epoch=54
+23:21:50  INFO        Seed 45/49 done — val_loss=0.000198 epoch=49
+23:24:26  INFO        Seed 46/49 done — val_loss=0.000202 epoch=45
+23:26:34  INFO        Seed 47/49 done — val_loss=0.000197 epoch=37
+23:29:37  INFO        Seed 48/49 done — val_loss=0.000190 epoch=53
+23:31:31  INFO        Seed 49/49 done — val_loss=0.000229 epoch=33
+23:31:31  INFO      50-seed: rho_extreme=+0.0774  pval=0.0220  sig=False
+23:31:31  INFO      
+============================================================
+23:31:31  INFO      GRID: GEFCOM
+23:31:31  INFO      ============================================================
+23:31:32  INFO      20-seed baseline loaded: rho_extreme=+0.4815
+23:31:32  INFO      
+--- Training 5-seed ensemble ---
+23:36:08  INFO        Seed 0/4 done — val_loss=0.000191 epoch=80
+23:39:16  INFO        Seed 1/4 done — val_loss=0.000274 epoch=54
+23:43:04  INFO        Seed 2/4 done — val_loss=0.000245 epoch=66
+23:44:31  INFO        Seed 3/4 done — val_loss=0.000516 epoch=25
+23:47:38  INFO        Seed 4/4 done — val_loss=0.000241 epoch=54
+23:47:38  INFO      5-seed: rho_extreme=+0.4390  pval=0.0000  sig=True
+23:47:38  INFO      
+--- Training 10-seed ensemble ---
+23:52:15  INFO        Seed 0/9 done — val_loss=0.000191 epoch=80
+23:55:22  INFO        Seed 1/9 done — val_loss=0.000274 epoch=54
+23:59:11  INFO        Seed 2/9 done — val_loss=0.000245 epoch=66
+00:00:38  INFO        Seed 3/9 done — val_loss=0.000516 epoch=25
+00:03:46  INFO        Seed 4/9 done — val_loss=0.000241 epoch=54
+00:06:29  INFO        Seed 5/9 done — val_loss=0.000296 epoch=47
+00:10:52  INFO        Seed 6/9 done — val_loss=0.000235 epoch=76
+00:13:49  INFO        Seed 7/9 done — val_loss=0.000266 epoch=51
+00:16:22  INFO        Seed 8/9 done — val_loss=0.000281 epoch=44
+00:21:44  INFO        Seed 9/9 done — val_loss=0.000192 epoch=93
+00:21:44  INFO      10-seed: rho_extreme=+0.4928  pval=0.0000  sig=True
+00:21:44  INFO      
+--- Training 50-seed ensemble ---
+00:26:22  INFO        Seed 0/49 done — val_loss=0.000191 epoch=80
+00:29:29  INFO        Seed 1/49 done — val_loss=0.000274 epoch=54
+00:33:18  INFO        Seed 2/49 done — val_loss=0.000245 epoch=66
+00:34:45  INFO        Seed 3/49 done — val_loss=0.000516 epoch=25
+00:37:53  INFO        Seed 4/49 done — val_loss=0.000241 epoch=54
+00:40:36  INFO        Seed 5/49 done — val_loss=0.000296 epoch=47
+00:44:59  INFO        Seed 6/49 done — val_loss=0.000235 epoch=76
+00:47:56  INFO        Seed 7/49 done — val_loss=0.000266 epoch=51
+00:50:29  INFO        Seed 8/49 done — val_loss=0.000281 epoch=44
+00:55:51  INFO        Seed 9/49 done — val_loss=0.000192 epoch=93
+01:01:38  INFO        Seed 10/49 done — val_loss=0.000204 epoch=100
+01:02:48  INFO        Seed 11/49 done — val_loss=0.000532 epoch=20
+01:07:01  INFO        Seed 12/49 done — val_loss=0.000210 epoch=73
+01:09:44  INFO        Seed 13/49 done — val_loss=0.000272 epoch=47
+01:12:45  INFO        Seed 14/49 done — val_loss=0.000260 epoch=52
+01:14:08  INFO        Seed 15/49 done — val_loss=0.000511 epoch=24
+01:17:33  INFO        Seed 16/49 done — val_loss=0.000275 epoch=59
+01:20:58  INFO        Seed 17/49 done — val_loss=0.000221 epoch=59
+01:26:17  INFO        Seed 18/49 done — val_loss=0.000192 epoch=92
+01:29:11  INFO        Seed 19/49 done — val_loss=0.000312 epoch=50
+01:31:47  INFO        Seed 20/49 done — val_loss=0.000265 epoch=45
+01:33:52  INFO        Seed 21/49 done — val_loss=0.000348 epoch=36
+01:39:04  INFO        Seed 22/49 done — val_loss=0.000194 epoch=90
+01:44:51  INFO        Seed 23/49 done — val_loss=0.000175 epoch=100
+01:49:08  INFO        Seed 24/49 done — val_loss=0.000202 epoch=74
+01:52:42  INFO        Seed 25/49 done — val_loss=0.000260 epoch=62
+01:53:52  INFO        Seed 26/49 done — val_loss=0.000549 epoch=20
+01:56:45  INFO        Seed 27/49 done — val_loss=0.000253 epoch=50
+02:01:46  INFO        Seed 28/49 done — val_loss=0.000193 epoch=87
+02:07:15  INFO        Seed 29/49 done — val_loss=0.000175 epoch=95
+02:08:21  INFO        Seed 30/49 done — val_loss=0.000578 epoch=19
+02:10:12  INFO        Seed 31/49 done — val_loss=0.000420 epoch=32
+02:15:16  INFO        Seed 32/49 done — val_loss=0.000185 epoch=88
+02:19:08  INFO        Seed 33/49 done — val_loss=0.000269 epoch=67
+02:20:31  INFO        Seed 34/49 done — val_loss=0.000531 epoch=24
+02:22:08  INFO        Seed 35/49 done — val_loss=0.000468 epoch=28
+02:25:32  INFO        Seed 36/49 done — val_loss=0.000220 epoch=59
+02:28:59  INFO        Seed 37/49 done — val_loss=0.000240 epoch=60
+02:32:27  INFO        Seed 38/49 done — val_loss=0.000259 epoch=60
+02:37:28  INFO        Seed 39/49 done — val_loss=0.000190 epoch=87
+02:39:02  INFO        Seed 40/49 done — val_loss=0.000499 epoch=27
+02:42:50  INFO        Seed 41/49 done — val_loss=0.000182 epoch=66
+02:45:46  INFO        Seed 42/49 done — val_loss=0.000264 epoch=51
+02:49:10  INFO        Seed 43/49 done — val_loss=0.000212 epoch=59
+02:54:18  INFO        Seed 44/49 done — val_loss=0.000176 epoch=89
+02:59:12  INFO        Seed 45/49 done — val_loss=0.000176 epoch=85
+03:03:31  INFO        Seed 46/49 done — val_loss=0.000193 epoch=75
+03:07:02  INFO        Seed 47/49 done — val_loss=0.000251 epoch=61
+03:10:40  INFO        Seed 48/49 done — val_loss=0.000195 epoch=63
+03:13:30  INFO        Seed 49/49 done — val_loss=0.000261 epoch=49
+03:13:30  INFO      50-seed: rho_extreme=+0.5404  pval=0.0000  sig=True
+03:13:30  INFO      
+Saved 8 rows → /kaggle/working/sensitivity_results.csv
+
+============================================================
+ENSEMBLE SENSITIVITY — RESULTS SUMMARY
+============================================================
+
+UCI:
+   5 seeds: rho=+0.0543  p=0.1082  ✗ NON-SIG
+  10 seeds: rho=+0.0897  p=0.0079  ✓ SIG
+  20 seeds: rho=+0.0089  p=0.7929  ✗ NON-SIG
+  50 seeds: rho=+0.0774  p=0.0220  ✗ NON-SIG
+
+GEFCOM:
+   5 seeds: rho=+0.4390  p=0.0000  ✓ SIG
+  10 seeds: rho=+0.4928  p=0.0000  ✓ SIG
+  20 seeds: rho=+0.4815  p=0.0000  ✓ SIG
+  50 seeds: rho=+0.5404  p=0.0000  ✓ SIG
+
+Extension 3 COMPLETE.
+File secured in working directory

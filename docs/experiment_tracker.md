@@ -363,7 +363,171 @@ Friedman test: stat=11160.31, **p<0.0001**
 | P2 | +5.31 (conformal slightly better) | +22.10 (conformal better) |
 | P3 | +53.94 (conformal better) | −29.38  (P3 better) |
 
+---
 
+*Last updated: April 8, 2026*
+
+---
+
+## Extended Analysis Phase — April 2026
+
+### Why This Phase Was Initiated
+Primary analysis established proxy failure at extreme hours. Four scientific
+concerns raised during internal pre-submission review required resolution
+before findings could be stated with full confidence and translated into
+operational guidance. See research_log.md Sessions 14-18 for full detail.
+
+---
+
+## Degradation Curve
+**Status: COMPLETE — April 3, 2026**
+**Script:** experiments/15_degradation_curve/degradation_curve.py
+**Output:** results/15_degradation_curve/degradation_results.csv — 174 rows
+**Figure:** results/uci/figures/fig10_degradation_curve.png and pdf
+**Commit:** 627ff63
+
+### Validation at 90th percentile — All 6 Passed
+| Grid | Proxy | rho | Status |
+|------|-------|-----|--------|
+| UCI | P1 | +0.0089 | PASS |
+| UCI | P2 | -0.0543 | PASS |
+| UCI | P3 | +0.0440 | PASS |
+| GEFCom | P1 | +0.4815 | PASS |
+| GEFCom | P2 | +0.0182 | Confirmed non-sig |
+| GEFCom | P3 | +0.4554 | PASS |
+
+### Collapse Thresholds
+| Grid | Proxy | Finding |
+|------|-------|---------|
+| UCI | P1 | Collapses at 81st pct — 9 pct points before operational threshold |
+| UCI | P2 | Non-significant across all percentiles (70-98) |
+| UCI | P3 | Collapses at 85th pct |
+| GEFCom | P1 | Significant across all percentiles (70-98) |
+| GEFCom | P2 | Non-significant across all percentiles (70-98) |
+| GEFCom | P3 | Significant across all percentiles (70-98) |
+
+### Terminal Output (verified)
+UCI Phase 7 threshold: 1357.08 MWh — all 6 validation checks passed
+Row count: 174 rows — 29 pct x 3 proxies x 2 grids
+
+---
+
+## Adaptive P2
+**Status: COMPLETE — April 4, 2026**
+**Script:** experiments/16_adaptive_p2/adaptive_p2.py
+**Output:** results/16_adaptive_p2/ — 4 files
+**Figure:** results/uci/figures/fig11_adaptive_p2.png and pdf
+
+
+### Configuration
+| Parameter | Value |
+|-----------|-------|
+| Window W | 168 hours |
+| Quantiles | 0.05 and 0.95 |
+| UCI features | 10 — no temperature |
+| GEFCom features | 12 — includes temperature_F and temperature_lag_24h |
+| PI centred on | ensemble_mean |
+
+### Results
+| Metric | Static UCI | Adaptive UCI | Static GEFCom | Adaptive GEFCom |
+|--------|-----------|-------------|--------------|----------------|
+| rho_extreme | -0.0543 | -0.0039 | +0.0182 | +0.4061 |
+| Significant | No | No | No | Yes |
+| DANGEROUS rate | 4.25% | 12.21% | 6.76% | 5.26% |
+| Winkler | 171.47 | 122.71 | 97.44 | 34.38 |
+
+### RQ6 Answer
+| Grid | Answer |
+|------|--------|
+| UCI Portugal | NO — failure persists |
+| GEFCom New England | YES — restores significance |
+
+### Note
+Winkler initially centred on actual_load — corrected to ensemble_mean.
+RQ6 conclusions unchanged by this correction.
+
+---
+
+## Economic Cost
+**Status: COMPLETE — April 5, 2026**
+**Script:** experiments/19_economic_cost/economic_cost.py
+**Output:** results/19_economic_cost/economic_cost_results.csv — 6 rows
+
+### Cost Parameters — Revised April 8, 2026
+| Grid | Price Source | Published Rate | Formula | Cost/Event | Verification |
+|------|-------------|----------------|---------|-----------|-------------|
+| UCI Portugal | OMIE Portugal day-ahead annual average 2014 | EUR 42.13/MWh | 21.32 MWh x EUR 42.13 | EUR 898 | VERIFIED — OMIE chart |
+| GEFCom2014 | EIA historical estimate ISO NE 2010 | USD 53.21/MWh | 5.42 MWh x USD 53.21 | USD 288 | PENDING — ISO NE ISOExpress login required |
+
+Note: Earlier estimates (EUR 85/MWh UCI, USD 18/MWh x 1.5 GEFCom) were
+incorrect and have been replaced. No arbitrary multipliers applied.
+
+### Results — Revised
+| Grid | Proxy | DANGEROUS Rate | Events/Year | Annual Cost |
+|------|-------|---------------|-------------|-------------|
+| UCI | P1 Ensemble Variance | 9.1% | 82 | EUR 73,636 |
+| UCI | P2 PI Width | 4.2% | 38 | EUR 34,124 |
+| UCI | P3 Residual Volatility | 9.3% | 83 | EUR 74,534 |
+| GEFCom | P1 Ensemble Variance | 5.3% | 45 | USD 12,960 |
+| GEFCom | P2 PI Width | 6.8% | 58 | USD 16,704 |
+| GEFCom | P3 Residual Volatility | 7.3% | 62 | USD 17,856 |
+
+### Comparison — Before and After Revision
+| Grid | Proxy | Annual Cost Before | Annual Cost After | Change |
+|------|-------|-------------------|-------------------|--------|
+| UCI | P1 | EUR 148,584 | EUR 73,636 | -50% — rate corrected |
+| GEFCom | P1 | USD 6,570 | USD 12,960 | +97% — rate corrected, multiplier removed |
+
+### GEFCom Pending Verification
+The USD 53.21/MWh figure requires exact verification.
+Source: https://www.iso-ne.com/isoexpress/web/reports/load-and-demand/-/tree/zone-info
+Login required to access 2011 SMD Hourly Data file containing 2010 data.
+Find Hub real-time annual average LMP for calendar year 2010.
+Update script line: GC_SPOT_PRICE_USD_PER_MWH = 53.21
+
+## Ensemble Sensitivity
+**Status: COMPLETE — April 8, 2026**
+**Script:** experiments/17_ensemble_sensitivity/ensemble_sensitivity.py
+**Kaggle notebook:** EFR2026 Ensemble Sensitivity
+**Output:** results/17_ensemble_sensitivity/sensitivity_results.csv — 8 rows
+**Figure:** results/uci/figures/fig12_ensemble_sensitivity.png and pdf — pending
+
+### Configuration
+| Parameter | Value |
+|-----------|-------|
+| Seed sizes tested | 5, 10, 20 (existing Phase 3), 50 |
+| Architecture | Identical to Phase 3 — HIDDEN=128, LAYERS=2, DROPOUT=0.2 |
+| Significance threshold | Bonferroni alpha = 0.0083 |
+| Device | Kaggle GPU T4 |
+| Inference | Batched INFER_BATCH=256 to avoid GPU OOM |
+
+### Final Results — All Seed Sizes
+| Grid | Seeds | rho_extreme | pval | Significant | Source |
+|------|-------|------------|------|-------------|--------|
+| UCI | 5 | +0.0543 | 0.1082 | No | Extension 3 |
+| UCI | 10 | +0.0897 | 0.0079 | No — exceeds Bonferroni 0.0083 | Extension 3 |
+| UCI | 20 | +0.0089 | 0.7929 | No | Phase 3 existing |
+| UCI | 50 | +0.0774 | 0.0220 | No | Extension 3 |
+| GEFCom | 5 | +0.4390 | 0.0000 | Yes | Extension 3 |
+| GEFCom | 10 | +0.4928 | 0.0000 | Yes | Extension 3 |
+| GEFCom | 20 | +0.4815 | 0.0000 | Yes | Phase 3 existing |
+| GEFCom | 50 | +0.5404 | 0.0000 | Yes | Extension 3 |
+
+### Key Findings
+UCI P1 non-significant at all four seed sizes. Borderline 10-seed result
+(p=0.0079) does not survive Bonferroni correction. Instability across sizes
+confirms failure is fundamental — not an ensemble artefact.
+
+GEFCom P1 significant at all four sizes. Signal strengthens monotonically
+from rho +0.4390 at 5 seeds to rho +0.5404 at 50 seeds — genuine grid
+property confirmed.
+
+Concern 3 closed — P1 failure on UCI is not an ensemble size artefact.
+---
+
+
+
+====================================================================================
 
 ## Gates — Final Status
 

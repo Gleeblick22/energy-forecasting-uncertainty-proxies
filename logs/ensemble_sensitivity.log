@@ -1,0 +1,10 @@
+nohup: ignoring input
+23:08:13  INFO      Device: cpu
+23:08:13  INFO      
+============================================================
+23:08:13  INFO      GRID: UCI
+23:08:13  INFO      ============================================================
+23:08:14  INFO      20-seed baseline loaded: rho_extreme=+0.0089
+23:08:14  INFO      
+--- Training 5-seed ensemble ---
+23:08:14  INFO        Seed 0/4 ...
