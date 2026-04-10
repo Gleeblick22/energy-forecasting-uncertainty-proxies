@@ -365,7 +365,9 @@ Friedman test: stat=11160.31, **p<0.0001**
 
 ---
 
-*Last updated: April 8, 2026*
+*Last updated: April 9, 2026*
+*ns = not significant after Bonferroni correction (α = 0.0083)*
+*ns* = borderline at 10 seeds (p=0.0079) — does not survive Bonferroni correction*
 
 ---
 
@@ -490,7 +492,7 @@ Update script line: GC_SPOT_PRICE_USD_PER_MWH = 53.21
 **Script:** experiments/17_ensemble_sensitivity/ensemble_sensitivity.py
 **Kaggle notebook:** EFR2026 Ensemble Sensitivity
 **Output:** results/17_ensemble_sensitivity/sensitivity_results.csv — 8 rows
-**Figure:** results/uci/figures/fig12_ensemble_sensitivity.png and pdf — pending
+**Figure:** results/uci/figures/fig12_ensemble_sensitivity.png and pdf — DONE 
 
 ### Configuration
 | Parameter | Value |
@@ -534,22 +536,32 @@ Concern 3 closed — P1 failure on UCI is not an ensemble size artefact.
 | Gate | Condition | Status |
 |------|-----------|--------|
 | Phase 1A complete | UCI preprocessing P1–P8 passed |  PASSED  JAN 02 2026|
-| Phase 1B complete | GEFCom preprocessing G1–G9 passed | ✅ PASSED  |
-| Architecture locked | research specification, hidden=128, output=1-step | ✅ LOCKED  |
-| Pilot UCI complete | 10 seeds, rho=0.2039 > 0.10 | ✅ PASSED  |
-| Pilot GEFCom complete | 10 seeds, rho=0.3007 > 0.10 | ✅ PASSED  |
-| Phase 2B UCI complete | 20 seeds, MAE=17.31 MWh | ✅ PASSED |
-| Phase 2B GEFCom complete | 20 seeds, MAE=3.68 MWh | ✅ PASSED |
-| Phase 3 proxies complete | P1+P2+P3 computed both datasets | ✅ PASSED  |
-| Phase 4 ARIMA UCI | MAE=14.44, Coverage=0.938, ACF24=−0.020 | ✅ PASSED  |
-| Phase 4 ARIMA GEFCom | MAE=6.61, Coverage=0.957, ACF24=−0.020 | ✅ PASSED  |
-| Phase 5 conformal complete | Both datasets, Winkler computed | ✅ PASSED  |
-| Phase 6 evaluation complete | results_summary_FINAL.csv populated | ✅ PASSED Mar 25 2026 |
-| Phase 7 figures complete | All 7 figure scripts (Figs 3–9) | ✅ COMPLETE Mar 27 2026 |
-| Paper draft complete | Manuscript V1.1 — all sections written | ✅ COMPLETE Mar 27 2026 |
-| CP8 numbers audit | Every paper number vs results_summary_FINAL.csv | ✅ COMPLETE Mar 27 2026 |
-| PDF eXpress validation | IEEE format compliant | ⏳ IN PROGRESS |
-| Submission ready | IEEE PES ISGT Europe 2026 Budapest — April 15 2026 | ⏳ IN PROGRESS |
+| Phase 1B complete | GEFCom preprocessing G1–G9 passed |  PASSED  |
+| Architecture locked | research specification, hidden=128, output=1-step |  LOCKED  |
+| Pilot UCI complete | 10 seeds, rho=0.2039 > 0.10 |  PASSED  |
+| Pilot GEFCom complete | 10 seeds, rho=0.3007 > 0.10 |  PASSED  |
+| Phase 2B UCI complete | 20 seeds, MAE=17.31 MWh |  PASSED |
+| Phase 2B GEFCom complete | 20 seeds, MAE=3.68 MWh |  PASSED |
+| Phase 3 proxies complete | P1+P2+P3 computed both datasets |  PASSED  |
+| Phase 4 ARIMA UCI | MAE=14.44, Coverage=0.938, ACF24=−0.020 |  PASSED  |
+| Phase 4 ARIMA GEFCom | MAE=6.61, Coverage=0.957, ACF24=−0.020 |  PASSED  |
+| Phase 5 conformal complete | Both datasets, Winkler computed |  PASSED  |
+| Phase 6 evaluation complete | results_summary_FINAL.csv populated |  PASSED Mar 25 2026 |
+| Phase 7 figures complete | All 7 figure scripts (Figs 3–9) |  COMPLETE Mar 27 2026 |
+| Paper draft complete | Manuscript V1.1 — all sections written |  COMPLETE Mar 27 2026 |
+| CP8 numbers audit | Every paper number vs results_summary_FINAL.csv |  COMPLETE Mar 27 2026 |
+| Extension 1 — Degradation Curve | 174 rows, all 6 validation checks passed | COMPLETE Apr 7 2026 |
+| Extension 2 — Adaptive P2 | UCI fails, GEFCom restores — RQ6 answered | COMPLETE Apr 7 2026 |
+| Extension 3 — Ensemble Sensitivity | All 4 seed sizes complete, 8 rows verified | COMPLETE Apr 9 2026 |
+| Extension 4 — Economic Cost | EUR 73,636 UCI / USD 12,960 GEFCom annually | COMPLETE Apr 8 2026 |
+| fig10 degradation curve | PNG and PDF saved to results/uci/figures/ | COMPLETE Apr 7 2026 |
+| fig11 adaptive P2 | PNG and PDF saved to results/uci/figures/ | COMPLETE Apr 7 2026 |
+| fig12 ensemble sensitivity | PNG and PDF saved to results/uci/figures/ | COMPLETE Apr 9 2026 |
+| fig1 study design updated | OPERATIONAL ANALYSIS block added | COMPLETE Apr 9 2026 |
+| fig2 theoretical framework | SRIMA typo fix pending | COMPLETED |
+| GEFCom cost verification | USD 53.21/MWh — pending ISO NE ISOExpress | COMPLETED |
+| Manuscript V1.2 | All extension sections — in progress | IN PROGRESS/COMPLETED |
+
 
 
 
@@ -623,6 +635,22 @@ Concern 3 closed — P1 failure on UCI is not an ensemble size artefact.
 | Rankings match across datasets | TRUE | — |
 | Friedman p | <0.0001 | <0.0001 |
 
+| **EXTENDED ANALYSIS** | | |
+| P1 degradation collapse (UCI) | 81st percentile | Significant all 29 thresholds |
+| P3 degradation collapse (UCI) | 85th percentile | Significant all 29 thresholds |
+| P2 degradation | Non-sig all 29 thresholds | Non-sig all 29 thresholds |
+| Adaptive P2 rho_extreme | −0.0039 ns | +0.4061*** |
+| Adaptive P2 DANGEROUS rate | 12.21% (worsened) | 5.26% (improved) |
+| Adaptive P2 Winkler score | 122.71 | 34.38 |
+| P1 rho_extreme 5 seeds | +0.0543 ns | +0.4390*** |
+| P1 rho_extreme 10 seeds | +0.0897 ns* | +0.4928*** |
+| P1 rho_extreme 20 seeds | +0.0089 ns | +0.4815*** |
+| P1 rho_extreme 50 seeds | +0.0774 ns | +0.5404*** |
+| P1 annual cost estimate | EUR 73,636 | USD 12,960 |
+| P2 annual cost estimate | EUR 34,124 | USD 16,704 |
+| P3 annual cost estimate | EUR 74,534 | USD 17,856 |
+| Cost per DANGEROUS event | EUR 898 | USD 288 |
+| Market rate used | EUR 42.13/MWh (OMIE 2014, verified) | USD 53.21/MWh (EIA estimate, pending) |
 
 *Tracker maintained by: [DHAN GHALE]*
 *Last updated: March 26, 2026*

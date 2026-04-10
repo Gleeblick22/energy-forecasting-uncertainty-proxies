@@ -6,7 +6,14 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Paper](https://img.shields.io/badge/paper-under%20review-yellow.svg)]()
 
-> This study empirically evaluates whether uncertainty proxies from AI load forecasting models provide reliable warnings during extreme demand conditions, the hours when grid operators need accurate confidence signals most. Using a 20-seed LSTM ensemble and SARIMA baseline across two geographically distinct grids (UCI Portugal and GEFCom2014 New England), we show that proxy reliability is grid-dependent: ensemble variance (P1) and residual volatility (P3) retain strong correlation with forecast error at extreme demand on the weather-sensitive New England grid (rho=+0.482, rho=+0.455) but collapse entirely on the stable Mediterranean Portuguese grid (rho=+0.009, rho=+0.044). Standard aggregate validation metrics mask this conditional failure. ARIMA prediction interval width (P2) fails systematically on both grids due to structural non-adaptivity. Findings are robust to demand threshold definition (90th vs 95th percentile).
+> This study empirically evaluates whether uncertainty proxies from AI load forecasting models provide reliable warnings during extreme demand conditions, the hours when grid operators need accurate confidence signals most. Using a 20-seed LSTM ensemble and SARIMA baseline across two geographically distinct grids (UCI Portugal and GEFCom2014 New England), we show that proxy reliability is grid-dependent: ensemble variance (P1) and residual volatility (P3) retain strong correlation with forecast error at extreme demand on the weather-sensitive New England grid (ρ=+0.482, ρ=+0.455) but collapse entirely on the stable Mediterranean Portuguese grid (ρ=+0.009, ρ=+0.044). Four extended analyse deepen these findings: proxy degradation curves reveal reliability collapse begins at the 81st demand percentile on UCI — before the operational threshold; ensemble sensitivity analysis across 5 to 50 seeds confirms P1 failure is fundamental not a configuration artefact; adaptive P2 remediation restores reliability on GEFCom2014 (ρ=+0.406) but worsens UCI operational risk; and economic cost analysis translates DANGEROUS rates into estimated annual reserve activation costs of EUR 73,636 (UCI) and USD 12,960 (GEFCom2014).
+---
+
+## Study Design
+
+![Study Design](results/uci/figures/fig1_study_design.png)
+
+*Fig. 1. Study design and evaluation framework for cross-grid uncertainty proxy reliability analysis.*
 
 ---
 
@@ -19,6 +26,7 @@
 | RQ3 | Do proxies produce statistically significant overconfidence at extreme demand? |
 | RQ4 | Which proxy method scores best under formal interval scoring? |
 | RQ5 | Are proxy calibration curves monotonically increasing across demand regimes? |
+| RQ6 | Does adaptive interval estimation remedy P2 failure, and does this depend on grid climate character? |
 
 ---
 
@@ -61,20 +69,29 @@
 
 ## Key Results
 
+### Primary Analysis
 | Metric | UCI (Portugal) | GEFCom2014 (New England) |
 |--------|---------------|--------------------------|
 | LSTM MAE — normal demand | 16.86 MWh | 3.49 MWh |
 | LSTM MAE — extreme demand | 21.32 MWh (+26.4%) | 5.42 MWh (+55.3%) |
-| P1 Spearman rho — all hours | +0.189 *** | +0.440 *** |
-| P1 Spearman rho — extreme hours | +0.009 (ns) | +0.482 *** |
-| P3 Spearman rho — extreme hours | +0.044 (ns) | +0.455 *** |
+| P1 Spearman ρ — all hours | +0.189 *** | +0.440 *** |
+| P1 Spearman ρ — extreme hours | +0.009 (ns) | +0.482 *** |
+| P3 Spearman ρ — extreme hours | +0.044 (ns) | +0.455 *** |
 | P2 overconfidence OR (extreme) | 0.053 (ns) | 0.103 *** |
 | Best Winkler score | Conformal: 166.2 | P3: 46.0 |
-| Sensitivity at 95th pct (P1) | -0.110 (ns) | +0.423 *** |
+| Sensitivity at 95th pct (P1) | −0.110 (ns) | +0.423 *** |
 
-`***` p < 0.0001 | `ns` not significant after Bonferroni correction (alpha = 0.0083, 6 simultaneous tests)  
-UCI load in MWh; GEFCom2014 load in MWh.
 
+### Extended Analysis
+| Metric | UCI (Portugal) | GEFCom2014 (New England) |
+|--------|---------------|--------------------------|
+| P1 degradation threshold | 81st percentile | Significant all thresholds |
+| P1 at 50 seeds | +0.077 (ns) | +0.540 *** |
+| Adaptive P2 ρ — extreme hours | −0.004 (ns) | +0.406 *** |
+| Adaptive P2 DANGEROUS rate | 12.21% (worsened) | 5.26% (improved) |
+| P1 annual cost estimate | EUR 73,636 | USD 12,960 |
+
+`***` p < 0.0001 | `ns` not significant after Bonferroni correction (α = 0.0083)
 ---
 
 ## Project Structure
@@ -83,11 +100,11 @@ UCI load in MWh; GEFCom2014 load in MWh.
 │   ├── uci/
 │   │   ├── raw/                    # LD2011_2014.txt (not in repo)
 │   │   ├── processed/              # Hourly aggregated features
-│   │   └── splits/                 # Train / val / test / extreme splits
+│   │   └── splits/                 # Train / val / test splits
 │   └── gefcom/
 │       ├── raw/                    # GEFCom2014 task files (not in repo)
 │       ├── processed/              # Hourly aggregated features
-│       └── splits/                 # Train / val / test / extreme splits
+│       └── splits/                 # Train / val / test splits
 ├── experiments/
 │   ├── 01_pilot_uci/               # Gate: Spearman rho > 0.10 on extreme hours
 │   ├── 02_pilot_gefcom/
@@ -102,7 +119,11 @@ UCI load in MWh; GEFCom2014 load in MWh.
 │   ├── 11_conformal_uci/           # Split conformal prediction
 │   ├── 12_conformal_gefcom/
 │   ├── 13_cross_dataset/           # Cross-grid comparison and evaluation
-│   ├── 14_figures/                 # All 7 figure scripts
+│   ├── 14_figures/                 # All 12 figure scripts (fig1–fig12)
+│   ├── 15_degradation_curve/       # Extension 1 — proxy degradation curve
+│   ├── 16_adaptive_p2/             # Extension 2 — adaptive P2 remediation
+│   ├── 17_ensemble_sensitivity/    # Extension 3 — ensemble size sensitivity
+│   ├── 19_economic_cost/           # Extension 4 — economic cost model
 │   └── sensitivity_95.py           # 95th percentile threshold sensitivity
 ├── models/
 │   ├── uci/
@@ -115,17 +136,21 @@ UCI load in MWh; GEFCom2014 load in MWh.
 │       └── configs/
 ├── results/
 │   ├── uci/
-│   │   ├── figures/                # fig3-fig9 (PDF + PNG)
+│   │   ├── figures/                # fig1–fig12 (PNG + PDF)
 │   │   └── tables/                 # Proxy CSVs, conformal, evaluation
 │   ├── gefcom/
 │   ├── comparison/                 # Cross-dataset summary
+│   ├── 15_degradation_curve/       # degradation_results.csv — 174 rows
+│   ├── 16_adaptive_p2/             # adaptive_p2_results.csv — 4 files
+│   ├── 17_ensemble_sensitivity/    # sensitivity_results.csv — 8 rows
+│   ├── 19_economic_cost/           # economic_cost_results.csv — 6 rows
 │   └── summary/
 │       └── results_summary_FINAL.csv   # Single source of truth (4 rows x 93 cols)
 ├── docs/
-│   ├── research_log.md             # Session-by-session decisions
+│   ├── research_log.md             # Session-by-session decisions (Sessions 1–18)
 │   ├── experiment_tracker.md       # Phase status and gate results
 │   └── data_cards.md               # Full dataset documentation
-├── logs/                           # LSTM and ARIMA training logs
+├── logs/                           # LSTM, ARIMA, and sensitivity training logs
 ├── .gitignore
 ├── requirements.txt
 └── README.md

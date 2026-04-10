@@ -949,12 +949,12 @@ Figure: results/uci/figures/fig12_ensemble_sensitivity.png and pdf — pending
 | Phase 8 | Publication Figures (F3–F9) | COMPLETE |
 | Phase 9 | Manuscript V1.1 (all sections) | COMPLETE |
 | CP8 | Numbers audit vs results_summary_FINAL.csv | COMPLETE |
-| Degradation Curve | fig10, 174 rows, all validation passed | COMPLETE |
-| Adaptive P2 | fig11, RQ6 answered, UCI fails GEFCom restores | COMPLETE |
-| Economic Cost | EUR 148,584 UCI / USD 6,570 GEFCom annually | COMPLETE |
-| Ensemble Sensitivity | Running on Kaggle GPU — awaiting 50-seed results | IN PROGRESS |
-| Manuscript V1.2 | Pending ensemble sensitivity completion | PENDING |gures (F3–F9) |  COMPLETE |
-| Phase 9 | IEEE Manuscript V1.1 (all sections) |  COMPLETE |
+| Extension 1: Degradation Curve | fig10, 174 rows, all validation passed | COMPLETE |
+| Extension 2: Adaptive P2 | fig11, RQ6 answered, UCI fails GEFCom restores | COMPLETE |
+| Extension 3: Economic Cost | EUR 148,584 UCI / USD 6,570 GEFCom annually | COMPLETE |
+| Extension 4: Ensemble Sensitivity | Running on Kaggle GPU — awaiting 50-seed results | COMPLETED |
+| Manuscript V1.2 | Pending ensemble sensitivity completion | COMPLETED |gures (F3–F9) |  COMPLETE |
+| Phase 9 | IEEE Manuscript V1.2 (all sections) |  Updateting/COMPLETE |
 | CP8 | Numbers audit vs results_summary_FINAL.csv |  COMPLETE |
 
 
@@ -986,6 +986,40 @@ On UCI, conformal (166.16) remains best but with undercoverage caveat (0.843).
 ARIMA outperforms LSTM on UCI (14.44 vs 17.31 MWh MAE) — stable European grid
 favours classical time series. LSTM dominates on GEFCom (3.68 vs 6.61 MWh) —
 weather features drive neural advantage on weather-driven grids.
+
+**Finding 6 — Proxy reliability degrades before the operational threshold (Extension 1):**
+P1 reliability on UCI begins collapsing at the 81st demand percentile — 9 percentile
+points before the 90th percentile operational threshold. Single-threshold evaluation
+understates failure severity on weather-insensitive grids. P1 and P3 on GEFCom remain
+significant across all 29 percentile thresholds tested (70th–98th). Operators must
+validate proxies across a range of demand thresholds, not just the deployment threshold.
+
+**Finding 7 — Adaptive P2 remediation is grid-dependent (Extension 2):**
+Rolling quantile regression (W=168hrs) restores P2 reliability on GEFCom2014
+(ρ=+0.406, p<0.0001) where temperature features provide sufficient signal.
+On UCI, the same adaptive approach worsens operational risk — DANGEROUS rate
+increases from 4.25% to 12.21%. P2 failure on weather-insensitive grids is
+structural and cannot be remediated by adaptive estimation alone. Adaptive P2
+Winkler score on GEFCom (34.38) surpasses the conformal benchmark (75.35).
+
+**Finding 8 — P1 failure on UCI is fundamental, not a configuration artefact (Extension 3):**
+Ensemble sensitivity analysis across 5, 10, 20, and 50-seed configurations confirms
+P1 failure on UCI persists at all tested sizes. At 50 seeds (the largest configuration)
+P1 on UCI remains non-significant (ρ=+0.077, p=0.022). The borderline 10-seed result
+(p=0.0079) does not survive Bonferroni correction (α=0.0083) and is a statistical
+fluctuation. On GEFCom, P1 strengthens monotonically from ρ=+0.439 at 5 seeds to
+ρ=+0.540 at 50 seeds — confirming genuine grid-level reliability independent of
+ensemble size.
+
+**Finding 9 — Proxy failure carries direct financial consequences (Extension 4):**
+DANGEROUS quadrant rates translate into estimated annual reserve activation costs
+of EUR 73,636 on UCI Portugal (P1, 9.1% DANGEROUS rate, 82 events/year) and
+USD 12,960 on GEFCom2014 (P1, 5.3% DANGEROUS rate, 45 events/year) under
+conservative lower-bound assumptions. UCI cost per event: 21.32 MWh × EUR 42.13/MWh
+= EUR 898 (OMIE 2014 verified). GEFCom cost per event: 5.42 MWh × USD 53.21/MWh
+= USD 288 (EIA estimate, pending ISO NE verification). Proxy validation is a
+financially material operational decision, not merely a methodological concern.
+
 
 
 ## 2026-26 — Repository rename and final project structure
@@ -1060,7 +1094,9 @@ Repository structure confirmed:
 9. UCI conformal undercoverage (0.843) — seasonal mismatch, accepted, one sentence in limits.
 10. P3 and P1 beat conformal on GEFCom — highlight as notable finding in results.
 11. RMSE/MAE = 2.668 on GEFCom (vs 1.460 UCI) — GEFCom has more extreme outlier errors.
-
+12. Adaptive P2 DANGEROUS rate worsens on UCI (4.25% to 12.21%) — documented, not an error
+13. Economic cost GEFCom USD 53.21/MWh — estimated, pending ISO NE ISOExpress verification
+14. Ensemble sensitivity 10-seed UCI borderline (p=0.0079) — instability is itself the finding
 
 
 ## References
