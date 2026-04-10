@@ -635,7 +635,8 @@ Concern 3 closed — P1 failure on UCI is not an ensemble size artefact.
 | Rankings match across datasets | TRUE | — |
 | Friedman p | <0.0001 | <0.0001 |
 
-| **EXTENDED ANALYSIS** | | |
+## EXTENDED ANALYSIS
+
 | P1 degradation collapse (UCI) | 81st percentile | Significant all 29 thresholds |
 | P3 degradation collapse (UCI) | 85th percentile | Significant all 29 thresholds |
 | P2 degradation | Non-sig all 29 thresholds | Non-sig all 29 thresholds |
@@ -650,8 +651,15 @@ Concern 3 closed — P1 failure on UCI is not an ensemble size artefact.
 | P2 annual cost estimate | EUR 34,124 | USD 16,704 |
 | P3 annual cost estimate | EUR 74,534 | USD 17,856 |
 | Cost per DANGEROUS event | EUR 898 | USD 288 |
-| Market rate used | EUR 42.13/MWh (OMIE 2014, verified) | USD 53.21/MWh (EIA estimate, pending) |
+| Market rate source (UCI) | EUR 42.13/MWh — OMIE Portugal day-ahead annual average 2014. Source: [OMIE Interannual Price Report](https://www.omie.es/en/market-results-history/interannual/daily-market/daily-prices?scope=interannual). Verified from official OMIE chart. | — |
+| Market rate source (GEFCom) | — | USD 53.21/MWh — EIA historical estimate for ISO New England 2010. Source: [EIA Wholesale Electricity Data](https://www.eia.gov/electricity/wholesale/). Pending exact verification from [ISO NE ISOExpress](https://www.iso-ne.com/isoexpress/web/reports/load-and-demand/-/tree/zone-info). |
+| Cost formula | extreme_hour_MAE × market_rate = 21.32 MWh × EUR 42.13 = EUR 898/event | extreme_hour_MAE × market_rate = 5.42 MWh × USD 53.21 = USD 288/event |
 
-*Tracker maintained by: [DHAN GHALE]*
-*Last updated: March 26, 2026*
-*Last updated: March 27, 2026*
+> **Cost Verification Status:**
+> UCI EUR 42.13/MWh — VERIFIED from OMIE official interannual price chart (screenshot on file).
+> GEFCom USD 53.21/MWh — ESTIMATED from EIA historical ranges. Exact verification
+> requires ISO NE ISOExpress login. Update before manuscript submission.
+> Formula: cost_per_event = mean_extreme_hour_MAE × published_spot_price.
+> All annual costs are conservative lower bounds excluding cascading costs.
+
+*Tracker maintained by: [DHAN GHALE]* *Last updated: April 10, 2026*
