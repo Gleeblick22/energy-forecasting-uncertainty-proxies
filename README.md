@@ -41,7 +41,7 @@
 | Test samples | 8,592 hours | 8,592 hours |
 | Extreme threshold (90th pct) | 1,357.04 MWh | 237.60 MWh |
 | Extreme hours in test | 876 (10.0%) | 877 (10.0%) |
-| Source | [UCI ML Repository](https://archive.ics.uci.edu/dataset/321) | [Hong et al. 2016](https://doi.org/10.1016/j.ijforecast.2016.02.001) |
+| Source | [UCI ML Repository](https://archive.ics.uci.edu/ml/datasets/ElectricityLoadDiagrams20112014) | [Hong et al. 2016](https://doi.org/10.1016/j.ijforecast.2016.02.001) |
 
 > **Note:** Raw datasets are not included due to licensing. See [Data Setup](#data-setup) below.
 
@@ -161,7 +161,7 @@
 ## Data Setup
 
 **UCI dataset:**
-1. Download `LD2011_2014.txt` from [UCI ML Repository](https://archive.ics.uci.edu/dataset/321)
+1. Download `LD2011_2014.txt` from [UCI ML Repository](https://archive.ics.uci.edu/ml/datasets/ElectricityLoadDiagrams20112014)
 2. Place at `data/uci/raw/LD2011_2014.txt`
 
 **GEFCom2014 dataset:**
