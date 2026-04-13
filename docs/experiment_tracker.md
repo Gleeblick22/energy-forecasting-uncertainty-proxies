@@ -16,14 +16,12 @@ Never delete rows — mark failed runs as FAILED with a note.
 ## Phase 1 — Data Preprocessing
 
 | Dataset | Script | Status | Date | Notes |
-|---------|--------|--------|------|-------|
 | UCI | experiments/03_preprocess_uci/preprocess_uci.py |  COMPLETE | Jan 03 2026 | All P1-P8 passed |
 | GEFCom | experiments/04_preprocess_gefcom/preprocess_gefcom.py |  COMPLETE | Jan 15 2026 | All G1-G9 passed, 21 gaps interpolated, temperature_F corrected |
 
 
 ### UCI Preprocessing Results (locked)
 | Metric | Value |
-|--------|-------|
 | Raw shape | (140256, 370) |
 | Hourly rows | 35,064 |
 | Features | 11 |
@@ -37,7 +35,6 @@ Never delete rows — mark failed runs as FAILED with a note.
 
 ### GEFCom Preprocessing Results (locked)
 | Metric | Value |
-|--------|-------|
 | Raw rows (combined) | 57,024 |
 | Features | 13 |
 | Train rows | 23,928 |
@@ -81,7 +78,6 @@ Run 10 seeds with full architecture but reduced epochs to verify:
 
 ### UCI Pilot Signal Check
 | Metric | Value | Pass? |
-|--------|-------|-------|
 | Ensemble variance non-zero |  Yes | yes |
 | Spearman rho (all test hours) | 0.2039 | yes |
 | Spearman rho (extreme hours only) | > 0.10 | Yes  |
@@ -91,7 +87,6 @@ Run 10 seeds with full architecture but reduced epochs to verify:
 
 ### GEFCom Pilot Signal Check
 | Metric | Value | Pass? |
-|--------|-------|-------|
 | Ensemble variance non-zero |  Yes | yes  |
 | Spearman rho (all test hours) | 0.3007 | yes |
 | Spearman rho (extreme hours only) | > 0.10 | yes |
@@ -122,7 +117,6 @@ Run 10 seeds with full architecture but reduced epochs to verify:
 **Status:  COMPLETE — Feb 3 2026 — Runtime ~62 min — Device: CUDA**
 
 | Seed | Status | Val Loss | MAE (MWh) | Converged Epoch | Notes |
-|------|--------|----------|-----------|-----------------|-------|
 | 0 |  DONE | 0.000222 | 19.06 | 41 | |
 | 1 |  DONE | 0.000188 | 18.39 | 47 | |
 | 2 |  DONE | 0.000193 | 17.86 | 37 | |
@@ -146,7 +140,6 @@ Run 10 seeds with full architecture but reduced epochs to verify:
 
 **UCI Full Training Summary:**
 | Metric | Value |
-|--------|-------|
 | Seeds completed | 20/20 |
 | all_predictions.npy shape | (20, 8592) |
 | Ensemble MAE (MWh) | **17.31** |
@@ -162,7 +155,6 @@ Run 10 seeds with full architecture but reduced epochs to verify:
 **Status:  COMPLETE WITH NOTE (seeds 11, 13) — Feb 3 2026 — Runtime ~86 min — Device: CUDA**
 
 | Seed | Status | Val Loss | MAE (MWh) | Converged Epoch | Notes |
-|------|--------|----------|-----------|-----------------|-------|
 | 0 |  DONE | 0.000241 | 4.48 | 63 | |
 | 1 |  DONE | 0.000247 | 4.33 | 59 | |
 | 2 |  DONE | 0.000173 | 3.92 | 100 | Hit max epochs |
@@ -193,7 +185,6 @@ uncertainty signal. Ensemble MAE (3.68 MWh) is robust — diluted by 18 normal s
 
 **GEFCom Full Training Summary:**
 | Metric | Value |
-|--------|-------|
 | Seeds completed | 20/20 |
 | all_predictions.npy shape | (20, 8592) |
 | Ensemble MAE (MWh) | **3.68** |
@@ -209,7 +200,6 @@ uncertainty signal. Ensemble MAE (3.68 MWh) is robust — diluted by 18 normal s
 
 ### Proxies Computed (per dataset)
 | Proxy | Name | Source | Formula |
-|-------|------|--------|---------|
 | P1 | Ensemble Variance | LSTM 20 seeds | var(y_s,t for s=0..19) in original MWh scale |
 | P2 | PI Width | ARIMA | upper_95(t) − lower_95(t) in MWh |
 | P3 | Residual Volatility | LSTM | std(residuals t-24 to t-1), rolling 24h window in MWh |
@@ -256,7 +246,6 @@ uncertainty signal. Ensemble MAE (3.68 MWh) is robust — diluted by 18 normal s
 
 **ARIMA vs LSTM comparison:**
 | Dataset | ARIMA MAE | LSTM MAE | Winner |
-|---------|-----------|----------|--------|
 | UCI | 14.44 MWh | 17.31 MWh | ARIMA (stable European grid) |
 | GEFCom | 6.61 MWh | 3.68 MWh | LSTM (weather-driven grid) |
 
@@ -276,7 +265,6 @@ is a known SARIMA(m=24) limitation — documented in paper per research specific
 **Status:  COMPLETE WITH NOTE (UCI undercoverage)**
 
 | Dataset | conformal_q (MWh) | Coverage | Target | Width mean (MWh) | Winkler Score | Status |
-|---------|------------------|----------|--------|-----------------|---------------|--------|
 | UCI | 30.88 | 0.843 | 0.90 | 61.76 | 113.9588 |  Below target |
 | GEFCom | 5.10 | 0.875 | 0.90 | 10.20 | 42.7740 |  Acceptable |
 
@@ -337,7 +325,6 @@ Friedman test: stat=11160.31, **p<0.0001**
 
 **RQ5 — Proxy Rankings by |rho_all|:**
 | Dataset | Rank 1 | Rank 2 | Rank 3 |
-|---------|--------|--------|--------|
 | UCI | P1 (0.1893) | P3 (0.1754) | P2 (0.0477) |
 | GEFCom | P1 (0.4396) | P3 (0.3338) | P2 (0.1551) |
 | **Match** | **TRUE ** | | |
@@ -390,7 +377,6 @@ operational guidance. See research_log.md Sessions 14-18 for full detail.
 
 ### Validation at 90th percentile — All 6 Passed
 | Grid | Proxy | rho | Status |
-|------|-------|-----|--------|
 | UCI | P1 | +0.0089 | PASS |
 | UCI | P2 | -0.0543 | PASS |
 | UCI | P3 | +0.0440 | PASS |
@@ -432,7 +418,6 @@ Row count: 174 rows — 29 pct x 3 proxies x 2 grids
 
 ### Results
 | Metric | Static UCI | Adaptive UCI | Static GEFCom | Adaptive GEFCom |
-|--------|-----------|-------------|--------------|----------------|
 | rho_extreme | -0.0543 | -0.0039 | +0.0182 | +0.4061 |
 | Significant | No | No | No | Yes |
 | DANGEROUS rate | 4.25% | 12.21% | 6.76% | 5.26% |
@@ -440,7 +425,6 @@ Row count: 174 rows — 29 pct x 3 proxies x 2 grids
 
 ### RQ6 Answer
 | Grid | Answer |
-|------|--------|
 | UCI Portugal | NO — failure persists |
 | GEFCom New England | YES — restores significance |
 
@@ -476,7 +460,6 @@ incorrect and have been replaced. No arbitrary multipliers applied.
 
 ### Comparison — Before and After Revision
 | Grid | Proxy | Annual Cost Before | Annual Cost After | Change |
-|------|-------|-------------------|-------------------|--------|
 | UCI | P1 | EUR 148,584 | EUR 73,636 | -50% — rate corrected |
 | GEFCom | P1 | USD 6,570 | USD 12,960 | +97% — rate corrected, multiplier removed |
 
@@ -505,7 +488,6 @@ Update script line: GC_SPOT_PRICE_USD_PER_MWH = 53.21
 
 ### Final Results — All Seed Sizes
 | Grid | Seeds | rho_extreme | pval | Significant | Source |
-|------|-------|------------|------|-------------|--------|
 | UCI | 5 | +0.0543 | 0.1082 | No | Extension 3 |
 | UCI | 10 | +0.0897 | 0.0079 | No — exceeds Bonferroni 0.0083 | Extension 3 |
 | UCI | 20 | +0.0089 | 0.7929 | No | Phase 3 existing |
@@ -534,7 +516,6 @@ Concern 3 closed — P1 failure on UCI is not an ensemble size artefact.
 ## Gates — Final Status
 
 | Gate | Condition | Status |
-|------|-----------|--------|
 | Phase 1A complete | UCI preprocessing P1–P8 passed |  PASSED  JAN 02 2026|
 | Phase 1B complete | GEFCom preprocessing G1–G9 passed |  PASSED  |
 | Architecture locked | research specification, hidden=128, output=1-step |  LOCKED  |
@@ -608,7 +589,6 @@ Concern 3 closed — P1 failure on UCI is not an ensemble size artefact.
 *All numbers from results/summary/results_summary_FINAL.csv*
 
 | Metric | UCI | GEFCom |
-|--------|-----|--------|
 | LSTM MAE all (MWh) | 17.31 | 3.68 |
 | LSTM MAE extreme (MWh) | 21.32 | 5.42 |
 | LSTM MAE normal (MWh) | 16.86 | 3.49 |
@@ -635,11 +615,11 @@ Concern 3 closed — P1 failure on UCI is not an ensemble size artefact.
 | Rankings match across datasets | TRUE | — |
 | Friedman p | <0.0001 | <0.0001 |
 
+
 ## Operational Analysis Results
 
 | Metric | UCI Portugal | GEFCom2014 New England |
 |--------|-------------|------------------------|
-
 | P1 degradation collapse (UCI) | 81st percentile | Significant all 29 thresholds |
 | P3 degradation collapse (UCI) | 85th percentile | Significant all 29 thresholds |
 | P2 degradation | Non-sig all 29 thresholds | Non-sig all 29 thresholds |
