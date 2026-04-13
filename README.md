@@ -21,11 +21,11 @@
 
 | RQ | Question |
 |----|----------|
-| RQ1 | Do LSTM forecast errors amplify during extreme demand hours? |
-| RQ2 | Do uncertainty proxies correlate with forecast error at extreme demand? |
-| RQ3 | Do proxies produce statistically significant overconfidence at extreme demand? |
-| RQ4 | Which proxy method scores best under formal interval scoring? |
-| RQ5 | Are proxy calibration curves monotonically increasing across demand regimes? |
+| RQ1 | Do extreme demand periods amplify LSTM and SARIMA forecast errors relative to normal demand periods? |
+| RQ2 | Do practitioner-accessible uncertainty proxies correlate with forecast errors during extreme demand? |
+| RQ3 | Do uncertainty proxies produce statistically significant overconfidence at extreme demand hours, and what fraction of extreme-demand errors occur without prior proxy warning? |
+| RQ4 | Do proxy reliability findings generalise across grids with distinct structural characteristics? |
+| RQ5 | Which proxy is most reliable for operational deployment, and under what conditions? |
 | RQ6 | Does adaptive interval estimation remedy P2 failure, and does this depend on grid climate character? |
 
 ---

@@ -2,7 +2,7 @@
 # Experiment Tracker
 ## Project: Conditional Reliability of Uncertainty Proxies Under Extreme Demand: A Cross-Grid Empirical Analysis of Load Forecasting
 **Last updated:** March 23, 2026
-**Version:** v5.0 (architecture locked) 
+**Version:** v5.0 (architecture locked)
 
 
 
@@ -635,7 +635,10 @@ Concern 3 closed — P1 failure on UCI is not an ensemble size artefact.
 | Rankings match across datasets | TRUE | — |
 | Friedman p | <0.0001 | <0.0001 |
 
-## EXTENDED ANALYSIS
+## Operational Analysis Results
+
+| Metric | UCI Portugal | GEFCom2014 New England |
+|--------|-------------|------------------------|
 
 | P1 degradation collapse (UCI) | 81st percentile | Significant all 29 thresholds |
 | P3 degradation collapse (UCI) | 85th percentile | Significant all 29 thresholds |
