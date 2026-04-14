@@ -66,9 +66,15 @@ Each dataset reserves exactly one full calendar year as held-out test set.
 
 | Split | UCI                          | GEFCom                        |
 |-------|------------------------------|-------------------------------|
+
 | Train | Jan 8 2011 - Sep 30 2013     | Jan 8 2007 - Sep 30 2009      |
+|-----|-----|-----|
+
 | Val   | Oct 1 - Dec 31 2013          | Oct 1 - Dec 31 2009           |
+|-----|-----|-----|
+
 | Test  | Jan 1 - Dec 31 2014          | Jan 1 - Dec 31 2010           |
+|-----|-----|-----|
 
 **Citation locked:**
 Hong et al. (2016), International Journal of Forecasting, 32(3), 896-913.
@@ -121,14 +127,30 @@ Script: experiments/03_preprocess_uci/preprocess_uci.py
 
 | Step | Description | Result |
 |------|-------------|--------|
+
 | P1 | Load raw file | Shape (140256, 370) PASS |
+|-----|-----|-----|
+
 | P2 | Aggregate 370 clients -> total_load | No negatives PASS |
+|-----|-----|-----|
+
 | P3 | Resample 15-min -> hourly MWh | 35,064 rows PASS |
+|-----|-----|-----|
+
 | P4 | Gap detection | 0 gaps PASS |
+|-----|-----|-----|
+
 | P5 | Build 11 features | 168 NaN rows dropped PASS |
+|-----|-----|-----|
+
 | P6 | Train/val/test split | 23,928 / 2,208 / 8,760 PASS |
+|-----|-----|-----|
+
 | P7 | MinMaxScaler fit on train only | scaler_uci.pkl saved PASS |
+|-----|-----|-----|
+
 | P8 | Extreme demand flag 90th pctile | 1357.04 MWh, 876 rows (10.0%) PASS |
+|-----|-----|-----|
 
 Bugs fixed:
 - Extra timestamp 2015-01-01 00:00 (DST artifact): truncated to 2014-12-31 23:00
@@ -144,15 +166,33 @@ Script: experiments/04_preprocess_gefcom/preprocess_gefcom.py
 
 | Step | Description | Result |
 |------|-------------|--------|
+
 | G1 | Load 15 task files | 50,376 + 9,648 rows PASS |
+|-----|-----|-----|
+
 | G2 | Load solution file Dec 2011 | 744 rows PASS |
+|-----|-----|-----|
+
 | G3 | Concatenate + sort + deduplicate | 57,024 rows PASS |
+|-----|-----|-----|
+
 | G4 | Average 25 weather stations | temperature_F created PASS |
+|-----|-----|-----|
+
 | G5 | Gap detection + interpolation | 21 gaps interpolated PASS |
+|-----|-----|-----|
+
 | G6 | Build 13 features | 168 NaN rows dropped PASS |
+|-----|-----|-----|
+
 | G7 | Train/val/test split | 23,928 / 2,208 / 8,760 PASS |
+|-----|-----|-----|
+
 | G8 | MinMaxScaler INDEPENDENT from UCI | scaler_gefcom.pkl saved PASS |
+|-----|-----|-----|
+
 | G9 | Extreme demand flag 90th pctile | 237.60 MWh, 877 rows (10.0%) PASS |
+|-----|-----|-----|
 
 Bugs fixed:
 - Timestamp parser: format is MDDYYYY not DDMMYYYY
@@ -184,24 +224,50 @@ is_weekend, is_holiday_MA, lag_1h, lag_24h, lag_168h, temperature_lag_24h
    Fix: batched inference in chunks of 256 sequences
 
 **UCI Pilot Results (10 seeds, 30 max epochs):**
+
 | Metric | Value |
 |--------|-------|
+
 | MAE | 18.02 MWh |
+|-----|-----|
+
 | Ensemble var mean | 117.05 MWh² |
+|-----|-----|
+
 | Spearman rho (all hours) | 0.2039 (p=0.0000) |
+|-----|-----|
+
 | Spearman rho (extreme hours) | 0.0410 (p=0.2250) — weak |
+|-----|-----|
+
 | Spearman rho (normal hours) | 0.1977 (p=0.0000) |
+|-----|-----|
+
 | GATE |  PASSED (rho_all >= 0.10) |
+|-----|-----|
 
 **GEFCom Pilot Results (10 seeds, 30 max epochs):**
+
 | Metric | Value |
 |--------|-------|
+
 | MAE | 4.41 MWh |
+|-----|-----|
+
 | Ensemble var mean | 10.51 MWh² |
+|-----|-----|
+
 | Spearman rho (all hours) | 0.3007 (p=0.0000) |
+|-----|-----|
+
 | Spearman rho (extreme hours) | 0.3572 (p=0.0000) — strong |
+|-----|-----|
+
 | Spearman rho (normal hours) | 0.2271 (p=0.0000) |
+|-----|-----|
+
 | GATE |  PASSED (rho_extreme >= 0.10) |
+|-----|-----|
 
 **Key finding from pilot:**
 Cross-dataset contrast visible at pilot stage:
@@ -232,72 +298,178 @@ Cross-dataset contrast visible at pilot stage:
 
 | Seed | Val Loss | MAE (MWh) | Epoch |
 |------|----------|-----------|-------|
+
 | 0 | 0.000222 | 19.06 | 41 |
+|-----|-----|-----|-----|
+
 | 1 | 0.000188 | 18.39 | 47 |
+|-----|-----|-----|-----|
+
 | 2 | 0.000193 | 17.86 | 37 |
+|-----|-----|-----|-----|
+
 | 3 | 0.000203 | 18.12 | 44 |
+|-----|-----|-----|-----|
+
 | 4 | 0.000188 | 17.71 | 39 |
+|-----|-----|-----|-----|
+
 | 5 | 0.000189 | 18.89 | 52 |
+|-----|-----|-----|-----|
+
 | 6 | 0.000182 | 18.70 | 62 |
+|-----|-----|-----|-----|
+
 | 7 | 0.000215 | 19.48 | 48 |
+|-----|-----|-----|-----|
+
 | 8 | 0.000176 | 20.35 | 57 |
+|-----|-----|-----|-----|
+
 | 9 | 0.000216 | 18.86 | 44 |
+|-----|-----|-----|-----|
+
 | 10 | 0.000227 | 19.24 | 39 |
+|-----|-----|-----|-----|
+
 | 11 | 0.000231 | 19.80 | 38 |
+|-----|-----|-----|-----|
+
 | 12 | 0.000228 | 19.64 | 43 |
+|-----|-----|-----|-----|
+
 | 13 | 0.000217 | 19.06 | 36 |
+|-----|-----|-----|-----|
+
 | 14 | 0.000230 | 18.80 | 33 |
+|-----|-----|-----|-----|
+
 | 15 | 0.000191 | 18.41 | 44 |
+|-----|-----|-----|-----|
+
 | 16 | 0.000203 | 19.02 | 40 |
+|-----|-----|-----|-----|
+
 | 17 | 0.000210 | 18.82 | 40 |
+|-----|-----|-----|-----|
+
 | 18 | 0.000183 | 18.60 | 50 |
+|-----|-----|-----|-----|
+
 | 19 | 0.000198 | 19.06 | 45 |
+|-----|-----|-----|-----|
 
 **UCI Summary:**
+
 | Metric | Value |
 |--------|-------|
+
 | all_predictions.npy shape | (20, 8592) |
+|-----|-----|
+
 | Ensemble MAE | **17.31 MWh** |
+|-----|-----|
+
 | Ensemble var mean | **91.14 MWh²** |
+|-----|-----|
+
 | Mean per-seed MAE | 18.89 ± 0.64 MWh |
+|-----|-----|
+
 | Mean converged epoch | 44.0 |
+|-----|-----|
+
 | Val loss range | 0.000176 – 0.000231 |
+|-----|-----|
 
 #### GEFCom Full Training — 20 Seeds
 **Runtime:** ~86 minutes (22:34:52 → 00:00:23)
 
 | Seed | Val Loss | MAE (MWh) | Epoch | Note |
 |------|----------|-----------|-------|------|
+
 | 0 | 0.000241 | 4.48 | 63 | |
+|-----|-----|-----|-----|-----|
+
 | 1 | 0.000247 | 4.33 | 59 | |
+|-----|-----|-----|-----|-----|
+
 | 2 | 0.000173 | 3.92 | 100 | Hit max epochs |
+|-----|-----|-----|-----|-----|
+
 | 3 | 0.000223 | 4.03 | 70 | |
+|-----|-----|-----|-----|-----|
+
 | 4 | 0.000183 | 4.19 | 90 | |
+|-----|-----|-----|-----|-----|
+
 | 5 | 0.000251 | 4.41 | 60 | |
+|-----|-----|-----|-----|-----|
+
 | 6 | 0.000174 | 4.04 | 100 | Hit max epochs |
+|-----|-----|-----|-----|-----|
+
 | 7 | 0.000180 | 4.18 | 81 | |
+|-----|-----|-----|-----|-----|
+
 | 8 | 0.000153 | 3.98 | 100 | Hit max epochs |
+|-----|-----|-----|-----|-----|
+
 | 9 | 0.000243 | 4.53 | 61 | |
+|-----|-----|-----|-----|-----|
+
 | 10 | 0.000181 | 4.03 | 100 | Hit max epochs |
+|-----|-----|-----|-----|-----|
+
 | 11 | 0.000533 | 5.59 | 21 |    Early exit |
+|-----|-----|-----|-----|-----|
+
 | 12 | 0.000299 | 4.62 | 39 | |
+|-----|-----|-----|-----|-----|
+
 | 13 | 0.000566 | 5.88 | 18 |    Early exit |
+|-----|-----|-----|-----|-----|
+
 | 14 | 0.000217 | 4.24 | 78 | |
+|-----|-----|-----|-----|-----|
+
 | 15 | 0.000233 | 4.16 | 64 | |
+|-----|-----|-----|-----|-----|
+
 | 16 | 0.000259 | 4.47 | 56 | |
+|-----|-----|-----|-----|-----|
+
 | 17 | 0.000213 | 4.15 | 70 | |
+|-----|-----|-----|-----|-----|
+
 | 18 | 0.000288 | 4.55 | 49 | |
+|-----|-----|-----|-----|-----|
+
 | 19 | 0.000196 | 3.93 | 93 | |
+|-----|-----|-----|-----|-----|
 
 **GEFCom Summary:**
+
 | Metric | Value |
 |--------|-------|
+
 | all_predictions.npy shape | (20, 8592) |
+|-----|-----|
+
 | Ensemble MAE | **3.68 MWh** |
+|-----|-----|
+
 | Ensemble var mean | **23.89 MWh²** |
+|-----|-----|
+
 | Mean per-seed MAE | 4.39 ± 0.51 MWh |
+|-----|-----|
+
 | Mean converged epoch | 68.6 |
+|-----|-----|
+
 | Val loss range | 0.000153 – 0.000566 |
+|-----|-----|
 
 **Decision on seeds 11 and 13:**
 Seeds stopped very early (epochs 18-21), val_loss ~3x higher than typical.
@@ -340,30 +512,68 @@ physical driver of extreme demand.
 - Ljung-Box p-value reported honestly as known large-n limitation.
 
 **UCI ARIMA Results:**
+
 | Metric | Value | Status |
 |--------|-------|--------|
+
 | Order | ARIMA(2,1,2)(1,1,1,24) | |
+|-----|-----|-----|
+
 | AIC | 210,930.51 | |
+|-----|-----|-----|
+
 | Converged | True | |
+|-----|-----|-----|
+
 | MAE | **14.44 MWh** | Better than LSTM 17.31 |
+|-----|-----|-----|
+
 | Coverage | **0.938** |  ≥ 0.90 |
+|-----|-----|-----|
+
 | PI width | **78.52 MWh** | |
+|-----|-----|-----|
+
 | ACF lag 24 | −0.020 |  white noise |
+|-----|-----|-----|
+
 | ACF lag 48 | +0.028 |  white noise |
+|-----|-----|-----|
+
 | ACF lag 168 | +0.109 |  weekly autocorr — expected, accepted |
+|-----|-----|-----|
 
 **GEFCom ARIMA Results:**
+
 | Metric | Value | Status |
 |--------|-------|--------|
+
 | Order | ARIMA(2,1,2)(1,1,1,24) | |
+|-----|-----|-----|
+
 | AIC | 181,137.48 | |
+|-----|-----|-----|
+
 | Converged | True | |
+|-----|-----|-----|
+
 | MAE | **6.61 MWh** | LSTM wins (3.68 MWh) |
+|-----|-----|-----|
+
 | Coverage | **0.957** |  ≥ 0.95 |
+|-----|-----|-----|
+
 | PI width | **42.08 MWh** | |
+|-----|-----|-----|
+
 | ACF lag 24 | −0.020 |  white noise |
+|-----|-----|-----|
+
 | ACF lag 48 | +0.009 |  white noise |
+|-----|-----|-----|
+
 | ACF lag 168 | +0.064 |  weekly autocorr — expected, accepted |
+|-----|-----|-----|
 
 **Cross-model finding:**
 ARIMA outperforms LSTM on UCI (14.44 vs 17.31 MWh) but LSTM dominates on GEFCom
@@ -387,11 +597,18 @@ All proxies computed in original MWh scale after inverse_transform.
 P2 now populated from ARIMA predictions (arima_predictions_uci.csv / gefcom.csv).
 
 **UCI Proxy Results:**
+
 | Proxy | Formula | Mean Value |
 |-------|---------|-----------|
+
 | P1 ensemble_variance | var(20 seeds) in MWh² | 91.14 MWh² |
+|-----|-----|-----|
+
 | P2 pi_width | ARIMA upper_95 − lower_95 | 78.52 MWh |
+|-----|-----|-----|
+
 | P3 resid_volatility | rolling 24h std of residuals | 22.36 MWh |
+|-----|-----|-----|
 
 UCI LSTM error split:
 - MAE all: 17.31 MWh
@@ -399,11 +616,18 @@ UCI LSTM error split:
 - MAE normal: 16.86 MWh
 
 **GEFCom Proxy Results:**
+
 | Proxy | Mean Value |
 |-------|-----------|
+
 | P1 ensemble_variance | 23.89 MWh² |
+|-----|-----|
+
 | P2 pi_width | 42.08 MWh |
+|-----|-----|
+
 | P3 resid_volatility | 4.44 MWh |
+|-----|-----|
 
 GEFCom LSTM error split:
 - MAE all: 3.68 MWh
@@ -431,14 +655,27 @@ Output files:
 Val set used to compute conformal quantile q — no test data leakage.
 
 **UCI Conformal Results:**
+
 | Metric | Value | Target | Status |
 |--------|-------|--------|--------|
+
 | n_cal | 2,040 | | |
+|-----|-----|-----|-----|
+
 | conformal_q | 30.88 MWh | | |
+|-----|-----|-----|-----|
+
 | Coverage | 0.8426 | 0.90 |  Below target |
+|-----|-----|-----|-----|
+
 | Width mean | 61.76 MWh | | Constant (split conformal) |
+|-----|-----|-----|-----|
+
 | Width std | 0.0001 MWh | | Expected for split method |
+|-----|-----|-----|-----|
+
 | Winkler Score | 113.9588 | | |
+|-----|-----|-----|-----|
 
 ## UCI undercoverage root cause:
 - Val set (Oct-Dec 2013) range: 377.5 – 1327.3 MWh — mild autumn/winter quarter.
@@ -448,14 +685,27 @@ Val set used to compute conformal quantile q — no test data leakage.
 - Decision: ACCEPTED. One sentence in paper limitations. Benchmark remains valid.
 
 **GEFCom Conformal Results:**
+
 | Metric | Value | Target | Status |
 |--------|-------|--------|--------|
+
 | n_cal | 2,040 | | |
+|-----|-----|-----|-----|
+
 | conformal_q | 5.10 MWh | | |
+|-----|-----|-----|-----|
+
 | Coverage | 0.8752 | 0.90 |  Acceptable (≥0.85) |
+|-----|-----|-----|-----|
+
 | Width mean | 10.20 MWh | | |
+|-----|-----|-----|-----|
+
 | Width std | 0.0000 MWh | | |
+|-----|-----|-----|-----|
+
 | Winkler Score | 42.7740 | | |
+|-----|-----|-----|-----|
 
 Output files:
 - results/uci/tables/conformal_uci.csv (8592 rows) 
@@ -475,61 +725,103 @@ Output files:
 #### Phase 7.1 — Per-Dataset Evaluation
 
 **UCI — Full Error Metrics:**
+
 | Model | MAE all | MAE extreme | MAE normal | RMSE all | RMSE extreme | MAPE | RMSE/MAE |
 |-------|---------|-------------|------------|----------|--------------|------|----------|
+
 | LSTM | 17.31 | 21.32 | 16.86 | 25.28 | 28.45 | 5.22% | 1.460 |
+|-----|-----|-----|-----|-----|-----|-----|-----|
+
 | ARIMA | 14.14 | 20.44 | — | — | — | — | — |
+|-----|-----|-----|-----|-----|-----|-----|-----|
 
 Anomalous days: 7 total · 4 overlap with extreme periods
 
 **UCI — Proxy Spearman Correlations (Bonferroni α=0.0083):**
+
 | Proxy | ρ_all | p_all | sig | ρ_extreme | p_extreme | sig | ρ_normal | sig |
 |-------|-------|-------|-----|-----------|-----------|-----|----------|-----|
+
 | P1 ensemble_var | 0.1893 | 0.0000 |   0.0089 | 0.7929 | 0.1756 |
+|-----|-----|-----|-----|-----|-----|
+
 | P2 pi_width | 0.0477 | 0.0000 |   −0.0543 | 0.1086 |  0.0569 | 
+|-----|-----|-----|-----|-----|-----|
+
 | P3 resid_vol | 0.1754 | 0.0000 |   0.0440 | 0.1933 |  0.1719 | 
+|-----|-----|-----|-----|-----|-----|
 
 **- Key UCI finding:** all three proxies significant overall but NONE significant at extreme
 hours specifically. UCI extreme-hour proxy signal is absent — consistent with pilot.
 
 **UCI — 2×2 Overconfidence Classification:**
+
 | Proxy | OR_overall | OR_extreme | Elevated? | binom_p | Winkler Score |
 |-------|------------|------------|-----------|---------|---------------|
+
 | P1 ensemble_var | 0.0914 | 0.0114 |  No | 1.0000 | 202.6498 |
+|-----|-----|-----|-----|-----|-----|
+
 | P2 pi_width | 0.0425 | 0.0525 |  Yes | 0.0857 | 171.4659 |
+|-----|-----|-----|-----|-----|-----|
+
 | P3 resid_vol | 0.0935 | 0.0616 |  No | 0.9997 | 220.0946 |
+|-----|-----|-----|-----|-----|-----|
+
 | Conformal | — | — | — | — | 166.1550 |
+|-----|-----|-----|-----|-----|-----|
 
 **- Friedman test:** stat=7099.35, p<0.0001.
 
 
 
 **GEFCom — Full Error Metrics:**
+
 | Model | MAE all | MAE extreme | MAE normal | RMSE all | RMSE extreme | MAPE | RMSE/MAE |
 |-------|---------|-------------|------------|----------|--------------|------|----------|
+
 | LSTM | 3.68 | 5.42 | 3.49 | 9.81 | 12.05 | 2.36% | 2.668 |
+|-----|-----|-----|-----|-----|-----|-----|-----|
+
 | ARIMA | 5.74 | 6.08 | — | — | — | — | — |
+|-----|-----|-----|-----|-----|-----|-----|-----|
 
 Anomalous days: 403 total · 81 overlap with extreme periods
 
 **GEFCom — Proxy Spearman Correlations:**
+
 | Proxy | ρ_all | p_all | sig | ρ_extreme | p_extreme | sig | ρ_normal | sig |
 |-------|-------|-------|-----|-----------|-----------|-----|----------|-----|
+
 | P1 ensemble_var | 0.4396 | 0.0000 |  0.4815 | 0.0000 | 0.4217 | 
+|-----|-----|-----|-----|-----|-----|
+
 | P2 pi_width | 0.1551 | 0.0000 |  0.0182 | 0.5996 | 0.1581 | 
+|-----|-----|-----|-----|-----|-----|
+
 | P3 resid_vol | 0.3338 | 0.0000 |  0.4554 | 0.0000 | 0.3151 |
+|-----|-----|-----|-----|-----|-----|
 
 - **Key GEFCom finding:** P1 and P3 remain strongly significant even at extreme hours
 (ρ=0.48 and ρ=0.46). Weather features enable reliable uncertainty signalling
 during the very periods operators need it most.
 
 **GEFCom — 2×2 Overconfidence Classification:**
+
 | Proxy | OR_overall | OR_extreme | Elevated? | binom_p | Winkler Score |
 |-------|------------|------------|-----------|---------|---------------|
+
 | P1 ensemble_var | 0.0534 | 0.0179 |  No | 1.0000 | 55.1499 |
+|-----|-----|-----|-----|-----|-----|
+
 | P2 pi_width | 0.0676 | 0.1029 | Yes | 0.0001 | 97.4419 |
+|-----|-----|-----|-----|-----|-----|
+
 | P3 resid_vol | 0.0729 | 0.0861 |  Yes | 0.0819 | 45.9661 |
+|-----|-----|-----|-----|-----|-----|
+
 | Conformal | — | — | — | — | 75.3455 |
+|-----|-----|-----|-----|-----|-----|
 
 - **Notable finding:** P3 resid_vol (45.97) and P1 ensemble_var (55.15) BOTH beat
 conformal (75.35) on GEFCom. Simple practitioner proxies outperform principled
@@ -542,21 +834,35 @@ Friedman test: stat=11160.31, p<0.0001
 #### Phase 7.2 — Cross-Dataset Comparison (RQ4 + RQ5)
 
 **RQ5 — Proxy Rankings by |ρ_all|:**
+
 | Dataset | Rank 1 | Rank 2 | Rank 3 |
 |---------|--------|--------|--------|
+
 | UCI | P1 (0.1893) | P3 (0.1754) | P2 (0.0477) |
+|-----|-----|-----|-----|
+
 | GEFCom | P1 (0.4396) | P3 (0.3338) | P2 (0.1551) |
+|-----|-----|-----|-----|
+
 | Match |  TRUE | | |
+|-----|-----|-----|-----|
 
 **RQ5 Answer:** P1 ensemble variance is the most reliable proxy on BOTH grids.
 Ranking P1 > P3 > P2 is consistent across geographically distinct datasets.
 
 **RQ4 — Overconfidence elevated at extreme demand (both grids)?**
+
 | Proxy | UCI elevated? | GEFCom elevated? | Both elevated? | Answer |
 |-------|--------------|-----------------|----------------|--------|
+
 | P1 ensemble_var |  No |  No | **FALSE** | P1 less overconfident at extreme |
+|-----|-----|-----|-----|-----|
+
 | P2 pi_width |  Yes |  Yes | **TRUE**  | Universal overconfidence signal |
+|-----|-----|-----|-----|-----|
+
 | P3 resid_vol |  No |  Yes | **FALSE** | Grid-dependent |
+|-----|-----|-----|-----|-----|
 
 **RQ4 Answer:** Only P2 (ARIMA PI width) shows universally elevated overconfidence at
 extreme demand across both grids. P1 shows the OPPOSITE pattern — the ensemble
@@ -567,11 +873,18 @@ All three proxies show same positive direction on both UCI and GEFCom
 Proxy signals are consistent even where magnitudes differ.
 
 **Winkler Score gaps (proxy − conformal, negative = proxy wins):**
+
 | Proxy | UCI gap | GEFCom gap |
 |-------|---------|------------|
+
 | P1 | +36.49 (conformal wins) | −20.20 (P1 wins) |
+|-----|-----|-----|
+
 | P2 | +5.31 (conformal slightly wins) | +22.10 (conformal wins) |
+|-----|-----|-----|
+
 | P3 | +53.94 (conformal wins) | −29.38 (P3 wins) |
+|-----|-----|-----|
 
 **Interpretation:** On the stable European grid (UCI), conformal calibration is worth
 implementing. On the weather-driven New England grid (GEFCom), simple proxies are
@@ -939,23 +1252,57 @@ Figure: results/uci/figures/fig12_ensemble_sensitivity.png and pdf — pending
 
 | Phase | Description | Status |
 |-------|-------------|--------|
+
 | Phase 1 | Data Preprocessing (UCI + GEFCom) | COMPLETE |
+|-----|-----|-----|
+
 | Phase 2A | Pilot Experiments (10 seeds each) | COMPLETE |
+|-----|-----|-----|
+
 | Phase 2B | Full LSTM Training (20 seeds each) | COMPLETE |
+|-----|-----|-----|
+
 | Phase 3 | Proxy Computation (P1+P2+P3) | COMPLETE |
+|-----|-----|-----|
+
 | Phase 4 | ARIMA Fitting (both datasets) | COMPLETE |
+|-----|-----|-----|
+
 | Phase 5 | Conformal Prediction Benchmark | COMPLETE |
+|-----|-----|-----|
+
 | Phase 6+7 | Evaluation + Cross-Dataset Comparison | COMPLETE |
+|-----|-----|-----|
+
 | Phase 8 | Publication Figures (F3–F9) | COMPLETE |
+|-----|-----|-----|
+
 | Phase 9 | Manuscript V1.1 (all sections) | COMPLETE |
+|-----|-----|-----|
+
 | CP8 | Numbers audit vs results_summary_FINAL.csv | COMPLETE |
+|-----|-----|-----|
+
 | Extension 1: Degradation Curve | fig10, 174 rows, all validation passed | COMPLETE |
+|-----|-----|-----|
+
 | Extension 2: Adaptive P2 | fig11, RQ6 answered, UCI fails GEFCom restores | COMPLETE |
+|-----|-----|-----|
+
 | Extension 3: Economic Cost | EUR 148,584 UCI / USD 6,570 GEFCom annually | COMPLETE |
+|-----|-----|-----|
+
 | Extension 4: Ensemble Sensitivity | Running on Kaggle GPU — awaiting 50-seed results | COMPLETED |
+|-----|-----|-----|
+
 | Manuscript V1.2 | Pending ensemble sensitivity completion | COMPLETED |gures (F3–F9) |  COMPLETE |
+|-----|-----|-----|-----|-----|
+
 | Phase 9 | IEEE Manuscript V1.2 (all sections) |  Updateting/COMPLETE |
+|-----|-----|-----|
+
 | CP8 | Numbers audit vs results_summary_FINAL.csv |  COMPLETE |
+|-----|-----|-----|
 
 
 
@@ -1065,19 +1412,45 @@ Repository structure confirmed:
 
 | Decision | Rationale | Date |
 |----------|-----------|------|
+
 | Option B: independent calendar periods | Calendar-based splits literature-standard (Marino et al. 2016) |  2026 |
+|-----|-----|-----|
+
 | GEFCom test year = 2010 | Last full calendar year in confirmed data range |  2026 |
+|-----|-----|-----|
+
 | Interpolate GEFCom gaps | 21 × 216h structural gaps — linear interpolation standard |  2026 |
+|-----|-----|-----|
+
 | Skip pilot initially, then reinstated | Engineering sanity check confirmed correct |  2026 |
+|-----|-----|-----|
+
 | GEFCom scaler independent | study design rule: no information leakage between datasets | 2026 |
+|-----|-----|-----|
+
 | Output = 1-step (t+1) | Proxy and extreme flag must match at hourly resolution |  2026 |
+|-----|-----|-----|
+
 | Hidden = 128 | Consistent with manuscript; matches literature standard |  2026 |
+|-----|-----|-----|
+
 | Retain GEFCom seeds 11+13 | Valid variance signal; diluted by 18 normal seeds |  2026 |
+|-----|-----|-----|
+
 | Rolling one-step ARIMA forecast | Direct multi-step diverges over 8,760 steps |  2026 |
+|-----|-----|-----|
+
 | Kaggle for ARIMA fitting | local memory constraints |  2026 |
+|-----|-----|-----|
+
 | ACF-based ARIMA compliance | Ljung-Box over-rejects at n=23,928 per Hyndman 2018 |  2026 |
+|-----|-----|-----|
+
 | Shape (20,8592) accepted | 168h lookback window consumes first 168 test rows |  2026 |
+|-----|-----|-----|
+
 | Accept UCI conformal coverage 0.843 | Seasonal val/test mismatch; one sentence in paper limitations | Mar 20 2026 |
+|-----|-----|-----|
 
 
 
