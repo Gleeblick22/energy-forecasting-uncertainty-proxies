@@ -589,6 +589,7 @@ Concern 3 closed — P1 failure on UCI is not an ensemble size artefact.
 *All numbers from results/summary/results_summary_FINAL.csv*
 
 | Metric | UCI | GEFCom |
+|--------|-----|--------|
 | LSTM MAE all (MWh) | 17.31 | 3.68 |
 | LSTM MAE extreme (MWh) | 21.32 | 5.42 |
 | LSTM MAE normal (MWh) | 16.86 | 3.49 |
