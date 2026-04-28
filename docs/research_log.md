@@ -758,8 +758,9 @@ The contrast between the two grids is definitive: UCI fails consistently, GEFCom
 | Operational Analysis 2 — Adaptive P2 | fig11, RQ6 answered, UCI fails GEFCom restores | COMPLETE |
 | Operational Analysis 3 — Economic Cost | EUR 73,636 UCI / USD 12,960 GEFCom annually | COMPLETE |
 | Operational Analysis 4 — Ensemble Sensitivity | fig12, all 4 seed sizes complete, 8 rows verified | COMPLETE |
-| Manuscript V1.2 | All extension sections — in progress | IN PROGRESS |
-| TSG submission | IEEE Transactions on Smart Grid | September 2026 |
+| Manuscript V1.2 | All extension sections — complete | COMPLETE |
+| EPSR Submission | Electric Power Systems Research (Elsevier, IF 4.5) | SUBMITTED April 24, 2026 |
+| EPSR Peer Review | Manuscript No. EPSR-D-26-03480 — 2+ reviewers invited | UNDER REVIEW |
 
 ---
 

@@ -4,7 +4,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![PyTorch 2.0](https://img.shields.io/badge/PyTorch-2.0-orange.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Paper](https://img.shields.io/badge/paper-under%20review-yellow.svg)]()
+[![Paper](https://img.shields.io/badge/paper-under%20review-yellow.svg)](https://www.journals.elsevier.com/electric-power-systems-research)
 
 > This study empirically evaluates whether uncertainty proxies from AI load forecasting models provide reliable warnings during extreme demand conditions, the hours when grid operators need accurate confidence signals most. Using a 20-seed LSTM ensemble and SARIMA baseline across two geographically distinct grids (UCI Portugal and GEFCom2014 New England), we show that proxy reliability is grid-dependent: ensemble variance (P1) and residual volatility (P3) retain strong correlation with forecast error at extreme demand on the weather-sensitive New England grid (ρ=+0.482, ρ=+0.455) but collapse entirely on the stable Mediterranean Portuguese grid (ρ=+0.009, ρ=+0.044). Four extended analyse deepen these findings: proxy degradation curves reveal reliability collapse begins at the 81st demand percentile on UCI — before the operational threshold; ensemble sensitivity analysis across 5 to 50 seeds confirms P1 failure is fundamental not a configuration artefact; adaptive P2 remediation restores reliability on GEFCom2014 (ρ=+0.406) but worsens UCI operational risk; and economic cost analysis translates DANGEROUS rates into estimated annual reserve activation costs of EUR 73,636 (UCI) and USD 12,960 (GEFCom2014).
 ---
@@ -21,24 +21,12 @@
 
 | RQ | Question |
 |----|----------|
-
 | RQ1 | Do extreme demand periods amplify LSTM and SARIMA forecast errors relative to normal demand periods? |
-|-----|-----|
-
 | RQ2 | Do practitioner-accessible uncertainty proxies correlate with forecast errors during extreme demand? |
-|-----|-----|
-
 | RQ3 | Do uncertainty proxies produce statistically significant overconfidence at extreme demand hours, and what fraction of extreme-demand errors occur without prior proxy warning? |
-|-----|-----|
-
 | RQ4 | Do proxy reliability findings generalise across grids with distinct structural characteristics? |
-|-----|-----|
-
 | RQ5 | Which proxy is most reliable for operational deployment, and under what conditions? |
-|-----|-----|
-
 | RQ6 | Does adaptive interval estimation remedy P2 failure, and does this depend on grid climate character? |
-|-----|-----|
 
 ---
 
@@ -46,30 +34,14 @@
 
 | Property | UCI Electricity Load Diagrams | GEFCom2014 Load Track |
 |----------|------------------------------|----------------------|
-
 | Grid | Portugal (Mediterranean) | New England ISO (Continental) |
-|-----|-----|-----|
-
 | Period | 2011-2014 | 2007-2010 |
-|-----|-----|-----|
-
 | Weather | None | 25 temperature stations |
-|-----|-----|-----|
-
 | Test year | 2014 | 2010 |
-|-----|-----|-----|
-
 | Test samples | 8,592 hours | 8,592 hours |
-|-----|-----|-----|
-
 | Extreme threshold (90th pct) | 1,357.04 MWh | 237.60 MWh |
-|-----|-----|-----|
-
 | Extreme hours in test | 876 (10.0%) | 877 (10.0%) |
-|-----|-----|-----|
-
 | Source | [UCI ML Repository](https://archive.ics.uci.edu/ml/datasets/ElectricityLoadDiagrams20112014) | [Hong et al. 2016](https://doi.org/10.1016/j.ijforecast.2016.02.001) |
-|-----|-----|-----|
 
 > **Note:** Raw datasets are not included due to licensing. See [Data Setup](#data-setup) below.
 
@@ -88,18 +60,10 @@
 
 | Proxy | Method | Description |
 |-------|--------|-------------|
-
 | P1 | LSTM Ensemble Variance | Variance across 20 seed predictions |
-|-----|-----|-----|
-
 | P2 | ARIMA Prediction Interval Width | Static PI width from single SARIMA fit |
-|-----|-----|-----|
-
 | P3 | Residual Volatility | Rolling 24-hour std of LSTM residuals |
-|-----|-----|-----|
-
 | CP | Conformal Prediction | Split conformal baseline (coverage 84.3% UCI, 87.5% GEFCom) |
-|-----|-----|-----|
 
 ---
 
@@ -109,51 +73,25 @@
 
 | Metric | UCI (Portugal) | GEFCom2014 (New England) |
 |--------|---------------|--------------------------|
-
 | LSTM MAE — normal demand | 16.86 MWh | 3.49 MWh |
-|-----|-----|-----|
-
 | LSTM MAE — extreme demand | 21.32 MWh (+26.4%) | 5.42 MWh (+55.3%) |
-|-----|-----|-----|
-
 | P1 Spearman ρ — all hours | +0.189 *** | +0.440 *** |
-|-----|-----|-----|
-
 | P1 Spearman ρ — extreme hours | +0.009 (ns) | +0.482 *** |
-|-----|-----|-----|
-
 | P3 Spearman ρ — extreme hours | +0.044 (ns) | +0.455 *** |
-|-----|-----|-----|
-
 | P2 overconfidence OR (extreme) | 0.053 (ns) | 0.103 *** |
-|-----|-----|-----|
-
 | Best Winkler score | Conformal: 166.2 | P3: 46.0 |
-|-----|-----|-----|
-
 | Sensitivity at 95th pct (P1) | −0.110 (ns) | +0.423 *** |
-|-----|-----|-----|
 
 
 ### Extended Analysis
 
 | Metric | UCI (Portugal) | GEFCom2014 (New England) |
 |--------|---------------|--------------------------|
-
 | P1 degradation threshold | 81st percentile | Significant all thresholds |
-|-----|-----|-----|
-
 | P1 at 50 seeds | +0.077 (ns) | +0.540 *** |
-|-----|-----|-----|
-
 | Adaptive P2 ρ — extreme hours | −0.004 (ns) | +0.406 *** |
-|-----|-----|-----|
-
 | Adaptive P2 DANGEROUS rate | 12.21% (worsened) | 5.26% (improved) |
-|-----|-----|-----|
-
 | P1 annual cost estimate | EUR 73,636 | USD 12,960 |
-|-----|-----|-----|
 
 `***` p < 0.0001 | `ns` not significant after Bonferroni correction (α = 0.0083)
 ---
