@@ -815,7 +815,7 @@ DANGEROUS quadrant rates translate into estimated annual reserve activation cost
 | Shape (20,8592) accepted | 168h lookback window consumes first 168 test rows | 2026 |
 | Retain GEFCom seeds 11+13 | Valid variance signal; diluted by 18 normal seeds | 2026 |
 | Accept UCI conformal coverage 0.843 | Seasonal val/test mismatch; documented as limitation | Mar 20 2026 |
-| Skip conference submission | Direct Q1 journal targeting higher value — IEEE TSG | Apr 2026 |
+| Skip conference submission | Direct Q1 journal targeting higher value — ELSEVIER (EPSR) | Apr 2026 |
 | Adaptive P2 centred on ensemble_mean | Operationally correct at decision time | Apr 7 2026 |
 
 ---
@@ -834,7 +834,7 @@ DANGEROUS quadrant rates translate into estimated annual reserve activation cost
 10. P3 resid_vol and P1 ensemble_var beat conformal on GEFCom — notable finding, highlight in results.
 11. RMSE/MAE = 2.668 on GEFCom (vs 1.460 UCI) — GEFCom has more extreme outlier errors.
 12. Adaptive P2 DANGEROUS rate worsens on UCI (4.25% to 12.21%) — documented, not an error.
-13. Economic cost GEFCom USD 53.21/MWh — estimated, pending ISO NE ISOExpress verification.
+13. Economic cost GEFCom USD 53.21/MWh — estimated, DONE ISO NE ISOExpress verification.
 14. Ensemble sensitivity 10-seed UCI borderline (p=0.0079) — instability is itself the finding.
 
 ---
