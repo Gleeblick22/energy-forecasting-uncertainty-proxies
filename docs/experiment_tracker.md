@@ -551,10 +551,10 @@ UCI P1 non-significant at all four seed sizes. Borderline 10-seed result (p=0.00
 | Operational Analysis 3 — Economic Cost | EUR 73,636 UCI / USD 12,960 GEFCom annually | COMPLETE Apr 8 2026 |
 | Operational Analysis 4 — Ensemble Sensitivity | All 4 seed sizes complete, 8 rows verified | COMPLETE Apr 9 2026 |
 | fig1 study design updated | OPERATIONAL ANALYSIS block added | COMPLETE Apr 9 2026 |
-| fig2 theoretical framework | SRIMA typo fix pending | PENDING |
-| GEFCom cost verification | USD 53.21/MWh — pending ISO NE ISOExpress | PENDING |
-| Manuscript V1.2 | All extension sections — in progress | IN PROGRESS |
-| TSG submission | IEEE Transactions on Smart Grid | September 2026 |
+| fig2 theoretical framework | SRIMA typo fix  | DONE |
+| GEFCom cost verification | USD 53.21/MWh — ISO NE ISOExpress | DONE |
+| Manuscript V1.2 | All extension sections  | PASSSED |
+| EPSR submission | Elsevier | 2026 |
 
 ---
 
@@ -579,7 +579,7 @@ UCI P1 non-significant at all four seed sizes. Borderline 10-seed result (p=0.00
 | Shape (20,8592) accepted | 168h lookback window consumes first 168 test rows | 2026 |
 | Retain GEFCom seeds 11+13 | Valid variance signal; diluted by 18 normal seeds | 2026 |
 | Accept UCI conformal coverage 0.843 | Seasonal val/test mismatch; documented as limitation | 2026 |
-| Skip conference submission | Direct Q1 journal targeting higher value — IEEE TSG | Apr 2026 |
+| Skip conference submission | Direct Q1 journal targeting higher value — Elsevier (EPSR)| Apr 2026 |
 | Adaptive P2 centred on ensemble_mean | Operationally correct at decision time | Apr 2026 |
 
 ---
