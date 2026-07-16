@@ -1,0 +1,2 @@
+dataset,temperature_removed,P1_rho_all,P1_p_all,P1_sig_all,P1_rho_extreme,P1_p_extreme,P1_sig_extreme,P1_rho_normal,P1_p_normal,P1_rho_extreme_WITH_temp,P1_rho_extreme_NO_temp,hypothesis_confirmed
+gefcom_ablation,True,0.4298,0.0,True,0.6069,0.0,True,0.3908,0.0,0.4815,0.6069,False

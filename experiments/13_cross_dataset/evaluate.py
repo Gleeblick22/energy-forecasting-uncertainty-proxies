@@ -2,6 +2,37 @@
 Phase 7.1 — Per-Dataset Evaluation
 PDD v5 Section 9 + Section 10
 Called by cross_dataset.py — do not run directly.
+
+REVISION HISTORY:
+─────────────────────────────────────────────────────────────────
+v1.0  Original implementation
+v1.1  [ Correction — Equation 10 Unit Fix]
+      
+      
+      Reviewer #3 identified that Equation (10) had inconsistent units
+      across the three proxies when used as symmetric interval half-widths:
+
+      BEFORE (incorrect):
+        p_lower = pred - proxy   ← applied raw proxy value directly
+        p_upper = pred + proxy
+
+        P1 = ensemble_variance   (units: MWh²) → half-width in MWh² WRONG
+        P2 = pi_width            (units: MWh, full width) → 2× too wide WRONG
+        P3 = resid_volatility    (units: MWh, std) → correct 
+
+      AFTER (corrected):
+        P1: proxy_hw = sqrt(ensemble_variance)  → converts MWh² to MWh 
+        P2: proxy_hw = pi_width / 2             → full-width to half-width 
+        P3: proxy_hw = resid_volatility         → already in MWh, unchanged 
+
+      IMPACT:
+        - Winkler scores for P1 and P2 are affected (recomputed below)
+        - Friedman test statistic is affected (recomputed below)
+        - Spearman rank correlations: NOT affected 
+        - DANGEROUS rates and 2×2 results: NOT affected 
+        - MAE/RMSE results: NOT affected 
+        - Core finding (grid-dependent P1 reliability): NOT affected 
+─────────────────────────────────────────────────────────────────
 """
 
 import numpy as np
@@ -18,7 +49,19 @@ ALPHA_WINKLER    = 0.05     # PDD Section 10.1
 
 
 def winkler_score(actual, lower, upper, alpha=0.05):
-    """PDD Section 10.1 — lower is better."""
+    """
+    PDD Section 10.1 — lower is better.
+    
+    Winkler Score evaluates joint sharpness and coverage of a
+    prediction interval [lower, upper] at confidence level (1-alpha).
+    
+    W(t) = (upper - lower) + (2/alpha) * max(lower - actual, 0)
+                            + (2/alpha) * max(actual - upper, 0)
+    
+    All inputs must be in consistent units (MWh).
+    See v1.1 revision note above for unit normalisation applied
+    before calling this function.
+    """
     width   = upper - lower
     penalty = (2 / alpha) * (
         np.maximum(0, lower - actual) +
@@ -28,7 +71,13 @@ def winkler_score(actual, lower, upper, alpha=0.05):
 
 
 def winkler_per_obs(actual, lower, upper, alpha=0.05):
-    """Per-timestep Winkler contributions for Friedman test."""
+    """
+    Per-timestep Winkler contributions for Friedman test.
+    
+    Returns array of shape (n_timesteps,) — one Winkler value per hour.
+    Used in Friedman test (Block 5) to compare distributions across proxies.
+    All inputs must be in consistent units (MWh).
+    """
     width   = upper - lower
     penalty = (2 / alpha) * (
         np.maximum(0, lower - actual) +
@@ -68,6 +117,11 @@ def two_by_two(error, proxy, extreme, e_pctile=75, c_pctile=50):
 
     High confidence = proxy BELOW median (low proxy value = model is confident)
     High error      = error ABOVE e_pctile threshold
+    
+    NOTE: This function uses raw proxy values for rank-based thresholding.
+    Unit normalisation (v1.1) is NOT required here because percentile
+    thresholds are rank-invariant — sqrt and /2 transformations preserve
+    rank ordering. Results are therefore identical before and after v1.1 fix.
     """
     e_thresh  = np.percentile(error, e_pctile)
     c_thresh  = np.percentile(proxy, c_pctile)
@@ -116,6 +170,73 @@ def two_by_two(error, proxy, extreme, e_pctile=75, c_pctile=50):
     }
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# [Reviewer #3 — v1.1] Unit normalisation helper
+# ─────────────────────────────────────────────────────────────────────────────
+def get_proxy_halfwidth(pname, proxy):
+    """
+    Convert raw proxy value to half-width in MWh for Winkler Score computation.
+
+    Reviewer #3 (EPSR-D-26-03480) identified that Equation (10) requires all
+    proxies to be expressed as interval half-widths in consistent units (MWh)
+    before being passed to the Winkler Score function. The three proxies are
+    stored in different units and require the following normalisation:
+
+    P1 — ensemble_variance:
+        Stored as population variance across 20 LSTM seeds (units: MWh²).
+        Converting to standard deviation via sqrt gives half-width in MWh.
+        proxy_hw = sqrt(ensemble_variance)   [MWh² → MWh]
+
+    P2 — pi_width:
+        Stored as full SARIMA prediction interval width:
+        pi_width = upper_95 - lower_95       [units: MWh, full width]
+        Half-width for a symmetric interval:
+        proxy_hw = pi_width / 2              [MWh → MWh half-width]
+
+    P3 — resid_volatility:
+        Stored as rolling 24-hour standard deviation of LSTM residuals.
+        Already in MWh, no conversion required.
+        proxy_hw = resid_volatility          [MWh, unchanged ]
+
+    Parameters
+    ----------
+    pname : str
+        Proxy name key from proxies dict:
+        "P1_ensemble_var", "P2_pi_width", or "P3_resid_vol"
+    proxy : np.ndarray
+        Raw proxy values as stored in confidence_proxies_{dataset}.csv
+
+    Returns
+    -------
+    proxy_hw : np.ndarray
+        Half-width values in MWh, consistent units for Winkler computation.
+    """
+    if pname == "P1_ensemble_var":
+        # [v1.1 fix] ensemble_variance in MWh² → std in MWh
+        proxy_hw = np.sqrt(proxy)
+        log.info(f"  [v1.1] P1 unit fix: sqrt(variance) applied. "
+                 f"mean_var={proxy.mean():.4f} MWh²  →  "
+                 f"mean_std={proxy_hw.mean():.4f} MWh")
+
+    elif pname == "P2_pi_width":
+        # [v1.1 fix] full PI width in MWh → half-width in MWh
+        proxy_hw = proxy / 2
+        log.info(f"  [v1.1] P2 unit fix: pi_width/2 applied. "
+                 f"mean_full={proxy.mean():.4f} MWh  →  "
+                 f"mean_half={proxy_hw.mean():.4f} MWh")
+
+    else:
+        # P3 resid_volatility already in MWh — no conversion needed
+        proxy_hw = proxy
+        log.info(f"  [v1.1] P3 no unit conversion needed. "
+                 f"mean_std={proxy_hw.mean():.4f} MWh ")
+
+    return proxy_hw
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Main evaluation function
+# ─────────────────────────────────────────────────────────────────────────────
 def evaluate(dataset):
     log.info("")
     log.info("=" * 56)
@@ -131,7 +252,8 @@ def evaluate(dataset):
 
     log.info(f"Proxy CSV: {len(df):,} rows")
     log.info(f"Conformal CSV: {len(conf_df):,} rows")
-    assert len(df) == len(conf_df) == 8592, f"Row count mismatch: proxy={len(df)} conf={len(conf_df)}"
+    assert len(df) == len(conf_df) == 8592, \
+        f"Row count mismatch: proxy={len(df)} conf={len(conf_df)}"
 
     # ── Core arrays ───────────────────────────────────────────
     actual  = df["actual_load"].values
@@ -141,15 +263,22 @@ def evaluate(dataset):
     error   = df["lstm_abs_error"].values
     a_error = df["arima_abs_error"].values
 
+    # ── Proxy raw values ──────────────────────────────────────
+    # NOTE: These are raw values as stored in CSV.
+    # For Winkler Score, unit normalisation via get_proxy_halfwidth()
+    # is applied in Block 3 below. [v1.1 Reviewer #3 fix]
+    # For Spearman, 2x2, and Mann-Whitney: raw values used directly
+    # (rank-invariant transformations do not affect these metrics).
     proxies = {
-        "P1_ensemble_var": df["ensemble_variance"].values,
-        "P2_pi_width":     df["pi_width"].values,
-        "P3_resid_vol":    df["resid_volatility"].values,
+        "P1_ensemble_var": df["ensemble_variance"].values,  # MWh² (raw variance)
+        "P2_pi_width":     df["pi_width"].values,           # MWh  (full PI width)
+        "P3_resid_vol":    df["resid_volatility"].values,   # MWh  (rolling std )
     }
 
     n_ext  = int(extreme.sum())
     n_norm = int(normal.sum())
-    log.info(f"Extreme timesteps: {n_ext} ({n_ext/len(df)*100:.1f}%)  |  Normal: {n_norm}")
+    log.info(f"Extreme timesteps: {n_ext} ({n_ext/len(df)*100:.1f}%)  "
+             f"|  Normal: {n_norm}")
 
     results = {"dataset": dataset}
 
@@ -166,40 +295,42 @@ def evaluate(dataset):
     mape_all = float(np.mean(np.abs(error[nonzero] / actual[nonzero])) * 100)
     n_zero   = int((actual == 0).sum())
 
-    rmse_mae_ratio  = rmse_all / mae_all if mae_all > 0 else 0
-    arima_mae_all   = float(np.mean(a_error))
-    arima_mae_ext   = float(np.mean(a_error[extreme]))
-    arima_rmse_all  = float("nan")   # arima_pred not in proxy CSV — RMSE not computable
+    rmse_mae_ratio = rmse_all / mae_all if mae_all > 0 else 0
+    arima_mae_all  = float(np.mean(a_error))
+    arima_mae_ext  = float(np.mean(a_error[extreme]))
+    arima_rmse_all = float("nan")  # arima_pred not in proxy CSV
 
     results.update({
-        "lstm_mae_all":              round(mae_all, 4),
-        "lstm_mae_extreme":          round(mae_ext, 4),
-        "lstm_mae_normal":           round(mae_norm, 4),
-        "lstm_rmse_all":             round(rmse_all, 4),
-        "lstm_rmse_extreme":         round(rmse_ext, 4),
-        "lstm_mape_all":             round(mape_all, 4),
+        "lstm_mae_all":              round(mae_all,        4),
+        "lstm_mae_extreme":          round(mae_ext,        4),
+        "lstm_mae_normal":           round(mae_norm,       4),
+        "lstm_rmse_all":             round(rmse_all,       4),
+        "lstm_rmse_extreme":         round(rmse_ext,       4),
+        "lstm_mape_all":             round(mape_all,       4),
         "lstm_rmse_mae_ratio":       round(rmse_mae_ratio, 4),
-        "arima_mae_all":             round(arima_mae_all, 4),
-        "arima_mae_extreme":         round(arima_mae_ext, 4),
+        "arima_mae_all":             round(arima_mae_all,  4),
+        "arima_mae_extreme":         round(arima_mae_ext,  4),
         "arima_rmse_all":            round(arima_rmse_all, 4),
         "n_extreme":                 n_ext,
         "n_normal":                  n_norm,
         "n_zero_load_skipped_mape":  n_zero,
     })
 
-    log.info(f"  LSTM  MAE  all={mae_all:.2f}  extreme={mae_ext:.2f}  normal={mae_norm:.2f} MWh")
+    log.info(f"  LSTM  MAE  all={mae_all:.2f}  extreme={mae_ext:.2f}  "
+             f"normal={mae_norm:.2f} MWh")
     log.info(f"  LSTM  RMSE all={rmse_all:.2f}  extreme={rmse_ext:.2f}")
     log.info(f"  LSTM  MAPE={mape_all:.2f}%  RMSE/MAE={rmse_mae_ratio:.3f}")
-    log.info(f"  ARIMA MAE  all={arima_mae_all:.2f}  extreme={arima_mae_ext:.2f} MWh")
+    log.info(f"  ARIMA MAE  all={arima_mae_all:.2f}  "
+             f"extreme={arima_mae_ext:.2f} MWh")
 
     # ── BLOCK 2: Anomalous days — PDD Section 9.1 ────────────
     log.info("Block 2 — Anomalous days (|load - 7d rolling mean| > 2σ)...")
-    load_s       = pd.Series(actual, index=df.index)
-    roll_mean    = load_s.rolling(168, min_periods=1).mean()
-    roll_std     = load_s.rolling(168, min_periods=1).std().fillna(0)
-    anomalous    = (np.abs(load_s - roll_mean) > (2 * roll_std)).values
-    n_anomalous  = int(anomalous.sum())
-    overlap      = int((anomalous & extreme).sum())
+    load_s      = pd.Series(actual, index=df.index)
+    roll_mean   = load_s.rolling(168, min_periods=1).mean()
+    roll_std    = load_s.rolling(168, min_periods=1).std().fillna(0)
+    anomalous   = (np.abs(load_s - roll_mean) > (2 * roll_std)).values
+    n_anomalous = int(anomalous.sum())
+    overlap     = int((anomalous & extreme).sum())
 
     results.update({
         "n_anomalous":                 n_anomalous,
@@ -208,41 +339,79 @@ def evaluate(dataset):
     log.info(f"  Anomalous: {n_anomalous}  |  overlap with extreme: {overlap}")
 
     # ── BLOCK 3: Per-proxy analysis ───────────────────────────
+    # NOTE [v1.1 Reviewer #3]:
+    # Spearman, Mann-Whitney, and 2x2 analyses use RAW proxy values.
+    # These metrics are rank-based and therefore invariant to the
+    # monotonic transformations applied for Winkler (sqrt, /2).
+    # Only the Winkler Score section uses get_proxy_halfwidth() below.
     winkler_obs = {}
 
     for pname, proxy in proxies.items():
         log.info(f"Block 3 — {pname}...")
 
-        # Spearman — 3 regimes
+        # ── Spearman correlations (3 regimes) ─────────────────
+        # [v1.1] Raw proxy used — rank-invariant, NOT affected by unit fix
         rho_all,  p_all  = spearmanr(proxy, error)
         rho_ext,  p_ext  = spearmanr(proxy[extreme], error[extreme])
         rho_norm, p_norm = spearmanr(proxy[normal],  error[normal])
 
-        log.info(f"  rho_all={rho_all:.4f} p={p_all:.4f} sig={p_all < ALPHA_BONFERRONI}")
-        log.info(f"  rho_extreme={rho_ext:.4f} p={p_ext:.4f} sig={p_ext < ALPHA_BONFERRONI}")
-        log.info(f"  rho_normal={rho_norm:.4f} p={p_norm:.4f} sig={p_norm < ALPHA_BONFERRONI}")
+        log.info(f"  rho_all={rho_all:.4f} p={p_all:.4f} "
+                 f"sig={p_all < ALPHA_BONFERRONI}")
+        log.info(f"  rho_extreme={rho_ext:.4f} p={p_ext:.4f} "
+                 f"sig={p_ext < ALPHA_BONFERRONI}")
+        log.info(f"  rho_normal={rho_norm:.4f} p={p_norm:.4f} "
+                 f"sig={p_norm < ALPHA_BONFERRONI}")
 
-        # Mann-Whitney U — proxy dist: extreme vs normal
-        mw_stat, mw_p = mannwhitneyu(proxy[extreme], proxy[normal], alternative="two-sided")
+        # ── Mann-Whitney U — proxy dist: extreme vs normal ────
+        # [v1.1] Raw proxy used — rank-invariant, NOT affected by unit fix
+        mw_stat, mw_p = mannwhitneyu(
+            proxy[extreme], proxy[normal], alternative="two-sided"
+        )
         log.info(f"  Mann-Whitney p={mw_p:.4f}")
 
-        # 2x2 PRIMARY — error=75th, confidence=median
-        primary     = two_by_two(error, proxy, extreme, e_pctile=75, c_pctile=50)
-        # 2x2 SENSITIVITY — error=90th, confidence=25th
-        sensitivity = two_by_two(error, proxy, extreme, e_pctile=90, c_pctile=25)
+        # ── 2x2 Classification ────────────────────────────────
+        # [v1.1] Raw proxy used — percentile thresholds are rank-invariant,
+        # NOT affected by unit fix. DANGEROUS rates unchanged from v1.0.
+        primary     = two_by_two(error, proxy, extreme,
+                                 e_pctile=75, c_pctile=50)
+        sensitivity = two_by_two(error, proxy, extreme,
+                                 e_pctile=90, c_pctile=25)
 
-        log.info(f"  PRIMARY   OR_overall={primary['or_overall']:.4f}  OR_extreme={primary['or_extreme']:.4f}  binom_p={primary['binom_p']:.4f}")
-        log.info(f"  SENSITIV  OR_overall={sensitivity['or_overall']:.4f}  OR_extreme={sensitivity['or_extreme']:.4f}")
+        log.info(f"  PRIMARY   OR_overall={primary['or_overall']:.4f}  "
+                 f"OR_extreme={primary['or_extreme']:.4f}  "
+                 f"binom_p={primary['binom_p']:.4f}")
+        log.info(f"  SENSITIV  OR_overall={sensitivity['or_overall']:.4f}  "
+                 f"OR_extreme={sensitivity['or_extreme']:.4f}")
 
-        # Winkler Score — proxy as symmetric interval around ensemble mean
-        p_lower = pred - proxy
-        p_upper = pred + proxy
-        ws      = winkler_score(actual, p_lower, p_upper, alpha=ALPHA_WINKLER)
-        w_obs   = winkler_per_obs(actual, p_lower, p_upper, alpha=ALPHA_WINKLER)
+        # ── Winkler Score ─────────────────────────────────────
+        # [v1.1 Reviewer #3 FIX — CHANGED FROM v1.0]
+        #
+        # v1.0 (INCORRECT):
+        #   p_lower = pred - proxy   ← used raw proxy as half-width
+        #   p_upper = pred + proxy   ← inconsistent units across P1/P2/P3
+        #
+        # v1.1 (CORRECTED):
+        #   proxy_hw = get_proxy_halfwidth(pname, proxy)
+        #   Converts each proxy to MWh half-width before interval construction:
+        #   P1: sqrt(variance) MWh² → MWh
+        #   P2: pi_width/2 full-width → half-width
+        #   P3: resid_volatility already MWh 
+        #
+        # This ensures all proxies enter Equation (10) in consistent
+        # units (MWh half-width), making Winkler scores comparable
+        # across P1, P2, P3, and the conformal baseline.
+
+        proxy_hw = get_proxy_halfwidth(pname, proxy)  # [v1.1 unit fix]
+        p_lower  = pred - proxy_hw
+        p_upper  = pred + proxy_hw
+
+        ws    = winkler_score(actual, p_lower, p_upper, alpha=ALPHA_WINKLER)
+        w_obs = winkler_per_obs(actual, p_lower, p_upper, alpha=ALPHA_WINKLER)
         winkler_obs[pname] = w_obs
-        log.info(f"  Winkler Score={ws:.4f}")
+        log.info(f"  Winkler Score={ws:.4f}  "
+                 f"[v1.1: recomputed with unit-normalised half-width]")
 
-        # ECE
+        # ── ECE ───────────────────────────────────────────────
         ece      = ece_score(proxy, error, n_bins=10)
         ece_mean = float(np.mean([b["error_mean"] for b in ece]))
 
@@ -275,6 +444,8 @@ def evaluate(dataset):
         })
 
     # ── BLOCK 4: Conformal Winkler Score (alpha=0.05) ────────
+    # Conformal intervals use actual lower/upper bounds directly
+    # (not proxy-derived) — no unit normalisation required here.
     log.info("Block 4 — Conformal Winkler Score (alpha=0.05)...")
     conf_obs = winkler_per_obs(
         actual,
@@ -288,7 +459,11 @@ def evaluate(dataset):
     log.info(f"  Conformal Winkler Score={ws_conf:.4f}")
 
     # ── BLOCK 5: Friedman test — PDD Section 10.2 ────────────
-    log.info("Block 5 — Friedman test across all 4 Winkler Score series...")
+    # [v1.1] Friedman test uses per-obs Winkler arrays computed with
+    # unit-normalised half-widths (Block 3 above). Statistic and
+    # p-value are recomputed from corrected Winkler series.
+    log.info("Block 5 — Friedman test across all 4 Winkler Score series "
+             "[v1.1 recomputed]...")
     friedman_stat, friedman_p = friedmanchisquare(
         winkler_obs["P1_ensemble_var"],
         winkler_obs["P2_pi_width"],
@@ -297,7 +472,8 @@ def evaluate(dataset):
     )
     results["friedman_stat"] = round(float(friedman_stat), 4)
     results["friedman_p"]    = round(float(friedman_p),    6)
-    log.info(f"  Friedman stat={friedman_stat:.4f}  p={friedman_p:.6f}")
+    log.info(f"  Friedman stat={friedman_stat:.4f}  p={friedman_p:.6f}  "
+             f"[v1.1: recomputed with corrected Winkler series]")
 
     # ── Save evaluation CSV ───────────────────────────────────
     out_path = ROOT / f"results/{dataset}/tables/evaluation_{dataset}.csv"

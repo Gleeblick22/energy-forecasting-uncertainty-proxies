@@ -1,0 +1,3 @@
+dataset,conformal_rho_all,conformal_p_all,conformal_sig_all,conformal_rho_ext,conformal_p_ext,conformal_sig_ext,conformal_rho_norm,conformal_p_norm,conformal_sig_norm,conformal_mw_p,conformal_or_overall,conformal_or_extreme,conformal_elevated
+uci,0.1791,0.0,True,,,False,0.1656,0.0,True,0.0,0.0,0.0,False
+gefcom,0.0387,0.000338,True,-0.1221,0.000404,True,-0.0246,0.030255,False,0.0,0.0,0.0,False

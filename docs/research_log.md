@@ -740,7 +740,172 @@ The contrast between the two grids is definitive: UCI fails consistently, GEFCom
 
 ---
 
-## Current Status — April 14, 2026
+---
+
+### Session 19 — EPSR Rejection + Peer Review Response
+**Date:** May–July 2026
+
+**Decision received:** EPSR-D-26-03480 REJECTED
+**Reviewers:** #1 (7 comments), #3 (6 comments), #6 (5 comments)
+**Total comments:** 18
+**Next target:** IEEE Transactions on Smart Grid (IF 8.5)
+
+---
+
+#### Critical Fix — Equation (10) Unit Inconsistency [R3.6]
+
+Mathematical bug confirmed in evaluate.py:
+- P1 (ensemble_variance, MWh²) used directly as half-width → WRONG units
+- P2 (pi_width, full width MWh) used directly as half-width → 2× too wide
+- P3 (resid_volatility, std MWh) → already correct
+
+Fix applied in experiments/13_cross_dataset/evaluate.py (v1.1):
+- P1: proxy_hw = sqrt(ensemble_variance) → MWh² to MWh
+- P2: proxy_hw = pi_width / 2 → full-width to half-width
+- P3: unchanged
+
+New function: get_proxy_halfwidth() added to evaluate.py
+
+**Corrected Winkler scores:**
+
+| Proxy | UCI Portugal | GEFCom2014 |
+|-------|-------------|------------|
+| P1 | 422.64 | 66.49 |
+| P2 | 143.65 | 75.04 |
+| P3 | 220.09 | 45.97 |
+| Conformal | 166.15 | 75.35 |
+| Friedman stat | 3310.42 (p<0.0001) | 7459.97 (p<0.0001) |
+
+Core finding (grid-dependent P1 reliability) UNCHANGED.
+
+---
+
+#### New Analysis — Conformal at Extreme Hours [R3.2]
+
+Script: experiments/13_cross_dataset/conformal_regime.py
+
+Conformal prediction evaluated under identical regime-stratified conditions.
+
+**Key finding:**
+Split conformal produces essentially CONSTANT interval widths on both grids:
+- UCI: 4 unique values, std=0.000055 MWh
+- GEFCom: 4 unique values, std=0.0000064 MWh
+
+**Results:**
+
+| Method | UCI ρ_extreme | GEFCom ρ_extreme |
+|--------|--------------|-----------------|
+| P1 (LSTM Ensemble) | +0.009 ns | +0.482 *** |
+| P2 Static (SARIMA) | -0.054 ns | +0.018 ns |
+| P2 Adaptive (QR) | -0.004 ns | +0.406 *** |
+| P3 (Resid Vol) | +0.044 ns | +0.455 *** |
+| Conformal | NaN (constant) | -0.122 *** |
+
+ALL methods fail on UCI at extreme hours.
+Grid-level phenomenon confirmed — not method-dependent.
+
+Output: results/comparison/conformal_regime_analysis.csv
+
+---
+
+#### New Analysis — Temperature Ablation Study [R3.5]
+
+Reviewer #3 requested controlled ablation: retrain GEFCom2014 LSTM
+without temperature features to test weather-load coupling hypothesis.
+
+**Scripts:**
+- experiments/20_ablation_temperature/preprocess_gefcom_ablation.py
+- experiments/20_ablation_temperature/train_lstm_ablation.py (Kaggle GPU)
+- experiments/20_ablation_temperature/evaluate_ablation.py
+- experiments/20_ablation_temperature/plot_ablation_figure.py
+
+**Features removed:** temperature_F, temperature_lag_24h
+**Features remaining:** 11 (was 13)
+**Training:** 20 seeds, Kaggle T4 GPU, early stopping patience=10
+
+**ABLATION VERDICT: HYPOTHESIS NOT CONFIRMED**
+
+| Metric | With Temperature | Without Temperature |
+|--------|-----------------|---------------------|
+| P1 rho_all | +0.4396 | +0.4298 |
+| P1 rho_normal | +0.4217 | +0.3908 |
+| P1 rho_extreme | +0.4815 *** | +0.6069 *** |
+
+P1 reliability INCREASES without temperature at extreme hours
+(Δρ = +0.125). Temperature is NOT the causal mechanism.
+
+**Implication:**
+Weather-load coupling hypothesis revised to correlational statement.
+Other grid characteristics (demand scale, consumer composition,
+temporal patterns) proposed as alternative mechanisms.
+Core finding (grid-dependent reliability) remains valid.
+
+Output: results/gefcom_ablation/tables/ablation_results.csv
+Figure: results/gefcom_ablation/figures/fig_ablation_temperature.pdf/png
+
+---
+
+#### Reviewer Response Summary
+
+**16 of 18 comments addressed:**
+
+| S.N | Comment | Status |
+|-----|---------|--------|
+| 1 | R3.6 Equation (10) unit fix | COMPLETE |
+| 2 | R3.2 Mainstream methods | COMPLETE |
+| 3 | R3.1 Core contribution reframe | COMPLETE |
+| 4 | R3.3 P2 as negative baseline | COMPLETE |
+| 5 | R3.4 Soften P1 claim | COMPLETE |
+| 6 | R1.1 RQ articulation + H1-H6 | COMPLETE |
+| 7 | R1.2 P2 stationary rationale | COMPLETE |
+| 8 | R1.3 LSTM architecture details | COMPLETE |
+| 9 | R1.4 Data preparation details | COMPLETE |
+| 10 | R1.5 Proxy definitions | COMPLETE |
+| 11 | R1.6 Effect sizes | COMPLETE |
+| 12 | R6.5 Economic sensitivity | COMPLETE |
+| 13 | R3.5 Weather ablation | COMPLETE |
+| 14 | R6.1 Sharpen motivation | COMPLETE |
+| 15 | R6.4 RQ links to figures | COMPLETE |
+| 16 | R6.3 SARIMA order rationale | COMPLETE |
+| — | R1.7 Stylistic editing | SKIPPED (low priority) |
+| — | R6.2 Streamline methodology | SKIPPED (low priority) |
+
+---
+
+#### Updated Headline Findings (Post-Revision)
+
+**Finding 1 (REVISED) — No proxy universally dominates:**
+Among proxies tested, P1 is comparatively stronger in some scenarios
+but reliability exhibits pronounced dependence on grid character and
+demand regime. No single proxy dominates across both grids and both
+evaluation metrics (Spearman signal quality + Winkler interval quality).
+
+**Finding 2 — ALL methods fail on UCI (NEW):**
+Quantile regression (Adaptive P2: ρ_extreme=-0.004, ns) and conformal
+prediction (ρ_extreme=NaN, constant width) both fail on UCI alongside
+P1/P2/P3. Extreme-hour failure is grid-level, not method-dependent.
+
+**Finding 3 — Temperature NOT causal (NEW):**
+Controlled ablation removing temperature features from GEFCom2014
+shows P1 reliability INCREASES without temperature (ρ_extreme:
++0.4815→+0.6069). Weather-load coupling is correlational not causal.
+Alternative mechanisms: demand scale, consumer composition, temporal
+patterns.
+
+**Finding 4 — Winkler-Spearman divergence (NEW):**
+Signal quality (Spearman ρ) and interval quality (Winkler score)
+diverge across grids and proxies. P2 achieves best Winkler on UCI
+(143.65) yet worst Spearman at extremes (-0.054). Practitioners must
+specify operational objective before proxy selection.
+
+**Finding 5 — Conformal constant width (NEW):**
+Split conformal prediction produces essentially constant interval
+widths on both grids (4 unique values per 8,592 test hours),
+confirming it cannot function as a regime-adaptive uncertainty signal.
+
+---
+
+## Current Status — July 2026
 
 | Phase | Description | Status |
 |-------|-------------|--------|
@@ -754,101 +919,33 @@ The contrast between the two grids is definitive: UCI fails consistently, GEFCom
 | Phase 8 | Publication Figures (fig1–fig12) | COMPLETE |
 | Phase 9 | Manuscript V1.1 (all sections) | COMPLETE |
 | CP8 | Numbers audit vs results_summary_FINAL.csv | COMPLETE |
-| Operational Analysis 1 — Degradation Curve | fig10, 174 rows, all validation passed | COMPLETE |
-| Operational Analysis 2 — Adaptive P2 | fig11, RQ6 answered, UCI fails GEFCom restores | COMPLETE |
-| Operational Analysis 3 — Economic Cost | EUR 73,636 UCI / USD 12,960 GEFCom annually | COMPLETE |
-| Operational Analysis 4 — Ensemble Sensitivity | fig12, all 4 seed sizes complete, 8 rows verified | COMPLETE |
-| Manuscript V1.2 | All extension sections — complete | COMPLETE |
-| EPSR Submission | Electric Power Systems Research (Elsevier, IF 4.5) | SUBMITTED April 24, 2026 |
-| EPSR Peer Review | Manuscript No. EPSR-D-26-03480 — 2+ reviewers invited | UNDER REVIEW |
+| Operational Analysis 1 — Degradation Curve | fig10, 174 rows | COMPLETE |
+| Operational Analysis 2 — Adaptive P2 | fig11, RQ6 answered | COMPLETE |
+| Operational Analysis 3 — Economic Cost | EUR 73,636 / USD 12,960 | COMPLETE |
+| Operational Analysis 4 — Ensemble Sensitivity | fig12, 8 rows | COMPLETE |
+| Manuscript V1.2 | All extension sections | COMPLETE |
+| EPSR Submission | EPSR-D-26-03480 | REJECTED May 2026 |
+| Peer Review Response | 16/18 comments addressed | COMPLETE |
+| Eq(10) Fix | evaluate.py v1.1 | COMPLETE |
+| Conformal Regime Analysis | conformal_regime.py | COMPLETE |
+| Temperature Ablation | 20 ablation scripts + figure | COMPLETE |
+| Manuscript V1.3 | Apply all 16 reviewer changes | IN PROGRESS |
+| IEEE TSG Submission | IEEE Transactions on Smart Grid (IF 8.5) | TARGET July 2026 |
 
 ---
 
-## Headline Findings (for paper writing)
-
-**Finding 1 — Proxy ranking consistent across grids (RQ5):**
-P1 ensemble variance is the most reliable proxy on both UCI (ρ=0.19) and GEFCom (ρ=0.44). Ranking P1 > P3 > P2 holds on both datasets. Grid operators should prioritise ensemble variance as their primary uncertainty signal.
-
-**Finding 2 — Proxy reliability at extreme hours is grid-dependent (RQ4):**
-On UCI (no weather features), all proxies lose significance at extreme hours. On GEFCom (with temperature), P1 and P3 remain strongly significant (ρ=0.48, 0.46). Weather features are necessary for reliable uncertainty signalling during extreme demand.
-
-**Finding 3 — P2 shows universal overconfidence at extreme demand:**
-ARIMA PI width is the only proxy showing elevated overconfidence on both grids at extreme demand hours. Operators relying solely on ARIMA intervals face elevated risk during peak load periods regardless of grid type.
-
-**Finding 4 — Simple proxies beat conformal on weather-driven grid:**
-On GEFCom, P3 (Winkler 45.97) and P1 (55.15) outperform conformal (75.35). Principled calibration is not always superior to practitioner heuristics. On UCI, conformal (166.16) remains best but with undercoverage caveat (0.843).
-
-**Finding 5 — ARIMA vs LSTM reversal:**
-ARIMA outperforms LSTM on UCI (14.44 vs 17.31 MWh MAE) — stable European grid favours classical time series. LSTM dominates on GEFCom (3.68 vs 6.61 MWh) — weather features drive neural advantage on weather-driven grids.
-
-**Finding 6 — Proxy reliability degrades before the operational threshold:**
-P1 reliability on UCI begins collapsing at the 81st demand percentile — 9 percentile points before the 90th percentile operational threshold. Single-threshold evaluation understates failure severity on weather-insensitive grids. P1 and P3 on GEFCom remain significant across all 29 percentile thresholds tested (70th–98th).
-
-**Finding 7 — Adaptive P2 remediation is grid-dependent:**
-Rolling quantile regression (W=168hrs) restores P2 reliability on GEFCom2014 (ρ=+0.406, p<0.0001) where temperature features provide sufficient signal. On UCI, the same adaptive approach worsens operational risk — DANGEROUS rate increases from 4.25% to 12.21%. P2 failure on weather-insensitive grids is structural.
-
-**Finding 8 — P1 failure on UCI is fundamental, not a configuration artefact:**
-Ensemble sensitivity analysis across 5, 10, 20, and 50-seed configurations confirms P1 failure on UCI persists at all tested sizes. At 50 seeds P1 on UCI remains non-significant (ρ=+0.077, p=0.022). GEFCom P1 strengthens monotonically from ρ=+0.439 at 5 seeds to ρ=+0.540 at 50 seeds.
-
-**Finding 9 — Proxy failure carries direct financial consequences:**
-DANGEROUS quadrant rates translate into estimated annual reserve activation costs of EUR 73,636 on UCI Portugal and USD 12,960 on GEFCom2014 under conservative lower-bound assumptions. Proxy validation is a financially material operational decision, not merely a methodological concern.
-
----
-
-## Key Decisions Log
+#### Key Decisions Log (additions)
 
 | Decision | Rationale | Date |
 |----------|-----------|------|
-| Option B: independent calendar periods | Calendar-based splits literature-standard (Marino et al. 2016) | 2026 |
-| GEFCom test year = 2010 | Last full calendar year in confirmed data range | 2026 |
-| Interpolate GEFCom gaps | 21 × 216h structural gaps — linear interpolation standard | 2026 |
-| GEFCom scaler independent | study design rule: no information leakage between datasets | 2026 |
-| Reinstate pilot experiments | Engineering sanity check before 40 full training runs | 2026 |
-| Output = 1-step (t+1) | Proxy and extreme flag must match at hourly resolution | 2026 |
-| Hidden = 128 | Consistent with manuscript; matches literature standard | 2026 |
-| Batch = 64 | Consistent with manuscript | 2026 |
-| Pilot max epochs = 30 | Fast enough to catch bugs, early stopping handles convergence | 2026 |
-| temperature_F corrected | GEFCom column mislabelled as temperature_C; values confirmed Fahrenheit | 2026 |
-| Rolling one-step ARIMA forecast | Direct multi-step diverges over 8,760 steps | 2026 |
-| Kaggle for ARIMA fitting | local memory constraints | 2026 |
-| ACF-based ARIMA compliance | Ljung-Box over-rejects at n=23,928 per Hyndman 2018 | 2026 |
-| Shape (20,8592) accepted | 168h lookback window consumes first 168 test rows | 2026 |
-| Retain GEFCom seeds 11+13 | Valid variance signal; diluted by 18 normal seeds | 2026 |
-| Accept UCI conformal coverage 0.843 | Seasonal val/test mismatch; documented as limitation | Mar 20 2026 |
-| Skip conference submission | Direct Q1 journal targeting higher value — IEEE TSG | Apr 2026 |
-| Adaptive P2 centred on ensemble_mean | Operationally correct at decision time | Apr 7 2026 |
-
----
-
-## Known Issues / Notes for Paper
-
-1. GEFCom structural gaps: Oct/Nov/Dec 1–9 missing every year. Must disclose in data section.
-2. UCI DST artifact: extra 2015-01-01 00:00 timestamp truncated. No impact on analysis.
-3. GEFCom: 13 features used (dew_point_C dropped — not derivable from temperature stations alone).
-4. GEFCom temperature column named temperature_F (values confirmed Fahrenheit, range 12.7–97.7°F).
-5. Ljung-Box fails large-n — ACF confirms well-specified. Report in paper. Cite Hyndman 2018.
-6. ARIMA fitted on Kaggle — notebooks saved in experiments/07_arima_uci/ and 08_arima_gefcom/.
-7. Shape (20,8592) vs research specification (20,8736) — 168h window offset. All analysis uses aligned index.
-8. GEFCom seeds 11+13 early exit — retained, documented in paper methodology.
-9. UCI conformal undercoverage (0.843) — seasonal mismatch, accepted, one sentence in limitations.
-10. P3 resid_vol and P1 ensemble_var beat conformal on GEFCom — notable finding, highlight in results.
-11. RMSE/MAE = 2.668 on GEFCom (vs 1.460 UCI) — GEFCom has more extreme outlier errors.
-12. Adaptive P2 DANGEROUS rate worsens on UCI (4.25% to 12.21%) — documented, not an error.
-13. Economic cost GEFCom USD 53.21/MWh — estimated, pending ISO NE ISOExpress verification.
-14. Ensemble sensitivity 10-seed UCI borderline (p=0.0079) — instability is itself the finding.
-
----
-
-## References
-
-- Hong et al. (2016). Probabilistic energy forecasting: GEFCom2014. IJF 32(3), 896-913.
-- Marino, Amarasinghe & Manic (2016). Building energy load forecasting using DNNs. IECON 2016.
-- Hyndman & Athanasopoulos (2018). Forecasting: Principles and Practice. OTexts.
-- Angelopoulos & Bates (2023). Conformal prediction: a gentle introduction. FNT-ML 16(4).
-- Lakshminarayanan et al. (2017). Simple and scalable predictive uncertainty estimation. NeurIPS.
-- UCI ML Repository. ElectricityLoadDiagrams20112014. https://archive.ics.uci.edu/dataset/321
+| Resubmit to IEEE TSG not EPSR | EPSR rejected; TSG better scope fit | May 2026 |
+| Run temperature ablation (Option A) | Reviewer demanded; honest result reported | Jun 2026 |
+| Report ablation honestly (P1 improves) | Scientific integrity over hypothesis defence | Jun 2026 |
+| Soften weather-coupling to correlational | Ablation disproved causal claim | Jun 2026 |
+| Skip R1.7 + R6.2 | Low priority; other changes cover substance | Jul 2026 |
+| Add ablation figure (fig_ablation) | Visual proof of unexpected finding | Jul 2026 |
 
 ---
 
 *Log maintained by: DHAN GHALE*
-*Last updated: April 14, 2026*
+*Last updated: July 2026*

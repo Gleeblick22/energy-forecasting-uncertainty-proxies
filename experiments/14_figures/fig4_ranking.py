@@ -27,8 +27,8 @@ os.makedirs(OUT_DIR, exist_ok=True)
 methods = ["P1\nEnsemble\nVariance", "P2\nARIMA\nPI Width",
            "P3\nResidual\nVolatility", "Conformal\nBenchmark"]
 
-uci_winkler = [202.6498, 171.4659, 220.0946, 166.1550]
-gef_winkler = [ 55.1499,  97.4419,  45.9661,  75.3455]
+uci_winkler = [422.6399, 143.6475, 220.0946, 166.1550]
+gef_winkler = [ 66.4894,  75.0437,  45.9661,  75.3455]
 
 x = np.arange(len(methods))
 
@@ -63,7 +63,7 @@ def draw_bars(ax, values, title, color):
     ax.yaxis.grid(True, zorder=0)
     ax.set_axisbelow(True)
 
-fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+fig, axes = plt.subplots(1, 2, figsize=(16, 7))
 fig.subplots_adjust(wspace=0.25)
 
 draw_bars(axes[0], uci_winkler, "UCI — Portugal Grid",           UCI_BLUE)
@@ -72,7 +72,7 @@ draw_bars(axes[1], gef_winkler, "GEFCom2014 — New England Grid", GEF_GREEN)
 # --- save ---
 pdf_path = os.path.join(OUT_DIR, "fig8_ranking.pdf")
 png_path = os.path.join(OUT_DIR, "fig8_ranking.png")
-plt.savefig(pdf_path, dpi=300, bbox_inches="tight")
-plt.savefig(png_path, dpi=300, bbox_inches="tight")
+plt.savefig(pdf_path, dpi=1200, bbox_inches="tight")
+plt.savefig(png_path, dpi=1200, bbox_inches="tight")
 print(f"Saved: {pdf_path}")
 print(f"Saved: {png_path}")
