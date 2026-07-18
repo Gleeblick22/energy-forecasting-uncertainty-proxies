@@ -6,7 +6,30 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Paper](https://img.shields.io/badge/paper-under%20review-yellow.svg)](https://www.journals.elsevier.com/electric-power-systems-research)
 
-> This study empirically evaluates whether uncertainty proxies from AI load forecasting models provide reliable warnings during extreme demand conditions, the hours when grid operators need accurate confidence signals most. Using a 20-seed LSTM ensemble and SARIMA baseline across two geographically distinct grids (UCI Portugal and GEFCom2014 New England), we show that proxy reliability is grid-dependent: ensemble variance (P1) and residual volatility (P3) retain strong correlation with forecast error at extreme demand on the weather-sensitive New England grid (ρ=+0.482, ρ=+0.455) but collapse entirely on the stable Mediterranean Portuguese grid (ρ=+0.009, ρ=+0.044). Four extended analyse deepen these findings: proxy degradation curves reveal reliability collapse begins at the 81st demand percentile on UCI — before the operational threshold; ensemble sensitivity analysis across 5 to 50 seeds confirms P1 failure is fundamental not a configuration artefact; adaptive P2 remediation restores reliability on GEFCom2014 (ρ=+0.406) but worsens UCI operational risk; and economic cost analysis translates DANGEROUS rates into estimated annual reserve activation costs of EUR 73,636 (UCI) and USD 12,960 (GEFCom2014).
+> This study empirically evaluates whether uncertainty proxies 
+from AI load forecasting models provide reliable warnings during 
+extreme demand conditions, the hours when grid operators need 
+accurate confidence signals most. Using a 20-seed LSTM ensemble 
+and SARIMA baseline across two geographically distinct grids 
+(UCI Portugal and GEFCom2014 New England), we show that proxy 
+reliability is grid-dependent rather than universal: ensemble 
+variance (P1) and residual volatility (P3) retain strong 
+correlation with forecast error at extreme demand on the 
+continental New England grid (ρ=+0.482, ρ=+0.455) but collapse 
+entirely on the stable Mediterranean Portuguese grid 
+(ρ=+0.009, ρ=+0.044). Five operational analyses deepen these 
+findings: proxy degradation curves reveal reliability collapse 
+begins at the 81st demand percentile on UCI, before the 
+operational threshold; ensemble sensitivity analysis across 5 
+to 50 seeds confirms P1 failure is fundamental not a 
+configuration artefact; adaptive P2 remediation restores 
+reliability on GEFCom2014 (ρ=+0.406) but worsens UCI 
+operational risk; controlled temperature ablation reveals 
+weather-load coupling is correlational rather than causal 
+(ρ_extreme: +0.482 to +0.607 without temperature); and 
+economic cost analysis translates DANGEROUS rates into 
+estimated annual reserve activation costs of EUR 73,636 (UCI) 
+and USD 12,960 (GEFCom2014).
 ---
 
 ## Study Design
