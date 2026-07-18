@@ -16,6 +16,16 @@
 *Fig. 1. Study design and evaluation framework for cross-grid uncertainty proxy reliability analysis.*
 
 ---
+## Hypotheses
+
+| ID | Hypothesis |
+|----|------------|
+| H1 | Extreme demand hours produce systematically higher forecast errors than normal periods due to regime-dependent error amplification at peak load. |
+| H2 | Proxy-error correlation at extreme hours is significantly positive on some grids but collapses to non-significance on others, reflecting grid-structural rather than universal proxy reliability. |
+| H3 | DANGEROUS quadrant rates are elevated at extreme demand hours relative to full-population rates for static proxies, indicating systematic overconfidence at operational risk periods. |
+| H4 | Proxy reliability at extreme hours differs significantly across grids, indicating grid-dependence rather than universal reliability. |
+| H5 | Optimal proxy selection at extreme demand hours depends on grid structural character and operational objective; no universal ranking holds across both evaluation dimensions. |
+| H6 | Adaptive P2 remediation is grid-dependent: effective on grids with stronger demand variability but ineffective on grids with stable demand profiles where grid-level failure persists regardless of dynamic recalibration. |
 
 ## Research Questions
 
@@ -94,6 +104,29 @@
 | P1 annual cost estimate | EUR 73,636 | USD 12,960 |
 
 `***` p < 0.0001 | `ns` not significant after Bonferroni correction (α = 0.0083)
+---
+
+## Figure Gallery
+
+All high-resolution figures (PDF + PNG, 300 DPI) are available at:
+[results/uci/figures/](https://github.com/Gleeblick22/energy-forecasting-uncertainty-proxies/tree/main/results/uci/figures)
+
+| Figure | Description |
+|--------|-------------|
+| [Fig 1](results/uci/figures/fig1_study_design.png) | Study design and evaluation framework |
+| [Fig 2](results/uci/figures/fig2_theoretical_framework.png) | Conditional uncertainty proxy reliability framework |
+| [Fig 3](results/uci/figures/fig3_error_regime.png) | LSTM forecast error distributions by demand regime |
+| [Fig 4](results/uci/figures/fig4_hourly_seasonal_mae.png) | Mean absolute error by hour of day and season |
+| [Fig 5](results/uci/figures/fig5_proxy_scatter.png) | P1 ensemble variance vs. absolute LSTM forecast error |
+| [Fig 6](results/uci/figures/fig6_sensitivity.png) | Spearman rho sensitivity across 90th and 95th percentile thresholds |
+| [Fig 7](results/uci/figures/fig7_heatmaps.png) | 2x2 overconfidence classification heatmaps |
+| [Fig 8](results/uci/figures/fig8_ranking.png) | Mean Winkler scores for all methods |
+| [Fig 9](results/uci/figures/fig9_calibration.png) | Proxy calibration reliability curves |
+| [Fig 10](results/uci/figures/fig10_degradation_curve.png) | Spearman rho across 29 demand percentile thresholds |
+| [Fig 11](results/uci/figures/fig11_ensemble_sensitivity.png) | P1 reliability across ensemble sizes |
+| [Fig 12](results/uci/figures/fig12_adaptive_p2.png) | Static versus adaptive P2 comparison |
+| [Fig 13](results/uci/figures/fig13_ablation_temperature.png) | Temperature ablation study results |
+
 ---
 
 ## Project Structure
