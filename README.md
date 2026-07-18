@@ -271,7 +271,7 @@ All verified results are stored in `results/summary/results_summary_FINAL.csv`.
 
 ## Citation
 
-> Citation details will be added upon acceptance.UNDER-REVIEW (ELSEVIER(EPSR)
+> Citation details will be added upon acceptance.UNDER-REVIEW
 
 ---
 
