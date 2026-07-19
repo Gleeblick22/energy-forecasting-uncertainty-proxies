@@ -930,7 +930,7 @@ confirming it cannot function as a regime-adaptive uncertainty signal.
 | Conformal Regime Analysis | conformal_regime.py | COMPLETE |
 | Temperature Ablation | 20 ablation scripts + figure | COMPLETE |
 | Manuscript V1.3 | Apply all 16 reviewer changes | IN PROGRESS |
-| IEEE TSG Submission | IEEE Transactions on Smart Grid (IF 8.5) | TARGET July 2026 |
+| IEEE  | IEEE  | TARGET July 2026 |
 
 ---
 

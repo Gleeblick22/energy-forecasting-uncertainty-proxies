@@ -6,7 +6,30 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Paper](https://img.shields.io/badge/paper-under%20review-yellow.svg)](https://www.journals.elsevier.com/electric-power-systems-research)
 
-> This study empirically evaluates whether uncertainty proxies from AI load forecasting models provide reliable warnings during extreme demand conditions, the hours when grid operators need accurate confidence signals most. Using a 20-seed LSTM ensemble and SARIMA baseline across two geographically distinct grids (UCI Portugal and GEFCom2014 New England), we show that proxy reliability is grid-dependent: ensemble variance (P1) and residual volatility (P3) retain strong correlation with forecast error at extreme demand on the weather-sensitive New England grid (ρ=+0.482, ρ=+0.455) but collapse entirely on the stable Mediterranean Portuguese grid (ρ=+0.009, ρ=+0.044). Four extended analyse deepen these findings: proxy degradation curves reveal reliability collapse begins at the 81st demand percentile on UCI — before the operational threshold; ensemble sensitivity analysis across 5 to 50 seeds confirms P1 failure is fundamental not a configuration artefact; adaptive P2 remediation restores reliability on GEFCom2014 (ρ=+0.406) but worsens UCI operational risk; and economic cost analysis translates DANGEROUS rates into estimated annual reserve activation costs of EUR 73,636 (UCI) and USD 12,960 (GEFCom2014).
+> This study empirically evaluates whether uncertainty proxies 
+from AI load forecasting models provide reliable warnings during 
+extreme demand conditions, the hours when grid operators need 
+accurate confidence signals most. Using a 20-seed LSTM ensemble 
+and SARIMA baseline across two geographically distinct grids 
+(UCI Portugal and GEFCom2014 New England), we show that proxy 
+reliability is grid-dependent rather than universal: ensemble 
+variance (P1) and residual volatility (P3) retain strong 
+correlation with forecast error at extreme demand on the 
+continental New England grid (ρ=+0.482, ρ=+0.455) but collapse 
+entirely on the stable Mediterranean Portuguese grid 
+(ρ=+0.009, ρ=+0.044). Five operational analyses deepen these 
+findings: proxy degradation curves reveal reliability collapse 
+begins at the 81st demand percentile on UCI, before the 
+operational threshold; ensemble sensitivity analysis across 5 
+to 50 seeds confirms P1 failure is fundamental not a 
+configuration artefact; adaptive P2 remediation restores 
+reliability on GEFCom2014 (ρ=+0.406) but worsens UCI 
+operational risk; controlled temperature ablation reveals 
+weather-load coupling is correlational rather than causal 
+(ρ_extreme: +0.482 to +0.607 without temperature); and 
+economic cost analysis translates DANGEROUS rates into 
+estimated annual reserve activation costs of EUR 73,636 (UCI) 
+and USD 12,960 (GEFCom2014).
 ---
 
 ## Study Design
@@ -104,6 +127,29 @@
 | P1 annual cost estimate | EUR 73,636 | USD 12,960 |
 
 `***` p < 0.0001 | `ns` not significant after Bonferroni correction (α = 0.0083)
+---
+
+## Figure Gallery
+
+All high-resolution figures (PDF + PNG, 300 DPI) are available at:
+[results/uci/figures/](https://github.com/Gleeblick22/energy-forecasting-uncertainty-proxies/tree/main/results/uci/figures)
+
+| Figure | Description |
+|--------|-------------|
+| [Fig 1](results/uci/figures/fig1_study_design.png) | Study design and evaluation framework |
+| [Fig 2](results/uci/figures/fig2_theoretical_framework.png) | Conditional uncertainty proxy reliability framework |
+| [Fig 3](results/uci/figures/fig3_error_regime.png) | LSTM forecast error distributions by demand regime |
+| [Fig 4](results/uci/figures/fig4_hourly_seasonal_mae.png) | Mean absolute error by hour of day and season |
+| [Fig 5](results/uci/figures/fig5_proxy_scatter.png) | P1 ensemble variance vs. absolute LSTM forecast error |
+| [Fig 6](results/uci/figures/fig6_sensitivity.png) | Spearman rho sensitivity across 90th and 95th percentile thresholds |
+| [Fig 7](results/uci/figures/fig7_heatmaps.png) | 2x2 overconfidence classification heatmaps |
+| [Fig 8](results/uci/figures/fig8_ranking.png) | Mean Winkler scores for all methods |
+| [Fig 9](results/uci/figures/fig9_calibration.png) | Proxy calibration reliability curves |
+| [Fig 10](results/uci/figures/fig10_degradation_curve.png) | Spearman rho across 29 demand percentile thresholds |
+| [Fig 11](results/uci/figures/fig11_ensemble_sensitivity.png) | P1 reliability across ensemble sizes |
+| [Fig 12](results/uci/figures/fig12_adaptive_p2.png) | Static versus adaptive P2 comparison |
+| [Fig 13](results/uci/figures/fig13_ablation_temperature.png) | Temperature ablation study results |
+
 ---
 
 ## Project Structure
@@ -248,7 +294,7 @@ All verified results are stored in `results/summary/results_summary_FINAL.csv`.
 
 ## Citation
 
-> Citation details will be added upon acceptance.UNDER-REVIEW (ELSEVIER(EPSR)
+> Citation details will be added upon acceptance.UNDER-REVIEW
 
 ---
 
